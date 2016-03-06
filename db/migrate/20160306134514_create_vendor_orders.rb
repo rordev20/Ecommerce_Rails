@@ -6,7 +6,6 @@ class CreateVendorOrders < ActiveRecord::Migration
       t.string :state
       t.string :payment_state
       t.float :total
-      t.references :vendor, index: true, foreign_key: true
       t.references :coupon, index: true, foreign_key: true
       t.text :notes
       t.datetime :confirmed_at
