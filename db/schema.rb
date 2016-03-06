@@ -1,0 +1,341 @@
+# encoding: UTF-8
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you'll amass, the slower it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended that you check this file into your version control system.
+
+ActiveRecord::Schema.define(version: 20160306134856) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "landmark"
+    t.string   "city"
+    t.string   "zipcode"
+    t.boolean  "active"
+    t.integer  "state_id"
+    t.integer  "country_id"
+    t.string   "phone"
+    t.string   "alt_phone"
+    t.integer  "vendor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "addresses", ["country_id"], name: "index_addresses_on_country_id", using: :btree
+  add_index "addresses", ["state_id"], name: "index_addresses_on_state_id", using: :btree
+  add_index "addresses", ["user_id"], name: "index_addresses_on_user_id", using: :btree
+  add_index "addresses", ["vendor_id"], name: "index_addresses_on_vendor_id", using: :btree
+
+  create_table "bank_accounts", force: :cascade do |t|
+    t.string   "name"
+    t.string   "bank_name"
+    t.string   "branch_name"
+    t.string   "ifsc_code"
+    t.string   "account_no"
+    t.boolean  "active"
+    t.integer  "vendor_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "bank_accounts", ["vendor_id"], name: "index_bank_accounts_on_vendor_id", using: :btree
+
+  create_table "cart_items", force: :cascade do |t|
+    t.integer  "cart_id"
+    t.integer  "product_id"
+    t.integer  "quantity"
+    t.integer  "order_id"
+    t.text     "note"
+    t.integer  "vendor_order_id"
+    t.string   "state"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "cart_items", ["cart_id"], name: "index_cart_items_on_cart_id", using: :btree
+  add_index "cart_items", ["order_id"], name: "index_cart_items_on_order_id", using: :btree
+  add_index "cart_items", ["product_id"], name: "index_cart_items_on_product_id", using: :btree
+  add_index "cart_items", ["vendor_order_id"], name: "index_cart_items_on_vendor_order_id", using: :btree
+
+  create_table "carts", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "email"
+    t.boolean  "user"
+    t.integer  "coupon_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "carts", ["coupon_id"], name: "index_carts_on_coupon_id", using: :btree
+  add_index "carts", ["email"], name: "index_carts_on_email", using: :btree
+  add_index "carts", ["user_id"], name: "index_carts_on_user_id", using: :btree
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "categories", ["name"], name: "index_categories_on_name", using: :btree
+
+  create_table "countries", force: :cascade do |t|
+    t.string   "name"
+    t.string   "iso_code"
+    t.string   "iso_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "countries", ["iso_code"], name: "index_countries_on_iso_code", using: :btree
+  add_index "countries", ["name"], name: "index_countries_on_name", using: :btree
+
+  create_table "coupons", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "limit"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.string   "code"
+    t.float    "percent_off"
+    t.float    "flat_off"
+    t.float    "minimum_amount"
+    t.string   "coupon_type"
+    t.integer  "use_count"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "coupons", ["code"], name: "index_coupons_on_code", using: :btree
+  add_index "coupons", ["name"], name: "index_coupons_on_name", using: :btree
+
+  create_table "currency_rates", force: :cascade do |t|
+    t.integer  "country_id"
+    t.float    "rate"
+    t.float    "market_rate"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "currency_rates", ["country_id"], name: "index_currency_rates_on_country_id", using: :btree
+
+  create_table "images", force: :cascade do |t|
+    t.integer  "product_id"
+    t.string   "photo"
+    t.integer  "vendor_id"
+    t.integer  "user_id"
+    t.integer  "category_id"
+    t.integer  "sub_category_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "images", ["category_id"], name: "index_images_on_category_id", using: :btree
+  add_index "images", ["product_id"], name: "index_images_on_product_id", using: :btree
+  add_index "images", ["sub_category_id"], name: "index_images_on_sub_category_id", using: :btree
+  add_index "images", ["user_id"], name: "index_images_on_user_id", using: :btree
+  add_index "images", ["vendor_id"], name: "index_images_on_vendor_id", using: :btree
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "user_id"
+    t.float    "total"
+    t.float    "shipping"
+    t.string   "state"
+    t.string   "number"
+    t.integer  "coupon_id"
+    t.string   "payment_state"
+    t.float    "cod_charge"
+    t.integer  "cart_id"
+    t.float    "currency_rate"
+    t.string   "pay_type"
+    t.text     "notes"
+    t.float    "discount"
+    t.float    "market_rate"
+    t.integer  "billing_address_id"
+    t.integer  "shipping_address_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "orders", ["cart_id"], name: "index_orders_on_cart_id", using: :btree
+  add_index "orders", ["coupon_id"], name: "index_orders_on_coupon_id", using: :btree
+  add_index "orders", ["number"], name: "index_orders_on_number", using: :btree
+  add_index "orders", ["payment_state"], name: "index_orders_on_payment_state", using: :btree
+  add_index "orders", ["state"], name: "index_orders_on_state", using: :btree
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
+
+  create_table "products", force: :cascade do |t|
+    t.string   "name"
+    t.string   "dimension"
+    t.text     "description"
+    t.integer  "price"
+    t.integer  "vendor_id"
+    t.integer  "sub_category_id"
+    t.integer  "quantity"
+    t.string   "color"
+    t.integer  "domestic_pos"
+    t.integer  "international_pos"
+    t.text     "specification"
+    t.string   "product_code"
+    t.float    "weight"
+    t.integer  "sell_count"
+    t.text     "notes"
+    t.integer  "clicks"
+    t.integer  "discount_percent"
+    t.boolean  "active"
+    t.float    "discount_amount"
+    t.boolean  "in_stock"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "products", ["color"], name: "index_products_on_color", using: :btree
+  add_index "products", ["name"], name: "index_products_on_name", using: :btree
+  add_index "products", ["price"], name: "index_products_on_price", using: :btree
+  add_index "products", ["sub_category_id"], name: "index_products_on_sub_category_id", using: :btree
+  add_index "products", ["vendor_id"], name: "index_products_on_vendor_id", using: :btree
+
+  create_table "referreds", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "phone_no"
+    t.integer  "referrer_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "referreds", ["email"], name: "index_referreds_on_email", using: :btree
+  add_index "referreds", ["name"], name: "index_referreds_on_name", using: :btree
+  add_index "referreds", ["referrer_id"], name: "index_referreds_on_referrer_id", using: :btree
+
+  create_table "referrers", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "phone_no"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "referrers", ["email"], name: "index_referrers_on_email", using: :btree
+  add_index "referrers", ["name"], name: "index_referrers_on_name", using: :btree
+
+  create_table "states", force: :cascade do |t|
+    t.string   "name"
+    t.string   "abbr"
+    t.integer  "country_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "states", ["country_id"], name: "index_states_on_country_id", using: :btree
+
+  create_table "sub_categories", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "category_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "sub_categories", ["category_id"], name: "index_sub_categories_on_category_id", using: :btree
+  add_index "sub_categories", ["name"], name: "index_sub_categories_on_name", using: :btree
+
+  create_table "system_constants", force: :cascade do |t|
+    t.string   "name"
+    t.string   "value"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "system_constants", ["name"], name: "index_system_constants_on_name", using: :btree
+
+  create_table "users", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "vendor_orders", force: :cascade do |t|
+    t.integer  "vendor_id"
+    t.integer  "user_id"
+    t.string   "state"
+    t.string   "payment_state"
+    t.float    "total"
+    t.integer  "coupon_id"
+    t.text     "notes"
+    t.datetime "confirmed_at"
+    t.float    "discount"
+    t.float    "shipping"
+    t.float    "market_rate"
+    t.integer  "billing_address_id"
+    t.integer  "shipping_address_id"
+    t.integer  "cart_id"
+    t.string   "number"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "vendor_orders", ["cart_id"], name: "index_vendor_orders_on_cart_id", using: :btree
+  add_index "vendor_orders", ["coupon_id"], name: "index_vendor_orders_on_coupon_id", using: :btree
+  add_index "vendor_orders", ["number"], name: "index_vendor_orders_on_number", using: :btree
+  add_index "vendor_orders", ["payment_state"], name: "index_vendor_orders_on_payment_state", using: :btree
+  add_index "vendor_orders", ["state"], name: "index_vendor_orders_on_state", using: :btree
+  add_index "vendor_orders", ["user_id"], name: "index_vendor_orders_on_user_id", using: :btree
+  add_index "vendor_orders", ["vendor_id"], name: "index_vendor_orders_on_vendor_id", using: :btree
+
+  create_table "vendors", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.text     "description"
+    t.text     "policy"
+    t.boolean  "is_whole_seller"
+    t.float    "rate"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "vendors", ["email"], name: "index_vendors_on_email", using: :btree
+  add_index "vendors", ["name"], name: "index_vendors_on_name", using: :btree
+
+  add_foreign_key "addresses", "countries"
+  add_foreign_key "addresses", "states"
+  add_foreign_key "addresses", "users"
+  add_foreign_key "addresses", "vendors"
+  add_foreign_key "bank_accounts", "vendors"
+  add_foreign_key "cart_items", "carts"
+  add_foreign_key "cart_items", "orders"
+  add_foreign_key "cart_items", "products"
+  add_foreign_key "cart_items", "vendor_orders"
+  add_foreign_key "carts", "coupons"
+  add_foreign_key "carts", "users"
+  add_foreign_key "currency_rates", "countries"
+  add_foreign_key "images", "categories"
+  add_foreign_key "images", "products"
+  add_foreign_key "images", "sub_categories"
+  add_foreign_key "images", "users"
+  add_foreign_key "images", "vendors"
+  add_foreign_key "orders", "carts"
+  add_foreign_key "orders", "coupons"
+  add_foreign_key "orders", "users"
+  add_foreign_key "products", "sub_categories"
+  add_foreign_key "products", "vendors"
+  add_foreign_key "referreds", "referrers"
+  add_foreign_key "states", "countries"
+  add_foreign_key "sub_categories", "categories"
+  add_foreign_key "vendor_orders", "carts"
+  add_foreign_key "vendor_orders", "coupons"
+  add_foreign_key "vendor_orders", "users"
+  add_foreign_key "vendor_orders", "vendors"
+end
