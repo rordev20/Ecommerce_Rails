@@ -5,6 +5,8 @@ class CreateCarts < ActiveRecord::Migration
       t.string :email
       t.boolean :user
       t.references :coupon, index: true, foreign_key: true
+      t.boolean :is_active
+      t.boolean :deleted_at
 
       t.timestamps null: false
     end

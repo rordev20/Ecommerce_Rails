@@ -17,6 +17,8 @@ class CreateOrders < ActiveRecord::Migration
       t.float :market_rate
       t.integer :billing_address_id
       t.integer :shipping_address_id
+      t.boolean :is_active
+      t.boolean :deleted_at
 
       t.timestamps null: false
     end

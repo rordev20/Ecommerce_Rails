@@ -4,6 +4,8 @@ class CreateCurrencyRates < ActiveRecord::Migration
       t.references :country, index: true, foreign_key: true
       t.float :rate
       t.float :market_rate
+      t.boolean :is_active
+      t.boolean :deleted_at
 
       t.timestamps null: false
     end

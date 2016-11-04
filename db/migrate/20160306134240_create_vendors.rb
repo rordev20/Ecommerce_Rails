@@ -7,6 +7,8 @@ class CreateVendors < ActiveRecord::Migration
       t.text :policy
       t.boolean :is_whole_seller
       t.float :rate
+      t.boolean :is_active
+      t.boolean :deleted_at
 
       t.timestamps null: false
     end

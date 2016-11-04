@@ -5,6 +5,8 @@ class CreateReferreds < ActiveRecord::Migration
       t.string :email
       t.string :phone_no
       t.references :referrer, index: true, foreign_key: true
+      t.boolean :is_active
+      t.boolean :deleted_at
 
       t.timestamps null: false
     end

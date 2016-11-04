@@ -7,6 +7,8 @@ class CreateImages < ActiveRecord::Migration
       t.references :user, index: true, foreign_key: true
       t.references :category, index: true, foreign_key: true
       t.references :sub_category, index: true, foreign_key: true
+      t.boolean :is_active
+      t.boolean :deleted_at
 
       t.timestamps null: false
     end

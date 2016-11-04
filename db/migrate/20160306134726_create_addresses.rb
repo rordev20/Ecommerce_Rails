@@ -14,6 +14,8 @@ class CreateAddresses < ActiveRecord::Migration
       t.string :phone
       t.string :alt_phone
       t.references :vendor, index: true, foreign_key: true
+      t.boolean :is_active
+      t.boolean :deleted_at
 
       t.timestamps null: false
     end

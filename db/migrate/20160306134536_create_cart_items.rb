@@ -8,6 +8,8 @@ class CreateCartItems < ActiveRecord::Migration
       t.text :note
       t.references :vendor_order, index: true, foreign_key: true
       t.string :state
+      t.boolean :is_active
+      t.boolean :deleted_at
 
       t.timestamps null: false
     end

@@ -11,6 +11,8 @@ class CreateCoupons < ActiveRecord::Migration
       t.float :minimum_amount
       t.string :coupon_type
       t.integer :use_count
+      t.boolean :is_active
+      t.boolean :deleted_at
 
       t.timestamps null: false
     end
