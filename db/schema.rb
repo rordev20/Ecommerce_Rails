@@ -11,10 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160306134856) do
+ActiveRecord::Schema.define(version: 20161116105506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string   "namespace"
+    t.text     "body"
+    t.string   "resource_id",   null: false
+    t.string   "resource_type", null: false
+    t.integer  "author_id"
+    t.string   "author_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
+  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
+  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "user_id"
@@ -30,6 +45,8 @@ ActiveRecord::Schema.define(version: 20160306134856) do
     t.string   "phone"
     t.string   "alt_phone"
     t.integer  "vendor_id"
+    t.boolean  "is_active"
+    t.boolean  "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -47,6 +64,8 @@ ActiveRecord::Schema.define(version: 20160306134856) do
     t.string   "account_no"
     t.boolean  "active"
     t.integer  "vendor_id"
+    t.boolean  "is_active"
+    t.boolean  "deleted_at"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -61,6 +80,8 @@ ActiveRecord::Schema.define(version: 20160306134856) do
     t.text     "note"
     t.integer  "vendor_order_id"
     t.string   "state"
+    t.boolean  "is_active"
+    t.boolean  "deleted_at"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
@@ -75,6 +96,8 @@ ActiveRecord::Schema.define(version: 20160306134856) do
     t.string   "email"
     t.boolean  "user"
     t.integer  "coupon_id"
+    t.boolean  "is_active"
+    t.boolean  "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -86,6 +109,8 @@ ActiveRecord::Schema.define(version: 20160306134856) do
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
+    t.boolean  "is_active"
+    t.boolean  "deleted_at"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -96,6 +121,8 @@ ActiveRecord::Schema.define(version: 20160306134856) do
     t.string   "name"
     t.string   "iso_code"
     t.string   "iso_name"
+    t.boolean  "is_active"
+    t.boolean  "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -114,6 +141,8 @@ ActiveRecord::Schema.define(version: 20160306134856) do
     t.float    "minimum_amount"
     t.string   "coupon_type"
     t.integer  "use_count"
+    t.boolean  "is_active"
+    t.boolean  "deleted_at"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
@@ -125,6 +154,8 @@ ActiveRecord::Schema.define(version: 20160306134856) do
     t.integer  "country_id"
     t.float    "rate"
     t.float    "market_rate"
+    t.boolean  "is_active"
+    t.boolean  "deleted_at"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -138,6 +169,8 @@ ActiveRecord::Schema.define(version: 20160306134856) do
     t.integer  "user_id"
     t.integer  "category_id"
     t.integer  "sub_category_id"
+    t.boolean  "is_active"
+    t.boolean  "deleted_at"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
@@ -165,6 +198,8 @@ ActiveRecord::Schema.define(version: 20160306134856) do
     t.float    "market_rate"
     t.integer  "billing_address_id"
     t.integer  "shipping_address_id"
+    t.boolean  "is_active"
+    t.boolean  "deleted_at"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
@@ -197,6 +232,8 @@ ActiveRecord::Schema.define(version: 20160306134856) do
     t.boolean  "active"
     t.float    "discount_amount"
     t.boolean  "in_stock"
+    t.boolean  "is_active"
+    t.boolean  "deleted_at"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end
@@ -212,6 +249,8 @@ ActiveRecord::Schema.define(version: 20160306134856) do
     t.string   "email"
     t.string   "phone_no"
     t.integer  "referrer_id"
+    t.boolean  "is_active"
+    t.boolean  "deleted_at"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -224,6 +263,8 @@ ActiveRecord::Schema.define(version: 20160306134856) do
     t.string   "name"
     t.string   "email"
     t.string   "phone_no"
+    t.boolean  "is_active"
+    t.boolean  "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -235,6 +276,8 @@ ActiveRecord::Schema.define(version: 20160306134856) do
     t.string   "name"
     t.string   "abbr"
     t.integer  "country_id"
+    t.boolean  "is_active"
+    t.boolean  "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -245,6 +288,8 @@ ActiveRecord::Schema.define(version: 20160306134856) do
     t.string   "name"
     t.text     "description"
     t.integer  "category_id"
+    t.boolean  "is_active"
+    t.boolean  "deleted_at"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -256,6 +301,8 @@ ActiveRecord::Schema.define(version: 20160306134856) do
     t.string   "name"
     t.string   "value"
     t.text     "description"
+    t.boolean  "is_active"
+    t.boolean  "deleted_at"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -263,9 +310,22 @@ ActiveRecord::Schema.define(version: 20160306134856) do
   add_index "system_constants", ["name"], name: "index_system_constants_on_name", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
   end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "vendor_orders", force: :cascade do |t|
     t.integer  "vendor_id"
@@ -283,6 +343,8 @@ ActiveRecord::Schema.define(version: 20160306134856) do
     t.integer  "shipping_address_id"
     t.integer  "cart_id"
     t.string   "number"
+    t.boolean  "is_active"
+    t.boolean  "deleted_at"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
@@ -302,6 +364,8 @@ ActiveRecord::Schema.define(version: 20160306134856) do
     t.text     "policy"
     t.boolean  "is_whole_seller"
     t.float    "rate"
+    t.boolean  "is_active"
+    t.boolean  "deleted_at"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
