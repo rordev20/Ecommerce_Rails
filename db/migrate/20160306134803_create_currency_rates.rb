@@ -5,7 +5,7 @@ class CreateCurrencyRates < ActiveRecord::Migration
       t.float :rate
       t.float :market_rate
       t.boolean :is_active
-      t.boolean :deleted_at
+      t.datetime :deleted_at
 
       t.timestamps null: false
     end

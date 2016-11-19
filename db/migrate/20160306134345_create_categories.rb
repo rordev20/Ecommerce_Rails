@@ -4,7 +4,7 @@ class CreateCategories < ActiveRecord::Migration
       t.string :name
       t.text :description
       t.boolean :is_active
-      t.boolean :deleted_at
+      t.datetime :deleted_at
 
       t.timestamps null: false
     end

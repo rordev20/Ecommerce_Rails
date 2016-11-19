@@ -17,7 +17,7 @@ class CreateVendorOrders < ActiveRecord::Migration
       t.references :cart, index: true, foreign_key: true
       t.string :number
       t.boolean :is_active
-      t.boolean :deleted_at
+      t.datetime :deleted_at
 
       t.timestamps null: false
     end

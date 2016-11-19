@@ -5,7 +5,7 @@ class CreateCountries < ActiveRecord::Migration
       t.string :iso_code
       t.string :iso_name
       t.boolean :is_active
-      t.boolean :deleted_at
+      t.datetime :deleted_at
 
       t.timestamps null: false
     end

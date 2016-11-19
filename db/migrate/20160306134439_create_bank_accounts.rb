@@ -9,7 +9,7 @@ class CreateBankAccounts < ActiveRecord::Migration
       t.boolean :active
       t.references :vendor, index: true, foreign_key: true
       t.boolean :is_active
-      t.boolean :deleted_at
+      t.datetime :deleted_at
 
       t.timestamps null: false
     end

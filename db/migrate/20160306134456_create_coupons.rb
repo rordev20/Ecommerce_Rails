@@ -12,7 +12,7 @@ class CreateCoupons < ActiveRecord::Migration
       t.string :coupon_type
       t.integer :use_count
       t.boolean :is_active
-      t.boolean :deleted_at
+      t.datetime :deleted_at
 
       t.timestamps null: false
     end

@@ -5,7 +5,7 @@ class CreateSystemConstants < ActiveRecord::Migration
       t.string :value
       t.text :description
       t.boolean :is_active
-      t.boolean :deleted_at
+      t.datetime :deleted_at
 
       t.timestamps null: false
     end

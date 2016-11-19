@@ -18,7 +18,7 @@ class CreateOrders < ActiveRecord::Migration
       t.integer :billing_address_id
       t.integer :shipping_address_id
       t.boolean :is_active
-      t.boolean :deleted_at
+      t.datetime :deleted_at
 
       t.timestamps null: false
     end

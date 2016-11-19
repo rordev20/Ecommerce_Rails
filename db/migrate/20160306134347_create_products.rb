@@ -22,7 +22,7 @@ class CreateProducts < ActiveRecord::Migration
       t.float :discount_amount
       t.boolean :in_stock
       t.boolean :is_active
-      t.boolean :deleted_at
+      t.datetime :deleted_at
 
       t.timestamps null: false
     end

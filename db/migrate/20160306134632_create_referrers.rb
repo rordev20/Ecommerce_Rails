@@ -5,7 +5,7 @@ class CreateReferrers < ActiveRecord::Migration
       t.string :email
       t.string :phone_no
       t.boolean :is_active
-      t.boolean :deleted_at
+      t.datetime :deleted_at
 
       t.timestamps null: false
     end
