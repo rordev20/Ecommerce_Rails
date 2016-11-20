@@ -18,7 +18,6 @@ class CreateProducts < ActiveRecord::Migration
       t.text :notes
       t.integer :clicks
       t.integer :discount_percent
-      t.boolean :active
       t.float :discount_amount
       t.boolean :in_stock
       t.boolean :is_active
