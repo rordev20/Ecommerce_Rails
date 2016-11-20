@@ -1,17 +1,7 @@
 ActiveAdmin.register VendorOrder do
 
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-# permit_params :list, :of, :attributes, :on, :model
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
-
+  permit_params :vendor, :user, :state, :payment_state, :total, :coupon, :notes, :confirmed_at,
+                :discount, :shipping, :market_rate, :billing_address_id, :shipping_address_id, :cart,
+                :number, :is_active, :deleted_at
 
 end

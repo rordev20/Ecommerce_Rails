@@ -6,7 +6,6 @@ class CreateBankAccounts < ActiveRecord::Migration
       t.string :branch_name
       t.string :ifsc_code
       t.string :account_no
-      t.boolean :active
       t.references :vendor, index: true, foreign_key: true
       t.boolean :is_active
       t.datetime :deleted_at

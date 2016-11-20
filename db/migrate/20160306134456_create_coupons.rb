@@ -6,11 +6,13 @@ class CreateCoupons < ActiveRecord::Migration
       t.datetime :start_date
       t.datetime :end_date
       t.string :code
+      t.string :coupon_type
       t.float :percent_off
       t.float :flat_off
       t.float :minimum_amount
-      t.string :coupon_type
+      t.string :discount_type
       t.integer :use_count
+      t.integer :maximum_discount
       t.boolean :is_active
       t.datetime :deleted_at
 

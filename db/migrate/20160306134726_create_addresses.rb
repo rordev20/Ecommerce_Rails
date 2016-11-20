@@ -8,7 +8,6 @@ class CreateAddresses < ActiveRecord::Migration
       t.string :landmark
       t.string :city
       t.string :zipcode
-      t.boolean :active
       t.references :state, index: true, foreign_key: true
       t.references :country, index: true, foreign_key: true
       t.string :phone
