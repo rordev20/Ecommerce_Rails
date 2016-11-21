@@ -1,0 +1,31 @@
+namespace :populate_data do
+  desc "Dummy data"
+  task :populate_dummy_data => :environment do
+    Category.create!(name: 'sarees', description: 'sarees collection')
+    Category.create!(name: 'shoes', description: 'shoes collection')
+    SubCategory.create!(category: Category.first, name: 'saree wollen one', description: 'saree wollen fashion one')
+    SubCategory.create!(category: Category.first, name: 'saree wollen two', description: 'saree wollen fashion two')
+    SubCategory.create!(category: Category.first, name: 'saree wollen three', description: 'saree wollen fashion three')
+    SubCategory.create!(category: Category.first, name: 'saree wollen four', description: 'saree wollen fashion four')
+    SubCategory.create!(category: Category.first, name: 'saree wollen five', description: 'saree wollen fashion five')
+    SubCategory.create!(category: Category.first, name: 'saree wollen six', description: 'saree wollen fashion six')
+    SubCategory.create!(category: Category.last, name: 'saree wollen one two', description: 'saree wollen fashion one two')
+    SubCategory.create!(category: Category.last, name: 'saree wollen two two', description: 'saree wollen fashion two two')
+    SubCategory.create!(category: Category.last, name: 'saree wollen three two', description: 'saree wollen fashion three two')
+    SubCategory.create!(category: Category.last, name: 'saree wollen four two', description: 'saree wollen fashion four two')
+    SubCategory.create!(category: Category.last, name: 'saree wollen five two', description: 'saree wollen fashion five two')
+    SubCategory.create!(category: Category.last, name: 'saree wollen six two', description: 'saree wollen fashion six two')
+    Product.create!(name: 'saree one', dimension: '1x2', description: 'saree one description', sell_price: '90', purchase_price: '100', sub_category: SubCategory.first)
+    Product.create!(name: 'saree two', dimension: '1x2', description: 'saree two description', sell_price: '200', purchase_price: '100', sub_category: SubCategory.first)
+    Product.create!(name: 'saree three', dimension: '1x2', description: 'saree three description', sell_price: '300', purchase_price: '100', sub_category: SubCategory.first)
+    Product.create!(name: 'saree four', dimension: '1x2', description: 'saree four description', sell_price: '400', purchase_price: '100', sub_category: SubCategory.first)
+    Product.create!(name: 'saree five', dimension: '1x2', description: 'saree five description', sell_price: '500', purchase_price: '100', sub_category: SubCategory.first)
+    Product.create!(name: 'saree six', dimension: '1x2', description: 'saree six description', sell_price: '150', purchase_price: '100', sub_category: SubCategory.first)
+    Product.create!(name: 'saree seven', dimension: '1x2', description: 'saree seven description', sell_price: '240', purchase_price: '100', sub_category: SubCategory.last)
+    Product.create!(name: 'saree eight', dimension: '1x2', description: 'saree eight description', sell_price: '700', purchase_price: '100', sub_category: SubCategory.last)
+    Product.create!(name: 'saree nine', dimension: '1x2', description: 'saree nine description', sell_price: '500', purchase_price: '100', sub_category: SubCategory.last)
+    Product.create!(name: 'saree ten', dimension: '1x2', description: 'saree ten description', sell_price: '300', purchase_price: '100', sub_category: SubCategory.last)
+    Product.create!(name: 'saree eleven', dimension: '1x2', description: 'saree eleven description', sell_price: '200', purchase_price: '100', sub_category: SubCategory.last)
+    Product.create!(name: 'saree twele', dimension: '1x2', description: 'saree twele description', sell_price: '90', purchase_price: '100', sub_category: SubCategory.last)
+  end
+end

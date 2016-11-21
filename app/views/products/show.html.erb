@@ -16,26 +16,26 @@
           </li>
           <li class="dropdown">
             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-              <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
-            </a>
+                <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
+            </a>            
             <ul class="dropdown-menu dropdown-messages">
               <li>
                 <div class="dropdown-messages-box">
                   <a href="profile.html" class="pull-left">
                     <img alt="image" class="img-circle" src="img/a7.jpg">
                   </a>
-                  <div class="media-body">
-                    <small class="pull-right">46h ago</small>
-                    <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
-                    <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
-                  </div>
+                    <div class="media-body">
+                      <small class="pull-right">46h ago</small>
+                      <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
+                      <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                    </div>
                 </div>
               </li>
               <li class="divider"></li>
               <li>
                 <div class="dropdown-messages-box">
                   <a href="profile.html" class="pull-left">
-                      <img alt="image" class="img-circle" src="img/a4.jpg">
+                    <img alt="image" class="img-circle" src="img/a4.jpg">
                   </a>
                   <div class="media-body ">
                     <small class="pull-right text-navy">5h ago</small>
@@ -91,12 +91,12 @@
               </li>
               <li class="divider"></li>
               <li>
-                  <a href="grid_options.html">
-                      <div>
-                          <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                          <span class="pull-right text-muted small">4 minutes ago</span>
-                      </div>
-                  </a>
+                <a href="grid_options.html">
+                  <div>
+                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                    <span class="pull-right text-muted small">4 minutes ago</span>
+                  </div>
+                </a>
               </li>
               <li class="divider"></li>
               <li>
@@ -107,7 +107,7 @@
                       </a>
                   </div>
               </li>
-            </ul>
+            </ul> 
           </li>
           <li>
             <a href="login.html">
@@ -119,7 +119,7 @@
     </div>
     <div class="row wrapper border-bottom white-bg page-heading">
       <div class="col-lg-10">
-        <h2>E-commerce grid</h2>
+        <h2>E-commerce product detail</h2>
         <ol class="breadcrumb">
           <li>
             <a href="index.html">Home</a>
@@ -128,7 +128,7 @@
             <a>E-commerce</a>
           </li>
           <li class="active">
-            <strong>Products grid</strong>
+            <strong>Product detail</strong>
           </li>
         </ol>
       </div>
@@ -136,34 +136,82 @@
       </div>
     </div>
     <div class="wrapper wrapper-content animated fadeInRight">
-      <% @products.each_slice(4) do |products| %>
-        <div class="row">
-          <% products.each do |product| %>
-            <div class="col-md-3">
-              <div class="ibox">
-                <div class="ibox-content product-box">
-                  <div class="product-imitation">
-                      <img alt="Icon" src="http://assets4.mirraw.com/images/3053770/1646_202_zps3vmzpevr_small.jpeg?1472743347" />
-                  </div>
-                  <div class="product-desc">
-                    <span class="product-price">
-                      $<%= product.sell_price %>
-                    </span>
-                    <small class="text-muted"><b><%= product.color %></b></small>
-                    <a href="#" class="product-name"><%= link_to product.name, product %></a>
-                    <div class="small m-t-xs">
-                      <%= product.sub_category.name %>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="ibox product-detail">
+            <div class="ibox-content">
+              <div class="row">
+                <div class="col-md-5">
+                  <div class="product-images">
+                    <div>
+                      <div class="image-imitation">
+                          [IMAGE 1]
+                      </div>
                     </div>
-                    <div class="m-t text-righ">
-                      <td><b><%= link_to 'Buy It', product, class: 'btn btn-xs btn-outline btn-primary' %></b></td>
+                    <div>
+                      <div class="image-imitation">
+                          [IMAGE 2]
+                      </div>
+                    </div>
+                    <div>
+                      <div class="image-imitation">
+                          [IMAGE 3]
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-7">
+                  <h2 class="font-bold m-b-xs">
+                    Desktop publishing software
+                  </h2>
+                  <small>Many desktop publishing packages and web page editors now.</small>
+                  <hr>
+                  <div>
+                    <button class="btn btn-primary pull-right">Add to cart</button>
+                    <h1 class="product-main-price">$<%= @product.sell_price %> <small class="text-muted">Exclude Tax</small> </h1>
+                  </div>
+                  <hr>
+                  <h4>Product description</h4>
+                  <div class="small text-muted">
+                    It is a long established fact that a reader will be distracted by the readable
+                    content of a page when looking at its layout. The point of using Lorem Ipsum is
+                    that it has a more-or-less normal distribution of letters, as opposed to using
+                    'Content here, content here', making it look like readable English.
+                    <br/>
+                    <br/>
+                    There are many variations of passages of Lorem Ipsum available, but the majority
+                    have suffered alteration in some form, by injected humour, or randomised words
+                    which don't look even slightly believable.
+                  </div>
+                  <dl class="dl-horizontal m-t-md small">
+                    <dt>Description lists</dt>
+                    <dd>A description list is perfect for defining terms.</dd>
+                    <dt>Euismod</dt>
+                    <dd>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</dd>
+                    <dd>Donec id elit non mi porta gravida at eget metus.</dd>
+                    <dt>Malesuada porta</dt>
+                    <dd>Etiam porta sem malesuada magna mollis euismod.</dd>
+                    <dt>Felis euismod semper eget</dt>
+                    <dd>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</dd>
+                  </dl>
+                  <div class="text-right">
+                    <div class="btn-group">
+                      <button class="btn btn-white btn-sm"><i class="fa fa-star"></i> Add to wishlist </button>
+                      <button class="btn btn-white btn-sm"><i class="fa fa-envelope"></i> Contact with author </button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          <% end %>
+            <div class="ibox-footer">
+                <span class="pull-right">
+                    Full stock - <i class="fa fa-clock-o"></i> 14.04.2016 10:04 pm
+                </span>
+                The generated Lorem Ipsum is therefore always free
+            </div>
+          </div>
         </div>
-      <% end %>
+      </div>
     </div>
     <div class="footer">
       <div class="pull-right">
@@ -173,11 +221,15 @@
         <strong>Copyright</strong> Example Company &copy; 2014-2017
       </div>
     </div>
-  </div>
+  </div> 
 </div>
+<script>
+    $(document).ready(function(){
+        $('.product-images').slick({
+            dots: true
+        });
+    });
 
-
-
-
+</script>
 
 

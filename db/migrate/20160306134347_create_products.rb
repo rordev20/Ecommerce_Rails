@@ -4,7 +4,8 @@ class CreateProducts < ActiveRecord::Migration
       t.string :name
       t.string :dimension
       t.text :description
-      t.integer :price
+      t.integer :sell_price
+      t.integer :purchase_price
       t.references :vendor, index: true, foreign_key: true
       t.references :sub_category, index: true, foreign_key: true
       t.integer :quantity
@@ -26,7 +27,7 @@ class CreateProducts < ActiveRecord::Migration
       t.timestamps null: false
     end
     add_index :products, :name
-    add_index :products, :price
+    add_index :products, :sell_price
     add_index :products, :color
   end
 end
