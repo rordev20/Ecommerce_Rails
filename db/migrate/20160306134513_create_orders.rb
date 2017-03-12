@@ -4,10 +4,10 @@ class CreateOrders < ActiveRecord::Migration
       t.references :user, index: true, foreign_key: true
       t.float :total
       t.float :shipping
-      t.string :state
+      t.references :order_status, index: true, foreign_key: true
       t.string :number
       t.references :coupon, index: true, foreign_key: true
-      t.string :payment_state
+      t.references :payment_status, index: true, foreign_key: true
       t.float :cod_charge
       t.references :cart, index: true, foreign_key: true
       t.float :currency_rate
@@ -22,8 +22,6 @@ class CreateOrders < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :orders, :state
     add_index :orders, :number
-    add_index :orders, :payment_state
   end
 end
