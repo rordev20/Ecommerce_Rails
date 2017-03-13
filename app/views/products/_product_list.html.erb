@@ -1,0 +1,46 @@
+<% products.each_slice(item_per_row) do |products| %>
+  <div class="row">
+    <% products.each do |product| %>
+      <div class="col-md-3">
+        <div class="ibox">
+          <div class="ibox-content product-box">
+            <div class="product-imitation">
+                <img alt="Icon" src="http://assets4.mirraw.com/images/3053770/1646_202_zps3vmzpevr_small.jpeg?1472743347" />
+            </div>
+            <div class="product-desc">
+              <span class="product-price">
+                $<%= product.sell_price %>
+              </span>
+              <small class="text-muted"><b><%= product.color %></b></small>
+              <a href="#" class="product-name"><%= link_to product.name, product %></a>
+              <div class="small m-t-xs">
+                <%= product.sub_category.name %>
+              </div>
+              <%= form_for cart_item, remote: true do |f| %>
+                <%= f.hidden_field :quantity, value: 1 %>
+                <%= f.hidden_field :product_id, value: product.id %>
+                <%= f.submit "Add to Cart", class: "btn-primary" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

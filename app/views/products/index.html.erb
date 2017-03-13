@@ -22,34 +22,7 @@
       </div>
     </div>
     <div class="wrapper wrapper-content animated fadeInRight">
-      <% @products.each_slice(@item_per_row) do |products| %>
-        <div class="row">
-          <% products.each do |product| %>
-            <div class="col-md-3">
-              <div class="ibox">
-                <div class="ibox-content product-box">
-                  <div class="product-imitation">
-                      <img alt="Icon" src="http://assets4.mirraw.com/images/3053770/1646_202_zps3vmzpevr_small.jpeg?1472743347" />
-                  </div>
-                  <div class="product-desc">
-                    <span class="product-price">
-                      $<%= product.sell_price %>
-                    </span>
-                    <small class="text-muted"><b><%= product.color %></b></small>
-                    <a href="#" class="product-name"><%= link_to product.name, product %></a>
-                    <div class="small m-t-xs">
-                      <%= product.sub_category.name %>
-                    </div>
-                    <div class="m-t text-righ">
-                      <td><b><%= link_to 'Buy It', product, class: 'btn btn-xs btn-outline btn-primary' %></b></td>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
+      <%= render partial: 'product_list', locals: {products: @products, :cart_item => @cart_item, item_per_row: @item_per_row} %>
     </div>
     <%= render 'shared/footer' %>
   </div>

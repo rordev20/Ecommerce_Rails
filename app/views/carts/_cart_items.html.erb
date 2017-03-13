@@ -1,0 +1,54 @@
+<% if @cart_items.size == 0 %>
+  <p class="text-center">
+    There are no items in your shopping cart.  Please <%= link_to "go back", root_path %> and add some items to your cart.
+  </p>
+<% else %>
+  <% @cart_items.each do |item_count, cart_item| %>
+    <div class="ibox-content">
+      <div class="table-responsive">
+        <table class="table shoping-cart-table">
+          <tbody>
+            <tr>
+              <td width="90">
+                <div class="cart-product-imitation">
+                </div>
+              </td>
+              <td class="desc">
+                <h3>
+                  <a href="#" class="text-navy">
+                    <%= cart_item.first.product.name %>
+                  </a>
+                </h3>
+                <p class="small">
+                  <%= cart_item.first.product.description %>
+                </p>
+                <dl class="small m-b-none">
+                  <dt>Description lists</dt>
+                  <dd>A description list is perfect for defining terms.</dd>
+                </dl>
+                <div class="m-t-sm">
+                  <a href="#" class="text-muted"><i class="fa fa-gift"></i> Add to wish list</a>
+                  |
+                  <%= link_to "Remove item", cart_item_path(item_ids: cart_item), { data: { confirm: "Are you sure you wish to delete the product '#{cart_item.first.product.name}' from your cart?" }, method: :delete, remote: true, class: "text-muted" } %>
+                  <!--<a href="#" class="text-muted"><i class="fa fa-trash"></i> Remove item</a>-->
+                </div>
+              </td>
+              <td>
+                <%= cart_item.first.product.sell_price %>
+                <s class="small text-muted"><%= cart_item.first.product.sell_price %></s>
+              </td>
+              <td width="65">
+                <input type="text" class="form-control" placeholder="<%= item_count %>">
+              </td>
+              <td>
+                <h4>
+                  <%= cart_item.first.product.sell_price %>
+                </h4>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+<% end %>
