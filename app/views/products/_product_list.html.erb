@@ -19,7 +19,7 @@
               <%= form_for cart_item, remote: true do |f| %>
                 <%= f.hidden_field :quantity, value: 1 %>
                 <%= f.hidden_field :product_id, value: product.id %>
-                <%= f.submit "Add to Cart", class: "btn-primary" %>
+                <%= f.submit "Add to Cart", class: "btn btn-primary" %>
               <% end %>
             </div>
           </div>
@@ -28,19 +28,3 @@
     <% end %>
   </div>
 <% end %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

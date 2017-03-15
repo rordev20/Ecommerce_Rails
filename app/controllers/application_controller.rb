@@ -9,4 +9,9 @@ class ApplicationController < ActionController::Base
   def current_cart
     @cart = session[:cart_id].present? ? Cart.find_by_id(session[:cart_id]) : Cart.new
   end
+
+  #This method create cart data for use
+  def create_cart_data
+    @cart_data = {}
+  end
 end

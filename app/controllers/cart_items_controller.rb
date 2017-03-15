@@ -3,8 +3,9 @@ class CartItemsController < ApplicationController
 
   #This method create user cart item
   def create
-    @cart_item = @cart.cart_items.new(cart_item_params)
-    @cart.save!
+    @cart_item = @cart.cart_items.where(product_id: cart_item_params[:product_id]).first_or_initialize
+    @cart_item.quantity = @cart_item.quantity.to_i + cart_item_params[:quantity].to_i
+    @cart_item.save!
     session[:cart_id] = @cart.id
   end
 
@@ -17,9 +18,9 @@ class CartItemsController < ApplicationController
 
   #This method destroy user cart item
   def destroy
-    @cart_item = @cart.cart_items.where(id: params[:item_ids])
+    @cart_item = @cart.cart_items.where(id: params[:id])
     CartItem.destroy @cart_item.map { |ci| ci.id }
-    @cart_items = CartItem.get_item_list_in_cart(@cart.cart_items.pluck(:id))
+    @cart_items = @cart.items_in_cart
   end
 private
 

@@ -3,7 +3,7 @@ class CartsController < ApplicationController
 
   #This method show cart page
   def show
-    @cart_items = CartItem.get_item_list_in_cart(@cart.cart_items.pluck(:id))
+    @cart_items = @cart.items_in_cart
   end
 
 end
