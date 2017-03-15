@@ -1,1 +1,3 @@
-<%= link_to @cart.product_in_cart, @cart %>
+<% if @cart.product_in_cart != 0 %>
+  <%= link_to @cart.product_in_cart, @cart %>
+<% end %>

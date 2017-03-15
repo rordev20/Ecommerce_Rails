@@ -3,7 +3,9 @@ class CartsController < ApplicationController
 
   #This method show cart page
   def show
+    create_cart_data
     @cart_items = @cart.items_in_cart
+    @sub_total = Cart.get_cart_total(@cart_data)
   end
 
 end
