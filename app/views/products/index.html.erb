@@ -1,31 +1,23 @@
-<div id="wrapper">
-  <div id="page-wrapper" class="gray-bg" style="margin: 0 0 0 0px;">
-    <div class="row border-bottom">
-      <%= render 'shared/header' %>
-    </div>
-    <div class="row wrapper border-bottom white-bg page-heading">
-      <div class="col-lg-10">
-        <h2>E-commerce grid</h2>
-        <ol class="breadcrumb">
-          <li>
-            <a href="index.html">Home</a>
-          </li>
-          <li>
-            <a>E-commerce</a>
-          </li>
-          <li class="active">
-            <strong>Products grid</strong>
-          </li>
-        </ol>
-      </div>
-      <div class="col-lg-2">
-      </div>
-    </div>
-    <div class="wrapper wrapper-content animated fadeInRight">
-      <%= render partial: 'product_list', locals: {products: @products, :cart_item => @cart_item, item_per_row: @item_per_row} %>
-    </div>
-    <%= render 'shared/footer' %>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>E-commerce grid</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a href="index.html">Home</a>
+      </li>
+      <li>
+        <a>E-commerce</a>
+      </li>
+      <li class="active">
+        <strong>Products grid</strong>
+      </li>
+    </ol>
   </div>
+  <div class="col-lg-2">
+  </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <%= render partial: 'product_list', locals: {products: @products, :cart_item => @cart_item, item_per_row: @item_per_row} %>
 </div>
 
 

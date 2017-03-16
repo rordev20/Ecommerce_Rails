@@ -12,7 +12,6 @@ class ApplicationController < ActionController::Base
 
   #This method create cart data for use
   def create_cart_data
-    current_cart
     data_array = []
     cart_items = @cart.items_in_cart
     cart_items.each do |cart_item|
@@ -25,6 +24,11 @@ class ApplicationController < ActionController::Base
       data_array << {per_item_cost: per_item_cost, quantity: quantity, total_cost: total_cost, net_amount: total_cost, product_id: product_id, discount_amount: discount_amount, cart_item_id: cart_item_id}
     end
     @cart_data = {@cart.id => data_array}
+  end
+
+  # clear session variables
+  def clear_sessions
+    session.delete(:cart_id)
   end
 
 end
