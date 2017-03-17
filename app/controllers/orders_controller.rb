@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
 
   # new order page
   def new
-    @order = Order.new
+    @countries = Country.list_of_countries
   end
 
   # create order
@@ -18,4 +18,9 @@ class OrdersController < ApplicationController
     redirect_to root_path
   end
 
+  private
+
+  def ship_address_params
+    {country_id: params[:country].to_i , address1: params[:address_1], address2: params[:address_2], city: params[:city], state_id: params[:state].to_i, zipcode: params[:pincode]}
+  end
 end

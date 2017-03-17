@@ -1,88 +1,114 @@
 <div class="wrapper wrapper-content animated fadeInRight">
-  <div class="row">
-    <div class="col-lg-6">
-      <div class="ibox float-e-margins">
-        <div class="ibox-title">
-          <h5>Billing Address</h5>
-          <div class="ibox-tools">
-            <a class="collapse-link">
-              <i class="fa fa-chevron-up"></i>
-            </a>
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-              <i class="fa fa-wrench"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-user">
-              <li><a href="#">Config option 1</a>
-              </li>
-              <li><a href="#">Config option 2</a>
-              </li>
-            </ul>
-            <a class="close-link">
-              <i class="fa fa-times"></i>
-            </a>
+  <%= form_tag orders_path, :class=> "form-horizontal" do %>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>Billing Address</h5>
+            <div class="ibox-tools">
+              <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+              </a>
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-wrench"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-user">
+                <li><a href="#">Config option 1</a>
+                </li>
+                <li><a href="#">Config option 2</a>
+                </li>
+              </ul>
+              <a class="close-link">
+                <i class="fa fa-times"></i>
+              </a>
+            </div>
           </div>
-        </div>
-        <div class="ibox-content">
-          <form role="form" class="form-horizontal">
+          <div class="ibox-content">
             <div class="form-group"><label class="col-sm-2 control-label">Country</label>
-              <div class="col-sm-10"><input type="text" class="form-control"></div>
+              <div class="col-sm-10">
+                <%= select_tag "country", options_from_collection_for_select(@countries, "id", "name"), class: "form-control" %>
+               </div>
             </div>
             <div class="hr-line-dashed"></div>
             <div class="form-group"><label class="col-sm-2 control-label">Pincode</label>
-              <div class="col-sm-10"><input type="text" class="form-control"></div>
+              <div class="col-sm-10"><%= text_field_tag :pincode, "", class: 'form-control' %></div>
             </div>
             <div class="hr-line-dashed"></div>
             <div class="form-group"><label class="col-sm-2 control-label">Address Line 1</label>
-              <div class="col-sm-10"><input type="text" class="form-control"></div>
+              <div class="col-sm-10"><%= text_field_tag :address_1, "", class: 'form-control' %></div>
             </div>
             <div class="hr-line-dashed"></div>
             <div class="form-group"><label class="col-sm-2 control-label">Address Line 2</label>
-              <div class="col-sm-10"><input type="text" class="form-control"></div>
+              <div class="col-sm-10"><%= text_field_tag :address_2, "", class: 'form-control' %></div>
             </div>
             <div class="hr-line-dashed"></div>
             <div class="form-group"><label class="col-sm-2 control-label">Town/City</label>
-              <div class="col-sm-10"><input type="text" class="form-control"></div>
+              <div class="col-sm-10"><%= text_field_tag :city, "", class: 'form-control' %></div>
             </div>
             <div class="hr-line-dashed"></div>
             <div class="form-group"><label class="col-sm-2 control-label">State</label>
-              <div class="col-sm-10"><input type="text" class="form-control"></div>
+              <div class="col-sm-10"><%= text_field_tag :state, "", class: 'form-control' %></div>
             </div>
             <div class="hr-line-dashed"></div>
-            <button class="btn btn-white" type="submit">Sign in</button>
-          </form>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-6">
-      <div class="ibox float-e-margins">
-        <div class="ibox-title">
-          <h5>Inline form</h5>
-          <div class="ibox-tools">
-            <a class="collapse-link">
-              <i class="fa fa-chevron-up"></i>
-            </a>
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-              <i class="fa fa-wrench"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-user">
-              <li><a href="#">Config option 1</a>
-              </li>
-              <li><a href="#">Config option 2</a>
-              </li>
-            </ul>
-            <a class="close-link">
-              <i class="fa fa-times"></i>
-            </a>
+            <div class="form-group"><label class="col-sm-2 control-label">Ship to same address</label>
+              <div class="col-sm-10"> <%= check_box_tag 'same' %></div>
+            </div>
           </div>
         </div>
-        <div class="ibox-content">
-          <%= form_tag orders_path do %>
+      </div>
+      <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>Inline form</h5>
+            <div class="ibox-tools">
+              <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+              </a>
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-wrench"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-user">
+                <li><a href="#">Config option 1</a>
+                </li>
+                <li><a href="#">Config option 2</a>
+                </li>
+              </ul>
+              <a class="close-link">
+                <i class="fa fa-times"></i>
+              </a>
+            </div>
+          </div>
+          <div class="ibox-content">
+          </div>
+        </div>
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>Inline form</h5>
+            <div class="ibox-tools">
+              <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+              </a>
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-wrench"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-user">
+                <li><a href="#">Config option 1</a>
+                </li>
+                <li><a href="#">Config option 2</a>
+                </li>
+              </ul>
+              <a class="close-link">
+                <i class="fa fa-times"></i>
+              </a>
+            </div>
+          </div>
+          <div class="ibox-content">
             <div>
               <%= submit_tag 'Save' %>
             </div>
-          <% end %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  <% end %>
 </div>
