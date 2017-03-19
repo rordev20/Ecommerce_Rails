@@ -10,6 +10,7 @@ class CreateAddresses < ActiveRecord::Migration
       t.string :zipcode
       t.references :state, index: true, foreign_key: true
       t.references :country, index: true, foreign_key: true
+      t.references :address_type, index: true, foreign_key: true
       t.string :phone
       t.string :alt_phone
       t.references :vendor, index: true, foreign_key: true
