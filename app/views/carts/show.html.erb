@@ -3,7 +3,7 @@
     <h2>E-commerce shoping cart</h2>
     <ol class="breadcrumb">
       <li>
-        <a href="index.html">Home</a>
+        <%= link_to 'Home', root_path %>
       </li>
       <li>
         <a>E-commerce</a>
@@ -27,10 +27,10 @@
         <div class="cart_items">
           <%= render "cart_items" %>
         </div>
-        <div class="ibox-content">
+        <!--<div class="ibox-content">
           <button class="btn btn-primary pull-right"><i class="fa fa fa-shopping-cart"></i> Checkout</button>
           <button class="btn btn-white"><i class="fa fa-arrow-left"></i> Continue shopping</button>
-        </div>
+        </div>-->
       </div>
     </div>
     <div class="col-md-4">
@@ -54,7 +54,6 @@
               <%= link_to new_order_path, class: "btn btn-primary btn-sm" do %>
                 <i class="fa fa-shopping-cart"></i> Checkout
               <% end %>
-              <a href="#" class="btn btn-white btn-sm"> Cancel</a>
             </div>
           </div>
         </div>

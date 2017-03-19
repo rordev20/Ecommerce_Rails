@@ -1,6 +1,6 @@
 var CartUtil = {
   // This method show hide shipping address
-  shopShipAddress: function(that) {
+  showShipAddress: function(that) {
     var element = $('.ship_address_fields');
     var checkbox_value = parseInt(that.val());
     if (checkbox_value == 1) {
@@ -15,7 +15,7 @@ var CartUtil = {
 }
 
 $(document).on("click", "#same_address", function(event) {
-  CartUtil.shopShipAddress($(this));
+  CartUtil.showShipAddress($(this));
 });
 
 $(document).ready(function () {

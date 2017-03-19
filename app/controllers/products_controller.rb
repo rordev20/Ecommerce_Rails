@@ -12,6 +12,7 @@ class ProductsController < ApplicationController
 
   # This method show product details
   def show
+    @cart_item = @cart.cart_items.new
   end
 
   private
