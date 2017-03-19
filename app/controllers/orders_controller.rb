@@ -19,7 +19,11 @@ class OrdersController < ApplicationController
     if order.save!
       clear_sessions
     end
-    redirect_to root_path
+    redirect_to confirm_order_path(order_id: order.id)
+  end
+
+  def confirm_order
+    @order = current_user.orders.find(params[:order_id])
   end
 
   private
