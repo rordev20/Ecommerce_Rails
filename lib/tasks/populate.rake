@@ -1,3 +1,5 @@
+# task to run
+# rake populate_data:populate_dummy_data
 namespace :populate_data do
   desc "Dummy data"
   task :populate_dummy_data => :environment do
@@ -27,5 +29,13 @@ namespace :populate_data do
     Product.create!(name: 'saree ten', dimension: '1x2', description: 'saree ten description', sell_price: '300', purchase_price: '100', sub_category: SubCategory.last)
     Product.create!(name: 'saree eleven', dimension: '1x2', description: 'saree eleven description', sell_price: '200', purchase_price: '100', sub_category: SubCategory.last)
     Product.create!(name: 'saree twele', dimension: '1x2', description: 'saree twele description', sell_price: '90', purchase_price: '100', sub_category: SubCategory.last)
+    Country.create!(name: 'India', is_active: true)
+    Country.create!(name: 'Usa', is_active: true)
+    State.create!(name: 'Up', is_active: true, country: Country.last)
+    State.create!(name: 'Maharashtra', is_active: true, country: Country.last)
+    State.create!(name: 'Newyork', is_active: true, country: Country.first)
+    State.create!(name: 'Washington', is_active: true, country: Country.first)
+    PaymentMethod.create!(name: 'Cod', is_active: true)
+    PaymentMethod.create!(name: 'Bank Deposit', is_active: true)
   end
 end

@@ -6,6 +6,8 @@ class OrdersController < ApplicationController
   def new
     @countries = Country.list_of_countries
     @states = State.active
+    @cart_items = @cart.items_in_cart
+    @payment_methods = PaymentMethod.active
   end
 
   # create order
@@ -16,6 +18,7 @@ class OrdersController < ApplicationController
     bill_address_same_as_ship = Address.address_billing_same_as_shipping?(params[:same_address])
     order_address_hash = current_user.save_user_address(bill_address_same_as_ship, build_bill_address_params, build_ship_address_params)
     order.set_address(bill_address_same_as_ship, order_address_hash)
+    order.payment_method_id = params[:payment_method]
     if order.save!
       clear_sessions
     end

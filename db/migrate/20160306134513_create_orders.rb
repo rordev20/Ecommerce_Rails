@@ -11,7 +11,7 @@ class CreateOrders < ActiveRecord::Migration
       t.float :cod_charge
       t.references :cart, index: true, foreign_key: true
       t.float :currency_rate
-      t.string :pay_type
+      t.references :payment_method, index: true, foreign_key: true
       t.text :notes
       t.float :discount
       t.float :market_rate
