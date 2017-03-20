@@ -30,7 +30,7 @@
         </tr>
         <% cart_items.each do |cart_item| %>
           <tr>
-            <td><%= cart_item.id %></td>
+            <td><%= image_tag Image.get_product_page_image(cart_item.product.images).first.avatar.url(:thumb), alt: 'Icon' %></td>
             <td><%= cart_item.quantity %></td>
             <td><%= cart_item.product.sell_price %></td>
             <td><%= cart_item.cart_item_total %></td>

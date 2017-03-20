@@ -6,7 +6,7 @@ class Cart < ActiveRecord::Base
 
   # This method return list of cart items in cart
   def items_in_cart
-    self.cart_items.includes(:product)
+    self.cart_items.includes(product: :images)
   end
 
   # Number of product in cart

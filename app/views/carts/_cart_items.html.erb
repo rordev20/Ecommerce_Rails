@@ -11,12 +11,13 @@
             <tr>
               <td width="90">
                 <div class="cart-product-imitation">
+                  <%= image_tag Image.get_product_page_image(cart_item.product.images).first.avatar.url(:thumb), alt: 'Icon' %>
                 </div>
               </td>
               <td class="desc">
                 <h3>
                   <a href="#" class="text-navy">
-                    <%= cart_item.product.name %>
+                    <%= link_to cart_item.product.name, cart_item.product %>
                   </a>
                 </h3>
                 <p class="small">

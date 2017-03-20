@@ -5,7 +5,9 @@
         <div class="ibox">
           <div class="ibox-content product-box">
             <div class="product-imitation">
-                <img alt="Icon" src="http://assets4.mirraw.com/images/3053770/1646_202_zps3vmzpevr_small.jpeg?1472743347" />
+              <%= link_to product do %>
+                <%= image_tag Image.get_product_page_image(product.images).first.avatar.url(:medium), alt: 'Icon' %>
+              <% end %>
             </div>
             <div class="product-desc">
               <span class="product-price">
