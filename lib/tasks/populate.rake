@@ -38,4 +38,16 @@ namespace :populate_data do
     PaymentMethod.create!(name: 'Cod', is_active: true)
     PaymentMethod.create!(name: 'Bank Deposit', is_active: true)
   end
+
+  desc "system constant"
+  task :create_system_constant => :environment do
+    constant_array = []
+    constant_array << { name: 'discount_type', value: ['flat', 'percentage']}
+    constant_array << { name: 'coupon_type', value: ['first order discount', 'other', 'user specific coupon']}
+    constant_array.each do |constant|
+      system_constant = SystemConstant.where(name: constant[:name]).first_or_initialize
+      system_constant.value = constant[:value]
+      system_constant.save!
+    end
+  end
 end

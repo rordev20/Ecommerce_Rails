@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   # This method show product listing
   def index
     @item_per_row = 4
-    @products = Product.all
+    @products = Product.active
     @cart_item = @cart.cart_items.new
   end
 

@@ -39,20 +39,32 @@
           <h5>Cart Summary</h5>
         </div>
         <div class="ibox-content">
-          <span>
-            Total
-          </span>
-          <h2 class="font-bold">
-            $<%= @sub_total %>
-          </h2>
+          <%= form_tag apply_coupon_path, :class=> "form-inline", remote: true do %>
+            <div class="form-group">
+              <%= text_field_tag 'coupon', nil, placeholder: 'Enter Coupon Code', class: 'form-control' %>
+            </div>
+            <%= submit_tag "Apply Coupon", class: "btn btn-primary" %>
+          <% end %>
           <hr/>
-          <span class="text-muted small">
-            *For United States, France and Germany applicable sales tax will be applied
-          </span>
+          <div class="row">
+            <div class="col-md-6"><strong>Total</strong></div>
+            <div class="col-md-6">$<%= @sub_total %></div>
+          </div>
+          <hr/>
+          <div class="row">
+            <div class="col-md-6"><strong>Shipping</strong></div>
+            <div class="col-md-6">0</div>
+          </div>
+          <hr/>
+          <div class="row">
+            <div class="col-md-6"><strong>Grand Total</strong></div>
+             <div class="col-md-6">$<%= @sub_total %></div>
+          </div>
+          <hr/>
           <div class="m-t-sm">
             <div class="btn-group">
               <%= link_to new_order_path, class: "btn btn-primary btn-sm" do %>
-                <i class="fa fa-shopping-cart"></i> Checkout
+                <i class="fa fa-shopping-cart"></i> Proceed To Checkout
               <% end %>
             </div>
           </div>
