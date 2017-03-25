@@ -13,6 +13,12 @@ class CreateCoupons < ActiveRecord::Migration
       t.string :discount_type
       t.integer :use_count
       t.integer :maximum_discount
+      t.boolean :is_cashback
+      t.boolean :aap_only
+      t.boolean :only_for_new_user
+      t.boolean :discount_with_cashback_offer
+      t.boolean :products_specific
+      t.text :product_ids
       t.boolean :is_active
       t.datetime :deleted_at
 
