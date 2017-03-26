@@ -11,8 +11,8 @@ class CreateCoupons < ActiveRecord::Migration
       t.float :flat_off
       t.float :minimum_amount
       t.references :discount_type, index: true, foreign_key: true
-      t.integer :use_count
-      t.integer :maximum_discount
+      t.integer :use_count, default: 0
+      t.integer :maximum_discount, default: 0
       t.boolean :is_cashback
       t.boolean :app_only
       t.boolean :only_for_new_user
