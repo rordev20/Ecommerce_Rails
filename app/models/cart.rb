@@ -24,4 +24,33 @@ class Cart < ActiveRecord::Base
     end
     total
   end
+
+  # This method return cart data sorted by price
+  def self.get_cart_data_sort_by_price(cart_data)
+    cart_items = Cart.get_items_from_cart_data(cart_data)
+    cart_items.sort_by {|cart_item| cart_item[:net_amount]}
+  end
+
+  # This method return number of dishes in cart
+  def self.get_no_of_dishes(cart_data)
+    cart_items = Cart.get_items_from_cart_data(cart_data)
+    cart_items.inject(0) {|sum, cart_item| sum + cart_item[:quantity]}
+  end
+
+  # Thid method return number of cartitems
+  def self.get_no_of_cart_items(cart_data)
+    cart_items = Cart.get_items_from_cart_data(cart_data)
+    cart_items.size
+  end
+
+  # This method return value in cart data
+  def self.get_items_from_cart_data(cart_data)
+    cart_data.values.flatten
+  end
+
+  # This method give net discount
+  def self.get_discount(cart_data)
+    cart_items = Cart.get_items_from_cart_data(cart_data)
+    cart_items.inject(0) {|sum, cart_item| sum + cart_item[:discount_amount]}
+  end
 end

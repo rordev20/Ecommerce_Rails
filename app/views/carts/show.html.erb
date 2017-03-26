@@ -48,17 +48,23 @@
           <hr/>
           <div class="row">
             <div class="col-md-6"><strong>Total</strong></div>
-            <div class="col-md-6">$<%= @sub_total %></div>
+            <div class="col-md-6" id="total">$<%= @sub_total %></div>
+          </div>
+          <hr/>
+
+          <div class="row">
+            <div class="col-md-6"><strong>Discount</strong></div>
+             <div class="col-md-6" id="discount">0</div>
           </div>
           <hr/>
           <div class="row">
             <div class="col-md-6"><strong>Shipping</strong></div>
-            <div class="col-md-6">0</div>
+            <div class="col-md-6" id="shipping">0</div>
           </div>
           <hr/>
           <div class="row">
             <div class="col-md-6"><strong>Grand Total</strong></div>
-             <div class="col-md-6">$<%= @sub_total %></div>
+             <div class="col-md-6" id="grand_total">$<%= @sub_total %></div>
           </div>
           <hr/>
           <div class="m-t-sm">

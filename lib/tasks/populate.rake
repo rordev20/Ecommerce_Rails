@@ -1,5 +1,5 @@
 # task to run
-# rake populate_data:populate_dummy_data
+#rake db:create db:migrate db:seed populate_data:populate_dummy_data populate_data:create_system_constant
 namespace :populate_data do
   desc "Dummy data"
   task :populate_dummy_data => :environment do
@@ -17,18 +17,18 @@ namespace :populate_data do
     SubCategory.create!(category: Category.last, name: 'saree wollen four two', description: 'saree wollen fashion four two')
     SubCategory.create!(category: Category.last, name: 'saree wollen five two', description: 'saree wollen fashion five two')
     SubCategory.create!(category: Category.last, name: 'saree wollen six two', description: 'saree wollen fashion six two')
-    Product.create!(name: 'saree one', dimension: '1x2', description: 'saree one description', sell_price: '90', purchase_price: '100', sub_category: SubCategory.first)
-    Product.create!(name: 'saree two', dimension: '1x2', description: 'saree two description', sell_price: '200', purchase_price: '100', sub_category: SubCategory.first)
-    Product.create!(name: 'saree three', dimension: '1x2', description: 'saree three description', sell_price: '300', purchase_price: '100', sub_category: SubCategory.first)
-    Product.create!(name: 'saree four', dimension: '1x2', description: 'saree four description', sell_price: '400', purchase_price: '100', sub_category: SubCategory.first)
-    Product.create!(name: 'saree five', dimension: '1x2', description: 'saree five description', sell_price: '500', purchase_price: '100', sub_category: SubCategory.first)
-    Product.create!(name: 'saree six', dimension: '1x2', description: 'saree six description', sell_price: '150', purchase_price: '100', sub_category: SubCategory.first)
-    Product.create!(name: 'saree seven', dimension: '1x2', description: 'saree seven description', sell_price: '240', purchase_price: '100', sub_category: SubCategory.last)
-    Product.create!(name: 'saree eight', dimension: '1x2', description: 'saree eight description', sell_price: '700', purchase_price: '100', sub_category: SubCategory.last)
-    Product.create!(name: 'saree nine', dimension: '1x2', description: 'saree nine description', sell_price: '500', purchase_price: '100', sub_category: SubCategory.last)
-    Product.create!(name: 'saree ten', dimension: '1x2', description: 'saree ten description', sell_price: '300', purchase_price: '100', sub_category: SubCategory.last)
-    Product.create!(name: 'saree eleven', dimension: '1x2', description: 'saree eleven description', sell_price: '200', purchase_price: '100', sub_category: SubCategory.last)
-    Product.create!(name: 'saree twele', dimension: '1x2', description: 'saree twele description', sell_price: '90', purchase_price: '100', sub_category: SubCategory.last)
+    Product.create!(name: 'saree one', dimension: '1x2', description: 'saree one description', sell_price: '90', purchase_price: '100', sub_category: SubCategory.first, is_active: true)
+    Product.create!(name: 'saree two', dimension: '1x2', description: 'saree two description', sell_price: '200', purchase_price: '100', sub_category: SubCategory.first, is_active: true)
+    Product.create!(name: 'saree three', dimension: '1x2', description: 'saree three description', sell_price: '300', purchase_price: '100', sub_category: SubCategory.first, is_active: true)
+    Product.create!(name: 'saree four', dimension: '1x2', description: 'saree four description', sell_price: '400', purchase_price: '100', sub_category: SubCategory.first, is_active: true)
+    Product.create!(name: 'saree five', dimension: '1x2', description: 'saree five description', sell_price: '500', purchase_price: '100', sub_category: SubCategory.first, is_active: true)
+    Product.create!(name: 'saree six', dimension: '1x2', description: 'saree six description', sell_price: '150', purchase_price: '100', sub_category: SubCategory.first, is_active: true)
+    Product.create!(name: 'saree seven', dimension: '1x2', description: 'saree seven description', sell_price: '240', purchase_price: '100', sub_category: SubCategory.last, is_active: true)
+    Product.create!(name: 'saree eight', dimension: '1x2', description: 'saree eight description', sell_price: '700', purchase_price: '100', sub_category: SubCategory.last, is_active: true)
+    Product.create!(name: 'saree nine', dimension: '1x2', description: 'saree nine description', sell_price: '500', purchase_price: '100', sub_category: SubCategory.last, is_active: true)
+    Product.create!(name: 'saree ten', dimension: '1x2', description: 'saree ten description', sell_price: '300', purchase_price: '100', sub_category: SubCategory.last, is_active: true)
+    Product.create!(name: 'saree eleven', dimension: '1x2', description: 'saree eleven description', sell_price: '200', purchase_price: '100', sub_category: SubCategory.last, is_active: true)
+    Product.create!(name: 'saree twele', dimension: '1x2', description: 'saree twele description', sell_price: '90', purchase_price: '100', sub_category: SubCategory.last, is_active: true)
     Country.create!(name: 'India', is_active: true)
     Country.create!(name: 'Usa', is_active: true)
     State.create!(name: 'Up', is_active: true, country: Country.last)
@@ -37,13 +37,20 @@ namespace :populate_data do
     State.create!(name: 'Washington', is_active: true, country: Country.first)
     PaymentMethod.create!(name: 'Cod', is_active: true)
     PaymentMethod.create!(name: 'Bank Deposit', is_active: true)
+    DiscountType.create!(name: 'flat', is_active: true)
+    DiscountType.create!(name: 'percentage', is_active: true)
+    CouponType.create!(name: 'first order discount', is_active: true)
+    CouponType.create!(name: 'other', is_active: true)
+    CouponType.create!(name: 'user specific coupon', is_active: true)
+    Coupon.create!(name: 'flat10', limit: 15, start_date: Date.today, end_date: Date.today+30, code: 'flat10', coupon_type: CouponType.first, flat_off: 10, discount_type: DiscountType.first)
+    Coupon.create!(name: 'flat25', limit: 15, start_date: Date.today, end_date: Date.today+30, code: 'flat25', coupon_type: CouponType.last, flat_off: 25, discount_type: DiscountType.first)
+    Coupon.create!(name: 'percentage10', limit: 15, start_date: Date.today, end_date: Date.today+30, code: 'percentage10', coupon_type: CouponType.first, percent_off: 10, discount_type: DiscountType.last)
+    Coupon.create!(name: 'percentage30', limit: 15, start_date: Date.today, end_date: Date.today+30, code: 'percentage30', coupon_type: CouponType.last, percent_off: 30, discount_type: DiscountType.last)
   end
 
   desc "system constant"
   task :create_system_constant => :environment do
     constant_array = []
-    constant_array << { name: 'discount_type', value: ['flat', 'percentage']}
-    constant_array << { name: 'coupon_type', value: ['first order discount', 'other', 'user specific coupon']}
     constant_array.each do |constant|
       system_constant = SystemConstant.where(name: constant[:name]).first_or_initialize
       system_constant.value = constant[:value]

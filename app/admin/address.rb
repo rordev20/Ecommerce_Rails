@@ -1,6 +1,6 @@
 ActiveAdmin.register Address do
 
-  permit_params :user, :name, :address1, :address2, :landmark, :city, :zipcode, :state, :country, :phone, :alt_phone, :vendor,
+  permit_params :user, :address1, :address2, :landmark, :city, :zipcode, :state, :country, :phone, :alt_phone, :vendor,
                 :is_active, :deleted_at
 
 end
