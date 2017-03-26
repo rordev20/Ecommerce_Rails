@@ -17,7 +17,6 @@ ActiveAdmin.register Coupon do
         f.input :limit
         f.input :use_count
         f.input :maximum_discount
-        f.input :maximum_discount
         f.input :is_cashback
         f.input :app_only
         f.input :only_for_new_user

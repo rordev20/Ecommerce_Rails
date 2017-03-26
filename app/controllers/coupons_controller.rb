@@ -14,6 +14,6 @@ class CouponsController < ApplicationController
       @cart.save!
     end
     @discount = Cart.get_discount(@cart_data)
-    @grand_total = @sub_total - @discount
+    @grand_total = Cart.get_grand_total(@sub_total, @discount)
   end
 end

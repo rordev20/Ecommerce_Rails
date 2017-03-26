@@ -6,8 +6,6 @@ class CreateAddressTypes < ActiveRecord::Migration
       t.timestamps null: false
     end
     add_index :address_types, :name
-    AddressType.create(name: 'billing_address')
-    AddressType.create(name: 'shipping_address')
   end
 
   def self.down

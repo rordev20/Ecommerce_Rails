@@ -53,4 +53,9 @@ class Cart < ActiveRecord::Base
     cart_items = Cart.get_items_from_cart_data(cart_data)
     cart_items.inject(0) {|sum, cart_item| sum + cart_item[:discount_amount]}
   end
+
+  # This method return grand total
+  def self.get_grand_total(sub_total, discount)
+    sub_total - discount
+  end
 end
