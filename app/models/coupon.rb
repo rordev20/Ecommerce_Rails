@@ -22,6 +22,7 @@ class Coupon < ActiveRecord::Base
   # This method calculate flat discount
   def get_flat_discount(cart_data, cart)
     discount, cash_back = 0, 0
+    array_of_discounted_item = []
     sorted_cart_data = Cart.get_cart_data_sort_by_price(cart_data)
     discount_amount = self.flat_off
     dish_count = Cart.get_no_of_cart_items(cart_data)

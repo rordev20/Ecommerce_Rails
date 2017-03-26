@@ -39,12 +39,9 @@
           <h5>Cart Summary</h5>
         </div>
         <div class="ibox-content">
-          <%= form_tag apply_coupon_path, :class=> "form-inline", remote: true do %>
-            <div class="form-group">
-              <%= text_field_tag 'coupon', nil, placeholder: 'Enter Coupon Code', class: 'form-control' %>
-            </div>
-            <%= submit_tag "Apply Coupon", class: "btn btn-primary" %>
-          <% end %>
+          <div id="coupon_section">
+            <%= render partial: 'coupon_section', locals: {coupon: @coupon} %>
+          </div>
           <hr/>
           <div class="row">
             <div class="col-md-6"><strong>Total</strong></div>
@@ -54,7 +51,7 @@
 
           <div class="row">
             <div class="col-md-6"><strong>Discount</strong></div>
-             <div class="col-md-6" id="discount">0</div>
+             <div class="col-md-6" id="discount"><%= @discount %></div>
           </div>
           <hr/>
           <div class="row">
@@ -64,7 +61,7 @@
           <hr/>
           <div class="row">
             <div class="col-md-6"><strong>Grand Total</strong></div>
-             <div class="col-md-6" id="grand_total">$<%= @sub_total %></div>
+             <div class="col-md-6" id="grand_total">$<%= @grand_total %></div>
           </div>
           <hr/>
           <div class="m-t-sm">
