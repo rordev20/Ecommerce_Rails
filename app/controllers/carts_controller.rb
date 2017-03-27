@@ -9,7 +9,7 @@ class CartsController < ApplicationController
       @cart_data = @coupon.get_cart_data_for_coupon(@cart_data, @cart)
       discount_type = @coupon.is_cashback_coupon? ? Coupon.get_offer_type[:cashback] : Coupon.get_offer_type[:discount_amount]
     end
-    if @coupon.is_cashback_coupon?
+    if @coupon && @coupon.is_cashback_coupon?
       @cashback = Cart.get_discount(@cart_data, discount_type)
     elsif @coupon
       @discount = Cart.get_discount(@cart_data, discount_type)

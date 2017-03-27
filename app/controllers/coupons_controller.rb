@@ -8,10 +8,10 @@ class CouponsController < ApplicationController
     @cart.coupon_id = @coupon.id
     @coupon.save!
     @cart.save!
-    if @coupon.is_cashback_coupon?
+    if @coupon && @coupon.is_cashback_coupon?
       discount_type = Coupon.get_offer_type[:cashback]
       @cashback = Cart.get_discount(@cart_data, discount_type)
-    else
+    elsif @coupon
       discount_type = Coupon.get_offer_type[:discount_amount]
       @discount = Cart.get_discount(@cart_data, discount_type)
     end
