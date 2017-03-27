@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   root :to => "products#index"
   get "/orders/:order_id/confirm" => "orders#confirm_order", as: :confirm_order
   post "/coupons/apply" => "coupons#apply", as: :apply_coupon
+  post "/coupons/cancel_coupon" => "coupons#cancel_coupon", as: :cancel_coupon
 end

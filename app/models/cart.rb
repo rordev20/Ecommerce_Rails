@@ -49,9 +49,9 @@ class Cart < ActiveRecord::Base
   end
 
   # This method give net discount
-  def self.get_discount(cart_data)
+  def self.get_discount(cart_data, discount_type)
     cart_items = Cart.get_items_from_cart_data(cart_data)
-    cart_items.inject(0) {|sum, cart_item| sum + cart_item[:discount_amount]}
+    cart_items.inject(0) {|sum, cart_item| sum + cart_item[discount_type.to_sym]}
   end
 
   # This method return grand total

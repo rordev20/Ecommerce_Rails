@@ -1,9 +1,9 @@
 class Coupon < ActiveRecord::Base
   just_define_datetime_picker :start_date
   just_define_datetime_picker :end_date
-
   belongs_to :coupon_type
   belongs_to :discount_type
+  OFFER_TYPE = { discount_amount: 'discount_amount', cashback: 'cashback' }.freeze
 
   # This method check if coupon is applicable or not
   def applicability
@@ -21,7 +21,7 @@ class Coupon < ActiveRecord::Base
 
   # This method calculate flat discount
   def get_flat_discount(cart_data, cart)
-    discount, cash_back = 0, 0
+    discount, cashback = 0, 0
     array_of_discounted_item = []
     sorted_cart_data = Cart.get_cart_data_sort_by_price(cart_data)
     discount_amount = self.flat_off
@@ -29,14 +29,14 @@ class Coupon < ActiveRecord::Base
     sorted_cart_data.each do |cart_item|
       distribute_amount = (discount_amount.to_f/dish_count.to_f)
       if is_cashback_coupon?
-        cash_back = get_each_product_flat_cashback(cart_item, distribute_amount, dish_count)
-        discount_amount = discount_amount - cash_back
+        cashback = get_each_product_flat_cashback(cart_item, distribute_amount, dish_count)
+        discount_amount = discount_amount - cashback
       else
         discount = get_each_product_flat_discount(cart_item, distribute_amount, dish_count)
         discount_amount = discount_amount - discount
       end
       dish_count = dish_count - 1
-      cart_item = get_discounted_cart_item(cart_item, discount, cash_back)
+      cart_item = get_discounted_cart_item(cart_item, discount, cashback)
       array_of_discounted_item << cart_item
     end
     {cart.id => array_of_discounted_item}
@@ -44,17 +44,17 @@ class Coupon < ActiveRecord::Base
 
   # This method calculate percentage discount
   def get_percentage_discount(cart_data, cart)
-    discount, cash_back = 0, 0
+    discount, cashback = 0, 0
     array_of_discounted_item = []
     discount_percent = self.percent_off
     cart_data_values = Cart.get_items_from_cart_data(cart_data)
     cart_data_values.each do |cart_item|
     if is_cashback_coupon?
-      cash_back = get_each_product_percentage_discount(cart_item, discount_percent)
+      cashback = get_each_product_percentage_discount(cart_item, discount_percent)
     else
       discount = get_each_product_percentage_discount(cart_item, discount_percent)
     end
-      cart_item = get_discounted_cart_item(cart_item, discount, cash_back)
+      cart_item = get_discounted_cart_item(cart_item, discount, cashback)
       array_of_discounted_item << cart_item
     end
     {cart.id => array_of_discounted_item}
@@ -78,11 +78,15 @@ class Coupon < ActiveRecord::Base
   end
 
   # This method set cart data after discount
-  def get_discounted_cart_item(cart_item, discount, cash_back)
+  def get_discounted_cart_item(cart_item, discount, cashback)
     cart_item[:net_amount] = cart_item[:net_amount] - discount
     cart_item[:discount_amount] = discount
-    cart_item[:cash_back] = cash_back
+    cart_item[:cashback] = cashback
     cart_item
+  end
+
+  def self.get_offer_type
+    Coupon::OFFER_TYPE
   end
 
   # This method check if coupon is cash back

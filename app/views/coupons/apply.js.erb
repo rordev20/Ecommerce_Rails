@@ -1,3 +1,7 @@
-$('#discount').html("<%= @discount %>")
-$('#grand_total').html("<%= @grand_total %>")
+<% if @coupon.is_cashback_coupon? %>
+  $("#total_section").after("<%= escape_javascript(render(partial: "carts/cashback", locals: {cashback: @cashback})) %>")
+<% else %>
+  $("#total_section").after("<%= escape_javascript(render(partial: "carts/discount", locals: {discount: @discount})) %>")
+<% end %>
 $("#coupon_section").html("<%= escape_javascript(render(partial: "carts/coupon_section", locals: {coupon: @coupon})) %>")
+$('#grand_total').html("<%= @grand_total %>")

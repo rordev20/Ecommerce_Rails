@@ -43,16 +43,15 @@
             <%= render partial: 'coupon_section', locals: {coupon: @coupon} %>
           </div>
           <hr/>
-          <div class="row">
+          <div class="row" id="total_section">
             <div class="col-md-6"><strong>Total</strong></div>
             <div class="col-md-6" id="total">$<%= @sub_total %></div>
           </div>
-          <hr/>
-
-          <div class="row">
-            <div class="col-md-6"><strong>Discount</strong></div>
-             <div class="col-md-6" id="discount"><%= @discount %></div>
-          </div>
+          <% if @coupon && @coupon.is_cashback_coupon? %>
+            <%= render partial: 'cashback', locals: {cashback: @cashback} %>
+          <% elsif @coupon %>
+            <%= render partial: 'discount', locals: {discount: @discount} %>
+          <% end %>
           <hr/>
           <div class="row">
             <div class="col-md-6"><strong>Shipping</strong></div>

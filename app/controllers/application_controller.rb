@@ -31,4 +31,10 @@ class ApplicationController < ActionController::Base
     session.delete(:cart_id)
   end
 
+  # This method set cart data
+  def set_cart_data
+    current_cart
+    create_cart_data
+    @sub_total = Cart.get_cart_total(@cart_data)
+  end
 end
