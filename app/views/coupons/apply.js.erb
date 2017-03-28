@@ -1,7 +1,10 @@
-<% if @coupon.is_cashback_coupon? %>
-  $("#total_section").after("<%= escape_javascript(render(partial: "carts/cashback", locals: {cashback: @cashback})) %>")
-<% else %>
-  $("#total_section").after("<%= escape_javascript(render(partial: "carts/discount", locals: {discount: @discount})) %>")
+<% if @coupon %>
+  <% if @coupon.is_cashback_coupon? %>
+    $("#total_section").after("<%= escape_javascript(render(partial: "carts/cashback", locals: {cashback: @cashback})) %>")
+  <% else %>
+    $("#total_section").after("<%= escape_javascript(render(partial: "carts/discount", locals: {discount: @discount})) %>")
+  <% end %>
+  $("#coupon_section").html("<%= escape_javascript(render(partial: "carts/coupon_section", locals: {coupon: @coupon})) %>")
+  $('#grand_total').html("<%= @grand_total %>")
 <% end %>
-$("#coupon_section").html("<%= escape_javascript(render(partial: "carts/coupon_section", locals: {coupon: @coupon})) %>")
-$('#grand_total').html("<%= @grand_total %>")
+$("#messages").html("<%= escape_javascript(render(partial: "shared/alert_msg", locals: {msg: get_coupon_message_and_type(@coupon)[:message], msg_type: get_coupon_message_and_type(@coupon)[:type]})) %>")

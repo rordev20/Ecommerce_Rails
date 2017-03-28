@@ -6,15 +6,26 @@ class Coupon < ActiveRecord::Base
   OFFER_TYPE = { discount_amount: 'discount_amount', cashback: 'cashback' }.freeze
 
   # This method check if coupon is applicable or not
-  def applicability
+  def is_applicable?
+    !is_expired?
+  end
+
+  # This method check if coupon is in valid datetime range
+  def is_expired?
+    if self.start_date < Time.now && self.end_date > Time.now
+      false
+    else
+      self.errors.add(:base, I18n.t('coupon.error_message.expired'))
+      true
+    end
   end
 
   # This method get flat or percentage discount
   def get_cart_data_for_coupon(cart_data, cart)
     case self.discount_type.name
-    when 'flat'
+    when I18n.t('coupon.discount_type.flat')
       self.get_flat_discount(cart_data, cart)
-    when 'percentage'
+    when I18n.t('coupon.discount_type.percentage')
       self.get_percentage_discount(cart_data, cart)
     end
   end

@@ -21,3 +21,16 @@
 
 en:
   hello: "Hello world"
+  coupon:
+    not_found: "Invalid Coupon Code"
+    applied: "Coupon applied sucessfully"
+    error_message:
+      expired: "This coupon has been expired"
+    discount_type:
+      flat: "flat"
+      percentage: "percentage"
+  message_type:
+    success: "success"
+    warning: "warning"
+    info: "info"
+    danger: "danger"
