@@ -16,13 +16,8 @@ class Cart < ActiveRecord::Base
 
   # This method return cart net total amount
   def self.get_cart_total(cart_data)
-    total = 0
-    cart_data.each do |cart_id, items_array|
-      items_array.each do |item|
-      total += item[:net_amount]
-      end
-    end
-    total
+    cart_items = Cart.get_items_from_cart_data(cart_data)
+    cart_items.inject(0) {|sum, cart_item| sum + cart_item[:net_amount]}
   end
 
   # This method return cart data sorted by price

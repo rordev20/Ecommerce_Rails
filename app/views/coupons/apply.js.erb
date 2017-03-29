@@ -1,4 +1,4 @@
-<% if @coupon %>
+<% if @coupon && !@coupon.errors.any? %>
   <% if @coupon.is_cashback_coupon? %>
     $("#total_section").after("<%= escape_javascript(render(partial: "carts/cashback", locals: {cashback: @cashback})) %>")
   <% else %>

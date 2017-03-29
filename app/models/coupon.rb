@@ -35,7 +35,7 @@ class Coupon < ActiveRecord::Base
     discount, cashback = 0, 0
     array_of_discounted_item = []
     sorted_cart_data = Cart.get_cart_data_sort_by_price(cart_data)
-    discount_amount = self.flat_off
+    discount_amount = get_maximum_discount_amount(cart_data)
     dish_count = Cart.get_no_of_cart_items(cart_data)
     sorted_cart_data.each do |cart_item|
       distribute_amount = (discount_amount.to_f/dish_count.to_f)
@@ -55,20 +55,25 @@ class Coupon < ActiveRecord::Base
 
   # This method calculate percentage discount
   def get_percentage_discount(cart_data, cart)
-    discount, cashback = 0, 0
-    array_of_discounted_item = []
-    discount_percent = self.percent_off
-    cart_data_values = Cart.get_items_from_cart_data(cart_data)
-    cart_data_values.each do |cart_item|
-    if is_cashback_coupon?
-      cashback = get_each_product_percentage_discount(cart_item, discount_percent)
+    net_discount_amount = net_amount_percentage_discount(cart_data)
+    if net_discount_amount > self.maximum_discount && maximum_discount_is_set
+      self.get_flat_discount(cart_data, cart)
     else
-      discount = get_each_product_percentage_discount(cart_item, discount_percent)
+      discount, cashback = 0, 0
+      array_of_discounted_item = []
+      discount_percent = self.percent_off
+      cart_data_values = Cart.get_items_from_cart_data(cart_data)
+      cart_data_values.each do |cart_item|
+      if is_cashback_coupon?
+        cashback = get_each_product_percentage_discount(cart_item, discount_percent)
+      else
+        discount = get_each_product_percentage_discount(cart_item, discount_percent)
+      end
+        cart_item = get_discounted_cart_item(cart_item, discount, cashback)
+        array_of_discounted_item << cart_item
+      end
+      {cart.id => array_of_discounted_item}
     end
-      cart_item = get_discounted_cart_item(cart_item, discount, cashback)
-      array_of_discounted_item << cart_item
-    end
-    {cart.id => array_of_discounted_item}
   end
 
   # This method calculate flat discount for each product
@@ -98,6 +103,29 @@ class Coupon < ActiveRecord::Base
 
   def self.get_offer_type
     Coupon::OFFER_TYPE
+  end
+
+  # This method return net percentage discount
+  def net_amount_percentage_discount(cart_data)
+    net_amount = Cart.get_cart_total(cart_data)
+    discount_percent = self.percent_off
+    net_amount.to_f*(discount_percent.to_f/100.0)
+  end
+
+  # This method return maximum cart discount
+  def get_maximum_discount_amount(cart_data)
+    case self.discount_type.name
+    when I18n.t('coupon.discount_type.flat')
+      self.flat_off
+    when I18n.t('coupon.discount_type.percentage')
+      net_discount_amount = net_amount_percentage_discount(cart_data)
+      net_discount_amount > self.maximum_discount && maximum_discount_is_set ? self.maximum_discount : net_discount_amount
+    end
+  end
+
+  # maximum_discount_is_set
+  def maximum_discount_is_set
+    self.maximum_discount > 0
   end
 
   # This method check if coupon is cash back
