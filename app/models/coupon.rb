@@ -6,8 +6,11 @@ class Coupon < ActiveRecord::Base
   OFFER_TYPE = { discount_amount: 'discount_amount', cashback: 'cashback' }.freeze
 
   # This method check if coupon is applicable or not
-  def is_applicable?
-    !is_expired?
+  def is_applicable?(cart_data)
+    return false if is_expired?
+    return false if is_cart_value_greater_than_coupon_min?(cart_data)
+    return false if maximum_quantity_reached?
+    true
   end
 
   # This method check if coupon is in valid datetime range
@@ -16,6 +19,26 @@ class Coupon < ActiveRecord::Base
       false
     else
       self.errors.add(:base, I18n.t('coupon.error_message.expired'))
+      true
+    end
+  end
+
+  # This method check for cart minimum value for coupon to be applied
+  def is_cart_value_greater_than_coupon_min?(cart_data)
+    if Cart.get_cart_total(cart_data) > self.minimum_amount.to_i
+      false
+    else
+      self.errors.add(:base, I18n.t('coupon.error_message.min_cart_value', minimum_value: self.minimum_amount.to_i))
+      true
+    end
+  end
+
+  # This method check coupon usage limit
+  def maximum_quantity_reached?
+    if self.limit > self.use_count
+      false
+    else
+      self.errors.add(:base, I18n.t('coupon.error_message.maximum_quantity_reached'))
       true
     end
   end

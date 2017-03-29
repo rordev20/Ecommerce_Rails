@@ -1,2 +1,3 @@
 $(".cart-text").html("<%= escape_javascript(render 'layouts/cart_text') %>")
 $(".cart_items").html("<%= escape_javascript(render 'carts/cart_items') %>")
+$("#messages").html("<%= escape_javascript(render(partial: "shared/alert_msg", locals: {msg: t('cart.removed'), msg_type: t('message_type.success')})) %>")

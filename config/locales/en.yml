@@ -21,11 +21,16 @@
 
 en:
   hello: "Hello world"
+  cart:
+    added: "Item successfully added to cart"
+    removed: "Item successfully removed from cart"
   coupon:
     not_found: "Invalid Coupon Code"
-    applied: "Coupon applied sucessfully"
+    applied: "Coupon applied successfully"
     error_message:
       expired: "This coupon has been expired"
+      min_cart_value: 'For coupon to be applied minimum cart value should be %{minimum_value}'
+      maximum_quantity_reached: "Coupon usage limit exceeded"
     discount_type:
       flat: "flat"
       percentage: "percentage"

@@ -2,4 +2,5 @@
   alert("not valid.")
 <% else %>
   $(".cart-text").html("<%= escape_javascript(render 'layouts/cart_text') %>")
+  $("#messages").html("<%= escape_javascript(render(partial: "shared/alert_msg", locals: {msg: t('cart.added'), msg_type: t('message_type.success')})) %>")
 <% end %>
