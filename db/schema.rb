@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161116105506) do
+ActiveRecord::Schema.define(version: 20161120075313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,26 +31,34 @@ ActiveRecord::Schema.define(version: 20161116105506) do
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
+  create_table "address_types", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "address_types", ["name"], name: "index_address_types_on_name", using: :btree
+
   create_table "addresses", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "name"
     t.string   "address1"
     t.string   "address2"
     t.string   "landmark"
     t.string   "city"
     t.string   "zipcode"
-    t.boolean  "active"
     t.integer  "state_id"
     t.integer  "country_id"
+    t.integer  "address_type_id"
     t.string   "phone"
     t.string   "alt_phone"
     t.integer  "vendor_id"
     t.boolean  "is_active"
-    t.boolean  "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
+  add_index "addresses", ["address_type_id"], name: "index_addresses_on_address_type_id", using: :btree
   add_index "addresses", ["country_id"], name: "index_addresses_on_country_id", using: :btree
   add_index "addresses", ["state_id"], name: "index_addresses_on_state_id", using: :btree
   add_index "addresses", ["user_id"], name: "index_addresses_on_user_id", using: :btree
@@ -62,10 +70,9 @@ ActiveRecord::Schema.define(version: 20161116105506) do
     t.string   "branch_name"
     t.string   "ifsc_code"
     t.string   "account_no"
-    t.boolean  "active"
     t.integer  "vendor_id"
     t.boolean  "is_active"
-    t.boolean  "deleted_at"
+    t.datetime "deleted_at"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -81,7 +88,7 @@ ActiveRecord::Schema.define(version: 20161116105506) do
     t.integer  "vendor_order_id"
     t.string   "state"
     t.boolean  "is_active"
-    t.boolean  "deleted_at"
+    t.datetime "deleted_at"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
@@ -94,10 +101,9 @@ ActiveRecord::Schema.define(version: 20161116105506) do
   create_table "carts", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "email"
-    t.boolean  "user"
     t.integer  "coupon_id"
     t.boolean  "is_active"
-    t.boolean  "deleted_at"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -110,7 +116,7 @@ ActiveRecord::Schema.define(version: 20161116105506) do
     t.string   "name"
     t.text     "description"
     t.boolean  "is_active"
-    t.boolean  "deleted_at"
+    t.datetime "deleted_at"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -122,7 +128,7 @@ ActiveRecord::Schema.define(version: 20161116105506) do
     t.string   "iso_code"
     t.string   "iso_name"
     t.boolean  "is_active"
-    t.boolean  "deleted_at"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -130,24 +136,41 @@ ActiveRecord::Schema.define(version: 20161116105506) do
   add_index "countries", ["iso_code"], name: "index_countries_on_iso_code", using: :btree
   add_index "countries", ["name"], name: "index_countries_on_name", using: :btree
 
+  create_table "coupon_types", force: :cascade do |t|
+    t.string   "name"
+    t.boolean  "is_active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "coupons", force: :cascade do |t|
     t.string   "name"
     t.integer  "limit"
     t.datetime "start_date"
     t.datetime "end_date"
     t.string   "code"
+    t.integer  "coupon_type_id"
     t.float    "percent_off"
     t.float    "flat_off"
     t.float    "minimum_amount"
-    t.string   "coupon_type"
-    t.integer  "use_count"
+    t.integer  "discount_type_id"
+    t.integer  "use_count",                    default: 0
+    t.integer  "maximum_discount",             default: 0
+    t.boolean  "is_cashback"
+    t.boolean  "app_only"
+    t.boolean  "only_for_new_user"
+    t.boolean  "discount_with_cashback_offer"
+    t.boolean  "products_specific"
+    t.text     "product_ids"
     t.boolean  "is_active"
-    t.boolean  "deleted_at"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
   end
 
   add_index "coupons", ["code"], name: "index_coupons_on_code", using: :btree
+  add_index "coupons", ["coupon_type_id"], name: "index_coupons_on_coupon_type_id", using: :btree
+  add_index "coupons", ["discount_type_id"], name: "index_coupons_on_discount_type_id", using: :btree
   add_index "coupons", ["name"], name: "index_coupons_on_name", using: :btree
 
   create_table "currency_rates", force: :cascade do |t|
@@ -155,12 +178,19 @@ ActiveRecord::Schema.define(version: 20161116105506) do
     t.float    "rate"
     t.float    "market_rate"
     t.boolean  "is_active"
-    t.boolean  "deleted_at"
+    t.datetime "deleted_at"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
   add_index "currency_rates", ["country_id"], name: "index_currency_rates_on_country_id", using: :btree
+
+  create_table "discount_types", force: :cascade do |t|
+    t.string   "name"
+    t.boolean  "is_active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "images", force: :cascade do |t|
     t.integer  "product_id"
@@ -169,10 +199,15 @@ ActiveRecord::Schema.define(version: 20161116105506) do
     t.integer  "user_id"
     t.integer  "category_id"
     t.integer  "sub_category_id"
+    t.integer  "position"
     t.boolean  "is_active"
-    t.boolean  "deleted_at"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "images", ["category_id"], name: "index_images_on_category_id", using: :btree
@@ -181,25 +216,31 @@ ActiveRecord::Schema.define(version: 20161116105506) do
   add_index "images", ["user_id"], name: "index_images_on_user_id", using: :btree
   add_index "images", ["vendor_id"], name: "index_images_on_vendor_id", using: :btree
 
+  create_table "order_statuses", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "orders", force: :cascade do |t|
     t.integer  "user_id"
     t.float    "total"
     t.float    "shipping"
-    t.string   "state"
+    t.integer  "order_status_id"
     t.string   "number"
     t.integer  "coupon_id"
-    t.string   "payment_state"
+    t.integer  "payment_status_id"
     t.float    "cod_charge"
     t.integer  "cart_id"
     t.float    "currency_rate"
-    t.string   "pay_type"
+    t.integer  "payment_method_id"
     t.text     "notes"
     t.float    "discount"
     t.float    "market_rate"
     t.integer  "billing_address_id"
     t.integer  "shipping_address_id"
     t.boolean  "is_active"
-    t.boolean  "deleted_at"
+    t.datetime "deleted_at"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
@@ -207,15 +248,33 @@ ActiveRecord::Schema.define(version: 20161116105506) do
   add_index "orders", ["cart_id"], name: "index_orders_on_cart_id", using: :btree
   add_index "orders", ["coupon_id"], name: "index_orders_on_coupon_id", using: :btree
   add_index "orders", ["number"], name: "index_orders_on_number", using: :btree
-  add_index "orders", ["payment_state"], name: "index_orders_on_payment_state", using: :btree
-  add_index "orders", ["state"], name: "index_orders_on_state", using: :btree
+  add_index "orders", ["order_status_id"], name: "index_orders_on_order_status_id", using: :btree
+  add_index "orders", ["payment_method_id"], name: "index_orders_on_payment_method_id", using: :btree
+  add_index "orders", ["payment_status_id"], name: "index_orders_on_payment_status_id", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
+
+  create_table "payment_methods", force: :cascade do |t|
+    t.string   "name"
+    t.string   "payment_mode"
+    t.boolean  "is_active"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "payment_methods", ["name"], name: "index_payment_methods_on_name", using: :btree
+
+  create_table "payment_statuses", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "products", force: :cascade do |t|
     t.string   "name"
     t.string   "dimension"
     t.text     "description"
-    t.integer  "price"
+    t.integer  "sell_price"
+    t.integer  "purchase_price"
     t.integer  "vendor_id"
     t.integer  "sub_category_id"
     t.integer  "quantity"
@@ -229,18 +288,17 @@ ActiveRecord::Schema.define(version: 20161116105506) do
     t.text     "notes"
     t.integer  "clicks"
     t.integer  "discount_percent"
-    t.boolean  "active"
     t.float    "discount_amount"
     t.boolean  "in_stock"
     t.boolean  "is_active"
-    t.boolean  "deleted_at"
+    t.datetime "deleted_at"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end
 
   add_index "products", ["color"], name: "index_products_on_color", using: :btree
   add_index "products", ["name"], name: "index_products_on_name", using: :btree
-  add_index "products", ["price"], name: "index_products_on_price", using: :btree
+  add_index "products", ["sell_price"], name: "index_products_on_sell_price", using: :btree
   add_index "products", ["sub_category_id"], name: "index_products_on_sub_category_id", using: :btree
   add_index "products", ["vendor_id"], name: "index_products_on_vendor_id", using: :btree
 
@@ -250,7 +308,7 @@ ActiveRecord::Schema.define(version: 20161116105506) do
     t.string   "phone_no"
     t.integer  "referrer_id"
     t.boolean  "is_active"
-    t.boolean  "deleted_at"
+    t.datetime "deleted_at"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -264,7 +322,7 @@ ActiveRecord::Schema.define(version: 20161116105506) do
     t.string   "email"
     t.string   "phone_no"
     t.boolean  "is_active"
-    t.boolean  "deleted_at"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -277,7 +335,7 @@ ActiveRecord::Schema.define(version: 20161116105506) do
     t.string   "abbr"
     t.integer  "country_id"
     t.boolean  "is_active"
-    t.boolean  "deleted_at"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -289,7 +347,7 @@ ActiveRecord::Schema.define(version: 20161116105506) do
     t.text     "description"
     t.integer  "category_id"
     t.boolean  "is_active"
-    t.boolean  "deleted_at"
+    t.datetime "deleted_at"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -302,7 +360,7 @@ ActiveRecord::Schema.define(version: 20161116105506) do
     t.string   "value"
     t.text     "description"
     t.boolean  "is_active"
-    t.boolean  "deleted_at"
+    t.datetime "deleted_at"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -344,7 +402,7 @@ ActiveRecord::Schema.define(version: 20161116105506) do
     t.integer  "cart_id"
     t.string   "number"
     t.boolean  "is_active"
-    t.boolean  "deleted_at"
+    t.datetime "deleted_at"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
@@ -365,7 +423,7 @@ ActiveRecord::Schema.define(version: 20161116105506) do
     t.boolean  "is_whole_seller"
     t.float    "rate"
     t.boolean  "is_active"
-    t.boolean  "deleted_at"
+    t.datetime "deleted_at"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
@@ -373,6 +431,7 @@ ActiveRecord::Schema.define(version: 20161116105506) do
   add_index "vendors", ["email"], name: "index_vendors_on_email", using: :btree
   add_index "vendors", ["name"], name: "index_vendors_on_name", using: :btree
 
+  add_foreign_key "addresses", "address_types"
   add_foreign_key "addresses", "countries"
   add_foreign_key "addresses", "states"
   add_foreign_key "addresses", "users"
@@ -384,6 +443,8 @@ ActiveRecord::Schema.define(version: 20161116105506) do
   add_foreign_key "cart_items", "vendor_orders"
   add_foreign_key "carts", "coupons"
   add_foreign_key "carts", "users"
+  add_foreign_key "coupons", "coupon_types"
+  add_foreign_key "coupons", "discount_types"
   add_foreign_key "currency_rates", "countries"
   add_foreign_key "images", "categories"
   add_foreign_key "images", "products"
@@ -392,6 +453,9 @@ ActiveRecord::Schema.define(version: 20161116105506) do
   add_foreign_key "images", "vendors"
   add_foreign_key "orders", "carts"
   add_foreign_key "orders", "coupons"
+  add_foreign_key "orders", "order_statuses"
+  add_foreign_key "orders", "payment_methods"
+  add_foreign_key "orders", "payment_statuses"
   add_foreign_key "orders", "users"
   add_foreign_key "products", "sub_categories"
   add_foreign_key "products", "vendors"

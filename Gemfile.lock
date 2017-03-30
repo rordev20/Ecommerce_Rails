@@ -161,6 +161,8 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     rack (1.6.4)
+    rack-cache (1.6.1)
+      rack (>= 0.4)
     rack-mini-profiler (0.10.2)
       rack (>= 1.2.0)
     rack-test (0.6.3)
@@ -198,6 +200,28 @@ GEM
       polyamorous (~> 1.3)
     rdoc (4.2.2)
       json (~> 1.4)
+    redis (3.3.3)
+    redis-actionpack (5.0.1)
+      actionpack (>= 4.0, < 6)
+      redis-rack (>= 1, < 3)
+      redis-store (>= 1.1.0, < 1.4.0)
+    redis-activesupport (5.0.1)
+      activesupport (>= 3, < 6)
+      redis-store (~> 1.2.0)
+    redis-namespace (1.5.3)
+      redis (~> 3.0, >= 3.0.4)
+    redis-rack (1.6.0)
+      rack (~> 1.5)
+      redis-store (~> 1.2.0)
+    redis-rack-cache (2.0.0)
+      rack-cache (~> 1.6.0)
+      redis-store (~> 1.2.0.pre)
+    redis-rails (5.0.1)
+      redis-actionpack (~> 5.0.0)
+      redis-activesupport (~> 5.0.0)
+      redis-store (~> 1.2.0)
+    redis-store (1.2.0)
+      redis (>= 2.2)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
     sass (3.4.21)
@@ -254,6 +278,10 @@ DEPENDENCIES
   pry
   rack-mini-profiler
   rails (~> 4.2, >= 4.2.5.2)
+  redis
+  redis-namespace
+  redis-rack-cache
+  redis-rails
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring

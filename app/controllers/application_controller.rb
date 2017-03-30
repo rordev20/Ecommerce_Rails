@@ -37,4 +37,9 @@ class ApplicationController < ActionController::Base
     create_cart_data
     @sub_total = Cart.get_cart_total(@cart_data)
   end
+
+  # This method get list of category
+  def get_category_list
+    @categories = Category.get_categories_sub_categories_list
+  end
 end

@@ -26,6 +26,10 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
 gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
 gem "just-datetime-picker"
+gem 'redis'
+gem 'redis-namespace'
+gem 'redis-rails'
+gem 'redis-rack-cache'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
