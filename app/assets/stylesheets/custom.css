@@ -1,3 +1,7 @@
 div.hidden {
   display: none;
 }
+
+div.search {
+  margin: 14px 5px 5px 20px;
+}
