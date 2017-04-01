@@ -1,3 +1,5 @@
 <% if @cart.try(:product_in_cart).to_i != 0 %>
-  <%= link_to @cart.product_in_cart, @cart %>
+  <%= link_to @cart do %>
+    <i class="fa fa-shopping-cart" aria-hidden="true"><%= @cart.product_in_cart %></i>
+  <% end %>
 <% end %>
