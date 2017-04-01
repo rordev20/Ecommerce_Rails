@@ -39,3 +39,6 @@ en:
     warning: "warning"
     info: "info"
     danger: "danger"
+  transaction_type:
+    credit: "credit"
+    debit: "debit"

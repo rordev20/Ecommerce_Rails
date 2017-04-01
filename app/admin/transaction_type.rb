@@ -1,0 +1,5 @@
+ActiveAdmin.register TransactionType do
+  
+  permit_params :name, :is_active, :deleted_at
+
+end

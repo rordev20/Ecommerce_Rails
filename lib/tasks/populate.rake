@@ -48,6 +48,10 @@ namespace :populate_data do
     Coupon.create!(name: 'percentage30', limit: 15, start_date: Date.today, end_date: Date.today+30, code: 'percentage30', coupon_type: CouponType.last, percent_off: 30, discount_type: DiscountType.last)
     AddressType.where(name: 'billing_address').first_or_create
     AddressType.where(name: 'shipping_address').first_or_create
+    Event.create!(name: 'order_placed', is_active: true)
+    Event.create!(name: 'by_admin', is_active: true)
+    TransactionType.create!(name: 'Debit', is_active: true)
+    TransactionType.create!(name: 'Credit', is_active: true)
   end
 
   desc "system constant"

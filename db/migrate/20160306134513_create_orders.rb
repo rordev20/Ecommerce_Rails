@@ -14,6 +14,7 @@ class CreateOrders < ActiveRecord::Migration
       t.references :payment_method, index: true, foreign_key: true
       t.text :notes
       t.float :discount
+      t.float :brownie_point
       t.float :market_rate
       t.integer :billing_address_id
       t.integer :shipping_address_id

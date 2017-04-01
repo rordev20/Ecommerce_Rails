@@ -21,6 +21,7 @@ class CreateProducts < ActiveRecord::Migration
       t.integer :discount_percent
       t.float :discount_amount
       t.boolean :in_stock
+      t.string :slug
       t.boolean :is_active
       t.datetime :deleted_at
 
@@ -29,5 +30,6 @@ class CreateProducts < ActiveRecord::Migration
     add_index :products, :name
     add_index :products, :sell_price
     add_index :products, :color
+    add_index :products, :slug, unique: true
   end
 end

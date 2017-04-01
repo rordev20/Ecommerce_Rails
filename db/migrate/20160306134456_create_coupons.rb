@@ -9,7 +9,7 @@ class CreateCoupons < ActiveRecord::Migration
       t.references :coupon_type, index: true, foreign_key: true
       t.float :percent_off
       t.float :flat_off
-      t.float :minimum_amount
+      t.float :minimum_amount, default: 0
       t.references :discount_type, index: true, foreign_key: true
       t.integer :use_count, default: 0
       t.integer :maximum_discount, default: 0

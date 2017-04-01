@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170331133557) do
+ActiveRecord::Schema.define(version: 20170331174459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,22 @@ ActiveRecord::Schema.define(version: 20170331133557) do
 
   add_index "bank_accounts", ["vendor_id"], name: "index_bank_accounts_on_vendor_id", using: :btree
 
+  create_table "brownie_point_transactions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "order_id"
+    t.float    "points"
+    t.integer  "event_id"
+    t.integer  "transaction_type_id"
+    t.text     "comment"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "brownie_point_transactions", ["event_id"], name: "index_brownie_point_transactions_on_event_id", using: :btree
+  add_index "brownie_point_transactions", ["order_id"], name: "index_brownie_point_transactions_on_order_id", using: :btree
+  add_index "brownie_point_transactions", ["transaction_type_id"], name: "index_brownie_point_transactions_on_transaction_type_id", using: :btree
+  add_index "brownie_point_transactions", ["user_id"], name: "index_brownie_point_transactions_on_user_id", using: :btree
+
   create_table "cart_items", force: :cascade do |t|
     t.integer  "cart_id"
     t.integer  "product_id"
@@ -102,10 +118,11 @@ ActiveRecord::Schema.define(version: 20170331133557) do
     t.integer  "user_id"
     t.string   "email"
     t.integer  "coupon_id"
+    t.boolean  "use_brownie_point"
     t.boolean  "is_active"
     t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   add_index "carts", ["coupon_id"], name: "index_carts_on_coupon_id", using: :btree
@@ -115,6 +132,7 @@ ActiveRecord::Schema.define(version: 20170331133557) do
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
+    t.string   "slug"
     t.boolean  "is_active"
     t.datetime "deleted_at"
     t.datetime "created_at",  null: false
@@ -122,6 +140,7 @@ ActiveRecord::Schema.define(version: 20170331133557) do
   end
 
   add_index "categories", ["name"], name: "index_categories_on_name", using: :btree
+  add_index "categories", ["slug"], name: "index_categories_on_slug", unique: true, using: :btree
 
   create_table "countries", force: :cascade do |t|
     t.string   "name"
@@ -152,7 +171,7 @@ ActiveRecord::Schema.define(version: 20170331133557) do
     t.integer  "coupon_type_id"
     t.float    "percent_off"
     t.float    "flat_off"
-    t.float    "minimum_amount"
+    t.float    "minimum_amount",               default: 0.0
     t.integer  "discount_type_id"
     t.integer  "use_count",                    default: 0
     t.integer  "maximum_discount",             default: 0
@@ -164,8 +183,8 @@ ActiveRecord::Schema.define(version: 20170331133557) do
     t.text     "product_ids"
     t.boolean  "is_active"
     t.datetime "deleted_at"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
   end
 
   add_index "coupons", ["code"], name: "index_coupons_on_code", using: :btree
@@ -191,6 +210,17 @@ ActiveRecord::Schema.define(version: 20170331133557) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "events", force: :cascade do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.boolean  "is_active"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "events", ["slug"], name: "index_events_on_slug", unique: true, using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -249,6 +279,7 @@ ActiveRecord::Schema.define(version: 20170331133557) do
     t.integer  "payment_method_id"
     t.text     "notes"
     t.float    "discount"
+    t.float    "brownie_point"
     t.float    "market_rate"
     t.integer  "billing_address_id"
     t.integer  "shipping_address_id"
@@ -361,6 +392,7 @@ ActiveRecord::Schema.define(version: 20170331133557) do
     t.string   "name"
     t.text     "description"
     t.integer  "category_id"
+    t.string   "slug"
     t.boolean  "is_active"
     t.datetime "deleted_at"
     t.datetime "created_at",  null: false
@@ -369,6 +401,7 @@ ActiveRecord::Schema.define(version: 20170331133557) do
 
   add_index "sub_categories", ["category_id"], name: "index_sub_categories_on_category_id", using: :btree
   add_index "sub_categories", ["name"], name: "index_sub_categories_on_name", using: :btree
+  add_index "sub_categories", ["slug"], name: "index_sub_categories_on_slug", unique: true, using: :btree
 
   create_table "system_constants", force: :cascade do |t|
     t.string   "name"
@@ -382,15 +415,29 @@ ActiveRecord::Schema.define(version: 20170331133557) do
 
   add_index "system_constants", ["name"], name: "index_system_constants_on_name", using: :btree
 
+  create_table "transaction_types", force: :cascade do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.boolean  "is_active"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "transaction_types", ["slug"], name: "index_transaction_types_on_slug", unique: true, using: :btree
+
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.float    "brownie_point",          default: 0.0
+    t.boolean  "is_active"
+    t.datetime "deleted_at"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "email",                  default: "",  null: false
+    t.string   "encrypted_password",     default: "",  null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,   null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
@@ -452,6 +499,10 @@ ActiveRecord::Schema.define(version: 20170331133557) do
   add_foreign_key "addresses", "users"
   add_foreign_key "addresses", "vendors"
   add_foreign_key "bank_accounts", "vendors"
+  add_foreign_key "brownie_point_transactions", "events"
+  add_foreign_key "brownie_point_transactions", "orders"
+  add_foreign_key "brownie_point_transactions", "transaction_types"
+  add_foreign_key "brownie_point_transactions", "users"
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "orders"
   add_foreign_key "cart_items", "products"

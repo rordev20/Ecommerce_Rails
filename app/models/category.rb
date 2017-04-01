@@ -2,6 +2,8 @@ class Category < ActiveRecord::Base
   has_many :sub_categories
   has_one :image
   scope :active, -> {where(is_active: true)}
+  extend FriendlyId
+  friendly_id :name, use: [:slugged, :finders]
 
   # This method return category and sub category list
   def self.get_categories_sub_categories_list
