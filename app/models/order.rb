@@ -6,6 +6,7 @@ class Order < ActiveRecord::Base
   belongs_to :billing_address, foreign_key: :billing_address_id, class_name: 'Address'
   belongs_to :shipping_address, foreign_key: :shipping_address_id, class_name: 'Address'
   has_many :cart_items
+  after_save :update_user_wallet
 
   # This method set user billing and shipping address
   def set_address(bill_address_same_as_ship, order_address_hash)
@@ -34,5 +35,12 @@ class Order < ActiveRecord::Base
     end
     grand_total = Cart.get_cart_total(cart_data)
     current_user.orders.new({total: total, grand_total: grand_total, discount: discount, brownie_point: brownie_point_used, cashback: cashback, cart: cart})
+  end
+
+  # This method set user wallet after order creation
+  def update_user_wallet
+    user = self.user
+    user.brownie_point -= self.brownie_point
+    user.save!
   end
 end
