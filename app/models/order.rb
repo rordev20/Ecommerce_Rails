@@ -26,9 +26,12 @@ class Order < ActiveRecord::Base
     if coupon
       cart_data = coupon.get_cart_data_for_coupon(cart_data, cart)
       discount_type = coupon.is_cashback_coupon? ? Coupon.get_offer_type[:cashback] : Coupon.get_offer_type[:discount_amount]
+    end
+    if coupon && coupon.is_cashback_coupon?
+      cashback = Cart.get_discount(cart_data, discount_type)
+    elsif coupon
       discount = Cart.get_discount(cart_data, discount_type)
     end
-    cashback = Cart.get_discount(cart_data, discount_type) if coupon && coupon.is_cashback_coupon?
     if current_user.is_using_brownie_point?(cart)
       cart_data = current_user.get_cart_data_for_brownie_point(cart, cart_data)
       brownie_point_used = Cart.get_discount(cart_data, 'brownie_point_used')
