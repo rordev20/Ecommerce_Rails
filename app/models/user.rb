@@ -25,4 +25,25 @@ class User < ActiveRecord::Base
       {bill_address: billing_address, ship_address: shipping_address}
     end
   end
+
+  # This method check if user have brownie point and using it
+  def is_using_brownie_point?(cart)
+    cart.use_brownie_point && self.brownie_point > 0
+  end
+
+  # This method distribute user_brownie points
+  def get_cart_data_for_brownie_point(cart, cart_data)
+    array_of_hash_after_brownie_point_used = []
+    user_brownie_point = self.brownie_point
+    sorted_cart_data = Cart.get_cart_data_sort_by_price(cart_data)
+    sorted_cart_data.each do |cart_item|
+      brownie_point_used = user_brownie_point > cart_item[:net_amount] ? cart_item[:net_amount] : user_brownie_point
+      user_brownie_point = user_brownie_point - brownie_point_used
+      net_amount = cart_item[:net_amount] - brownie_point_used
+      cart_item[:net_amount] = net_amount
+      cart_item[:brownie_point_used] = brownie_point_used
+      array_of_hash_after_brownie_point_used << cart_item
+    end
+    {cart.id => array_of_hash_after_brownie_point_used}
+  end
 end

@@ -11,11 +11,25 @@ var CartUtil = {
       that.val(1);
       element.addClass('hidden');
     }
+  },
+  // This method toggle for brown point usage
+  browniePointToggle: function(){
+    var using_brownie_point = $('#using_brownie_points').val();
+    $.ajax({
+      method: "POST",
+      url: "/coupons/apply",
+      data: { using_brownie_point: using_brownie_point },
+      dataType: "script"
+    });
   }
 }
 
 $(document).on("click", "#same_address", function(event) {
   CartUtil.showShipAddress($(this));
+});
+
+$(document).on("click", "#using_brownie_points", function(event) {
+  CartUtil.browniePointToggle();
 });
 
 $(document).ready(function () {

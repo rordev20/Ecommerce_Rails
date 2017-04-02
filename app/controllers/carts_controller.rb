@@ -16,7 +16,8 @@ class CartsController < ApplicationController
       @discount = Cart.get_discount(@cart_data, discount_type)
     end
     @discount ||= 0
-    @grand_total = Cart.get_grand_total(@sub_total, @discount)
+    @cart_data = current_user.get_cart_data_for_brownie_point(@cart, @cart_data) if current_user.is_using_brownie_point?(@cart)
+    @grand_total = Cart.get_cart_total(@cart_data)
   end
 
 end

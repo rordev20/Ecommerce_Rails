@@ -53,4 +53,15 @@ class Cart < ActiveRecord::Base
   def self.get_grand_total(sub_total, discount)
     sub_total - discount
   end
+
+  # This method set brownie point usage
+  def set_brownie_point_usage(use_brownie_point)
+    if use_brownie_point == "true"
+      self.use_brownie_point = false
+    else
+      self.use_brownie_point = true
+    end
+    self.save!
+    self
+  end
 end

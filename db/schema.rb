@@ -118,11 +118,11 @@ ActiveRecord::Schema.define(version: 20170331174459) do
     t.integer  "user_id"
     t.string   "email"
     t.integer  "coupon_id"
-    t.boolean  "use_brownie_point"
+    t.boolean  "use_brownie_point", default: true
     t.boolean  "is_active"
     t.datetime "deleted_at"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   add_index "carts", ["coupon_id"], name: "index_carts_on_coupon_id", using: :btree

@@ -1,0 +1,11 @@
+<div class="col-md-6"><strong>Wallet Points</strong></div>
+<% if current_user.is_using_brownie_point?(cart) %>
+  <%= check_box_tag 'using_brownie_points', true, true %>
+  <div class="col-md-6" id="shipping"><%= current_user.brownie_point %></div>
+<% else %>
+  <%= check_box_tag 'using_brownie_points', false, false %> 
+  <div class="col-md-6" id="shipping"><%= current_user.brownie_point %></div>
+<% end %>
+
+
+

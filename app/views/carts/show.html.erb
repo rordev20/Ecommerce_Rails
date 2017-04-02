@@ -41,6 +41,10 @@
             <div class="col-md-6" id="shipping">0</div>
           </div>
           <hr/>
+          <div class="row" id="brownie_point">
+            <%= render partial: 'brownie_point', locals: {current_user: current_user, cart: @cart} %>
+          </div>
+          <hr/>
           <div class="row">
             <div class="col-md-6"><strong>Grand Total</strong></div>
              <div class="col-md-6" id="grand_total">$<%= @grand_total %></div>
