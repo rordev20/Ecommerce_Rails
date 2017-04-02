@@ -4,6 +4,7 @@ class OrdersController < ApplicationController
 
   # new order page
   def new
+    @order = Order.build_order_params(@cart_data, @cart, current_user)
     @countries = Country.list_of_countries
     @states = State.active
     @cart_items = @cart.items_in_cart
@@ -12,9 +13,7 @@ class OrdersController < ApplicationController
 
   # create order
   def create
-    order = current_user.orders.new
-    order.total = Cart.get_cart_total(@cart_data)
-    order.cart_id = @cart.id
+    order = Order.build_order_params(@cart_data, @cart, current_user)
     bill_address_same_as_ship = Address.address_billing_same_as_shipping?(params[:same_address])
     order_address_hash = current_user.save_user_address(bill_address_same_as_ship, build_bill_address_params, build_ship_address_params)
     order.set_address(bill_address_same_as_ship, order_address_hash)
@@ -25,6 +24,7 @@ class OrdersController < ApplicationController
     redirect_to confirm_order_path(order_id: order.id)
   end
 
+  # This method show confirm order page
   def confirm_order
     @order = current_user.orders.find(params[:order_id])
   end

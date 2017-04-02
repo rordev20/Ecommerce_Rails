@@ -24,6 +24,12 @@ en:
   cart:
     added: "Item successfully added to cart"
     removed: "Item successfully removed from cart"
+    total: "Total"
+    shipping: "Shipping"
+    grand_total: "Grand Total"
+    discount: "Discount"
+    cashback: "Cashback"
+    brownie_point: "Brownie Point"
   coupon:
     not_found: "Invalid Coupon Code"
     applied: "Coupon applied successfully"

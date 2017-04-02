@@ -3,10 +3,12 @@ class CouponsController < ApplicationController
 
   # This method apply coupon
   def apply
+    @coupon = @cart.coupon
     if params.has_key?(:using_brownie_point)
       @cart = @cart.set_brownie_point_usage(params[:using_brownie_point])
-    elsif params.has_key?(:coupon)
-      @coupon = Coupon.find_by_code(params[:coupon])
+    end
+    if params.has_key?(:coupon) || @coupon
+      @coupon ||= Coupon.find_by_code(params[:coupon])
       if @coupon && @coupon.is_applicable?(@cart_data)
         @cart_data = @coupon.get_cart_data_for_coupon(@cart_data, @cart)
         @coupon.use_count += 1

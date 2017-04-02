@@ -36,6 +36,42 @@
             <td><%= cart_item.cart_item_total %></td>
           </tr>
         <% end %>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><%= t('cart.discount') %></td>
+          <td><%= @order.discount %></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><%= t('cart.cashback') %></td>
+          <td><%= @order.cashback %></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><%= t('cart.brownie_point') %></td>
+          <td><%= @order.brownie_point %></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><%= t('cart.total') %></td>
+          <td><%= @order.total %></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><%= t('cart.shipping') %></td>
+          <td><%= @order.shipping %></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><strong><%= t('cart.grand_total') %></strong></td>
+          <td><strong><%= @order.grand_total %></strong></td>
+        </tr>
       </tbody>
     </table>
   </div>

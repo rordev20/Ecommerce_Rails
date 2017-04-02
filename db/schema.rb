@@ -268,10 +268,10 @@ ActiveRecord::Schema.define(version: 20170331174459) do
   create_table "orders", force: :cascade do |t|
     t.integer  "user_id"
     t.float    "total"
+    t.float    "grand_total"
     t.float    "shipping"
     t.integer  "order_status_id"
     t.string   "number"
-    t.integer  "coupon_id"
     t.integer  "payment_status_id"
     t.float    "cod_charge"
     t.integer  "cart_id"
@@ -279,6 +279,7 @@ ActiveRecord::Schema.define(version: 20170331174459) do
     t.integer  "payment_method_id"
     t.text     "notes"
     t.float    "discount"
+    t.float    "cashback"
     t.float    "brownie_point"
     t.float    "market_rate"
     t.integer  "billing_address_id"
@@ -290,7 +291,6 @@ ActiveRecord::Schema.define(version: 20170331174459) do
   end
 
   add_index "orders", ["cart_id"], name: "index_orders_on_cart_id", using: :btree
-  add_index "orders", ["coupon_id"], name: "index_orders_on_coupon_id", using: :btree
   add_index "orders", ["number"], name: "index_orders_on_number", using: :btree
   add_index "orders", ["order_status_id"], name: "index_orders_on_order_status_id", using: :btree
   add_index "orders", ["payment_method_id"], name: "index_orders_on_payment_method_id", using: :btree
@@ -518,7 +518,6 @@ ActiveRecord::Schema.define(version: 20170331174459) do
   add_foreign_key "images", "users"
   add_foreign_key "images", "vendors"
   add_foreign_key "orders", "carts"
-  add_foreign_key "orders", "coupons"
   add_foreign_key "orders", "order_statuses"
   add_foreign_key "orders", "payment_methods"
   add_foreign_key "orders", "payment_statuses"
