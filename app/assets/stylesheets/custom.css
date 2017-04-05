@@ -5,3 +5,9 @@ div.hidden {
 div.search {
   margin: 14px 5px 5px 20px;
 }
+
+/*set a border on the images to prevent shifting*/
+#image_gallery img{border:2px solid white;}
+
+ /*Change the colour*/
+.active img{border:2px solid #333 !important;}
