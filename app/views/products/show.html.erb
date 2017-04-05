@@ -6,20 +6,13 @@
         <div class="ibox-content">
           <div class="row">
             <div class="col-md-5">
-              <img id="cover_image" src="<%=@product_images.first.avatar.url(:medium)%>" data-zoom-image="<%= @product_images.first.avatar.url%>"/>
-              <div id="image_gallery">
-                <% @product_images.each do |image, index| %>
-                  <a href="#" data-image="<%= image.avatar.url(:medium)%>" data-zoom-image="<%= image.avatar.url%>">
-                    <img id='<%= "img_#{index}" %>' src="<%= image.avatar.url(:thumb)%>" />
-                  </a>
-                <% end %>
-              </div>
+              <%= render partial: "product_images", locals: { product_image: @product_images } %>
             </div>
             <div class="col-md-7">
               <h2 class="font-bold m-b-xs">
-                Desktop publishing software
+                <%= @product.name %>
               </h2>
-              <small>Many desktop publishing packages and web page editors now.</small>
+              <small><%= @product.description %></small>
               <hr>
               <div>
                 <%= form_for @cart_item, remote: true do |f| %>

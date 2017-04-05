@@ -1,0 +1,8 @@
+<img id="cover_image" src="<%= product_image.first.avatar.url(:medium) %>" data-zoom-image="<%= product_image.first.avatar.url %>"/>
+<div id="image_gallery">
+  <% product_image.each do |image, index| %>
+    <a href="#" data-image="<%= image.avatar.url(:medium) %>" data-zoom-image="<%= image.avatar.url %>">
+      <img id='<%= "img_#{index}" %>' src="<%= image.avatar.url(:thumb) %>" />
+    </a>
+  <% end %>
+</div>
