@@ -6,7 +6,11 @@ class ProductsController < ApplicationController
   # This method show product listing
   def index
     @item_per_row = 4
-    @products = Product.active
+    if params.present?
+      @products = Product.active.search(params)
+    else
+      @products = Product.active
+    end
     @cart_item = @cart.cart_items.new
   end
 
