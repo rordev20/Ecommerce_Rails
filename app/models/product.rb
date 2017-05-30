@@ -1,6 +1,7 @@
 class Product < ActiveRecord::Base
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
+  # Elastic search module commented
+  #include Tire::Model::Search
+  #include Tire::Model::Callbacks
   belongs_to :vendor
   belongs_to :sub_category
   has_many :images
@@ -12,9 +13,9 @@ class Product < ActiveRecord::Base
   friendly_id :name, use: [:slugged, :finders]
 
   def self.search(params)
-    tire.search(load: true)  do
-      query { string params[:query] } if params[:query].present?
-    end
+    #tire.search(load: true)  do
+      #query { string params[:query] } if params[:query].present?
+    #end
   end
 
   def to_indexed_json
