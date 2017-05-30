@@ -6,7 +6,7 @@
           <div class="ibox-content product-box">
             <div class="product-imitation">
               <%= link_to product do %>
-                <%= image_tag Image.get_product_page_image(product.images).first.avatar.url(:medium), alt: 'Icon' %>
+                <%= product_image(product.images, 'medium') %>
               <% end %>
             </div>
             <div class="product-desc">
