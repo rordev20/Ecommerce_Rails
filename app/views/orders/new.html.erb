@@ -1,4 +1,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
+  <% flash.each do |name, msg| %>
+    <%= render partial: "shared/alert_msg", locals: {msg: msg, msg_type: t('message_type.danger')} %>
+  <% end %>
   <%= form_tag orders_path, :class=> "form-horizontal" do %>
     <div class="row">
       <div class="col-lg-6">

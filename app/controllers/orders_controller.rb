@@ -13,13 +13,22 @@ class OrdersController < ApplicationController
 
   # create order
   def create
-    order = Order.build_order_params(@cart_data, @cart, current_user)
-    bill_address_same_as_ship = Address.address_billing_same_as_shipping?(params[:same_address])
-    order_address_hash = current_user.save_user_address(bill_address_same_as_ship, build_bill_address_params, build_ship_address_params)
-    order.set_address(bill_address_same_as_ship, order_address_hash)
-    order.payment_method_id = params[:payment_method]
-    if order.save!
-      clear_sessions
+    begin
+      order = Order.build_order_params(@cart_data, @cart, current_user)
+      bill_address_same_as_ship = Address.address_billing_same_as_shipping?(params[:same_address])
+      order_address_hash = current_user.save_user_address(bill_address_same_as_ship, build_bill_address_params, build_ship_address_params)
+      order.set_address(bill_address_same_as_ship, order_address_hash)
+      order.payment_method_id = params[:payment_method]
+      if order.save!
+        clear_sessions
+      end
+    rescue ActiveRecord::RecordInvalid => e
+      logger.info e.message
+      logger.info e.backtrace
+      respond_to do |format|
+        format.js { flash[:alert] = e.message }
+        format.html {redirect_to new_order_path, alert: e.message and return}
+      end
     end
     redirect_to confirm_order_path(order_id: order.id)
   end

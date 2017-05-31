@@ -1,5 +1,6 @@
 <%= render "shared/category_list" %>
 <div class="wrapper wrapper-content animated fadeInRight">
+  <div id='messages'></div>
   <%= render partial: 'product_list', locals: {products: @products, cart_item: @cart_item, item_per_row: @item_per_row} %>
 </div>
 
