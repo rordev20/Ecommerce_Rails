@@ -26,7 +26,8 @@ class OrdersController < ApplicationController
 
   # This method show confirm order page
   def confirm_order
-    @order = current_user.orders.find(params[:order_id])
+    @order = current_user.orders.includes(shipping_address: [:state, :country]).where(id: params[:order_id]).first
+    @cart_items = @order.cart.cart_items
   end
 
   private
