@@ -5,7 +5,17 @@ class Order < ActiveRecord::Base
   belongs_to :payment_status
   belongs_to :billing_address, foreign_key: :billing_address_id, class_name: 'Address'
   belongs_to :shipping_address, foreign_key: :shipping_address_id, class_name: 'Address'
+  belongs_to :payment_method
   has_many :cart_items
+
+  validates :cart, presence: true
+  validates :user, presence: true
+  validates :billing_address, presence: true
+  validates :shipping_address, presence: true
+  validates :total, presence: true
+  validates :grand_total, presence: true
+  validates :payment_method, presence: true
+
   after_save :update_user_wallet
 
   # This method set user billing and shipping address
