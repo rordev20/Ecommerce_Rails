@@ -11,6 +11,11 @@ div.search {
 
  /*Change the colour*/
 .active img{border:2px solid #333 !important;}
+
 .align-right {
   text-align: right;
+}
+
+.touch-spin-custom-width {
+	width: 45%;
 }
