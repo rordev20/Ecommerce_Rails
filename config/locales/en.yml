@@ -48,3 +48,6 @@ en:
   transaction_type:
     credit: "credit"
     debit: "debit"
+  cart_item:
+    added: "Quantity increased successfully"
+    decreased: "Quantity decreased successfully"

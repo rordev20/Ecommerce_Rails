@@ -21,7 +21,29 @@ var CartUtil = {
       data: { using_brownie_point: using_brownie_point },
       dataType: "script"
     });
+  },
+  increaseQuantity: function(data){
+    var item_id = CartUtil.getItemIDFromData(data)
+    var url = '/cart_items/' + item_id + '/increase_quantity';
+    $.ajax({
+      method: "POST",
+      url: url,
+      dataType: "script"
+    });
+  },
+  decreaseQuantity: function(data){
+    var item_id = CartUtil.getItemIDFromData(data)
+    var url = '/cart_items/' + item_id + '/decrease_quantity';
+    $.ajax({
+      method: "POST",
+      url: url,
+      dataType: "script"
+    });
+  },
+  getItemIDFromData: function(data){
+    return data.parent().siblings('input[name=item_count]').data('item-id');
   }
+
 }
 
 $(document).on("click", "#same_address", function(event) {
@@ -30,6 +52,14 @@ $(document).on("click", "#same_address", function(event) {
 
 $(document).on("click", "#using_brownie_points", function(event) {
   CartUtil.browniePointToggle();
+});
+
+$(document).on("click", ".bootstrap-touchspin-up", function(event) {
+  CartUtil.increaseQuantity($(this));
+});
+
+$(document).on("click", ".bootstrap-touchspin-down", function(event) {
+  CartUtil.decreaseQuantity($(this));
 });
 
 $(document).ready(function () {

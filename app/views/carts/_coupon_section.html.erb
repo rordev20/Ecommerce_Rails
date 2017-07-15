@@ -1,7 +1,7 @@
 <% if coupon %>
   <div class="row">
     <div class="col-md-6"><strong><%= coupon.name %></strong></div>
-    <div class="col-md-6" id="total"><%= link_to "Cancel Coupon", cancel_coupon_path, :remote=> true , :method=> :post %></div>
+    <div class="col-md-6" id="cancel_coupon"><%= link_to "Cancel Coupon", cancel_coupon_path, :remote=> true , :method=> :post %></div>
   </div>
 <% else %>
   <%= form_tag apply_coupon_path, :class=> "form-inline", remote: true do %>

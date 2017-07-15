@@ -3,7 +3,6 @@
 <% else %>
   $('#discount').html("<%= @discount %>")
 <% end %>
-$('#discount_section').remove();
-$('#total_section').next('hr').remove();
-$('#grand_total').html("<%= @grand_total %>")
+CouponUtil.removeDiscountSection();
+$('#grand_total').html("<%= @grand_total %>");
 $("#coupon_section").html("<%= escape_javascript(render(partial: "carts/coupon_section", locals: {coupon: nil})) %>")
