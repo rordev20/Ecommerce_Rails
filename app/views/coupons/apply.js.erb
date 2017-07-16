@@ -14,4 +14,9 @@
   <% end %>
   $('#total').html("<%= @sub_total %>")
   $('#grand_total').html("<%= @grand_total %>")
+
+  <% if quantity_changed?(params) %>
+    $(".cart-text").html("<%= escape_javascript(render 'layouts/cart_text') %>")
+    CartUtil.setItemQtyAndItemTotal('<%= CartItem.get_cart_item_qty_and_total_hash(@cart_items) %>')
+  <% end %>
 <% end %>
