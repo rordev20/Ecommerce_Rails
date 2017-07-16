@@ -17,5 +17,6 @@
  *= require style
  *= require toastr.min
  *= require custom
+ *= require icheck
  *= require jquery.bootstrap-touchspin.min
  */

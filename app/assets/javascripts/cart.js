@@ -14,7 +14,7 @@ var CartUtil = {
   },
   // This method toggle for brown point usage
   browniePointToggle: function(){
-    var using_brownie_point = $('#using_brownie_points').val();
+    var using_brownie_point = $('input.i-checks').prop('checked');
     $.ajax({
       method: "POST",
       url: "/coupons/apply",
@@ -69,7 +69,7 @@ $(document).on("click", "#same_address", function(event) {
   CartUtil.showShipAddress($(this));
 });
 
-$(document).on("click", "#using_brownie_points", function(event) {
+$(document).on("ifClicked", ".icheckbox_square-green", function(event) {
   CartUtil.browniePointToggle();
 });
 

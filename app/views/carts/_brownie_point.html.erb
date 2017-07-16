@@ -1,11 +1,18 @@
-<div class="col-md-6"><strong>Wallet Points</strong></div>
+<div class="icheckbox_square-green wallet-point-container">
+  <% if current_user.is_using_brownie_point?(cart) %>
+    <input type="checkbox" value="true" name="wallet_point" class="i-checks" checked>
+  <% else %>
+    <input type="checkbox" value="false" name="wallet_point" class="i-checks">
+  <% end %>
+</div>
+<span class="wallet-point-text"><strong>Wallet Points: </strong><%= current_user.brownie_point %></span>
 <% if current_user.is_using_brownie_point?(cart) %>
-  <%= check_box_tag 'using_brownie_points', true, true %>
-  <div class="col-md-6" id="shipping"><%= current_user.brownie_point %></div>
-<% else %>
-  <%= check_box_tag 'using_brownie_points', false, false %> 
-  <div class="col-md-6" id="shipping"><%= current_user.brownie_point %></div>
+  <span class="wallet-point-value">-<%= Cart.get_wallet_used(@cart_data) %></span>
 <% end %>
 
-
-
+<script>
+  $('.i-checks').iCheck({
+      checkboxClass: 'icheckbox_square-green',
+      radioClass: 'iradio_square-green'
+  });
+</script>

@@ -19,3 +19,15 @@ div.search {
 .touch-spin-custom-width {
 	width: 45%;
 }
+
+.wallet-point-container {
+  margin-left: 4% !important;
+}
+
+.wallet-point-text {
+	margin-left: 1%;
+}
+
+.wallet-point-value {
+	margin-left: 6%;
+}

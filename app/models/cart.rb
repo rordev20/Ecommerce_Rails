@@ -64,4 +64,10 @@ class Cart < ActiveRecord::Base
     self.save!
     self
   end
+
+    # This method return cart net total amount
+  def self.get_wallet_used(cart_data)
+    cart_items = Cart.get_items_from_cart_data(cart_data)
+    cart_items.inject(0) {|sum, cart_item| sum + cart_item[:brownie_point_used].to_i}
+  end
 end
