@@ -1,12 +1,12 @@
 class Cart < ActiveRecord::Base
   belongs_to :user
-  belongs_to :coupon
+  belongs_to :coupon, -> { includes(:discount_type)}
   has_many :cart_items
   has_many :products, through: :cart_items
 
   # This method return list of cart items in cart
   def items_in_cart
-    self.cart_items.includes(product: :images)
+    self.cart_items.includes(:product)
   end
 
   # Number of product in cart

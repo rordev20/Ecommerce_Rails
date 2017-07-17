@@ -47,6 +47,7 @@ group :development, :test do
   gem 'byebug'
   gem 'pry'
   gem 'rack-mini-profiler'
+  gem 'bullet'
 end
 
 group :development do
