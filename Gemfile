@@ -31,6 +31,7 @@ gem 'redis-namespace'
 gem 'redis-rails'
 gem 'redis-rack-cache'
 gem 'friendly_id', '~> 5.1.0'
+gem 'rails_12factor', group: "production"
 gem 'tire'
 
 # Use ActiveModel has_secure_password
