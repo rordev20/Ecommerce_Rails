@@ -1,6 +1,8 @@
 class Country < ActiveRecord::Base
   has_one :currency_rate
   has_many :states
+  has_many :banner_countries
+  has_many :banners, through: :banner_countries
   scope :active, -> {where(is_active: true)}
 
   # This method return list of active countries

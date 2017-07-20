@@ -7,8 +7,8 @@ ActiveAdmin.register Coupon do
       f.inputs "Coupon" do
         f.input :name
         f.input :code
-        f.input :start_date, :as => :just_datetime_picker
-        f.input :end_date, :as => :just_datetime_picker
+        f.input :start_date, as: :just_datetime_picker
+        f.input :end_date, as: :just_datetime_picker
         f.input :coupon_type
         f.input :discount_type
         f.input :percent_off

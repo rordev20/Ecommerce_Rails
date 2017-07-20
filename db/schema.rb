@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170331174459) do
+ActiveRecord::Schema.define(version: 20170719033454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,48 @@ ActiveRecord::Schema.define(version: 20170331174459) do
   end
 
   add_index "bank_accounts", ["vendor_id"], name: "index_bank_accounts_on_vendor_id", using: :btree
+
+  create_table "banner_countries", force: :cascade do |t|
+    t.integer  "banner_id"
+    t.integer  "country_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "banner_countries", ["banner_id"], name: "index_banner_countries_on_banner_id", using: :btree
+  add_index "banner_countries", ["country_id"], name: "index_banner_countries_on_country_id", using: :btree
+
+  create_table "banner_device_types", force: :cascade do |t|
+    t.integer  "banner_id"
+    t.integer  "device_type_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "banner_device_types", ["banner_id"], name: "index_banner_device_types_on_banner_id", using: :btree
+  add_index "banner_device_types", ["device_type_id"], name: "index_banner_device_types_on_device_type_id", using: :btree
+
+  create_table "banners", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.string   "target_url"
+    t.boolean  "in_new_tab"
+    t.integer  "position"
+    t.boolean  "is_active",          default: false
+    t.datetime "deleted_at"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
+  add_index "banners", ["end_date"], name: "index_banners_on_end_date", using: :btree
+  add_index "banners", ["name"], name: "index_banners_on_name", using: :btree
+  add_index "banners", ["start_date"], name: "index_banners_on_start_date", using: :btree
 
   create_table "brownie_point_transactions", force: :cascade do |t|
     t.integer  "user_id"
@@ -203,6 +245,15 @@ ActiveRecord::Schema.define(version: 20170331174459) do
   end
 
   add_index "currency_rates", ["country_id"], name: "index_currency_rates_on_country_id", using: :btree
+
+  create_table "device_types", force: :cascade do |t|
+    t.string   "name"
+    t.boolean  "is_active",  default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "device_types", ["name"], name: "index_device_types_on_name", using: :btree
 
   create_table "discount_types", force: :cascade do |t|
     t.string   "name"
@@ -395,8 +446,12 @@ ActiveRecord::Schema.define(version: 20170331174459) do
     t.string   "slug"
     t.boolean  "is_active"
     t.datetime "deleted_at"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   add_index "sub_categories", ["category_id"], name: "index_sub_categories_on_category_id", using: :btree
@@ -499,6 +554,10 @@ ActiveRecord::Schema.define(version: 20170331174459) do
   add_foreign_key "addresses", "users"
   add_foreign_key "addresses", "vendors"
   add_foreign_key "bank_accounts", "vendors"
+  add_foreign_key "banner_countries", "banners"
+  add_foreign_key "banner_countries", "countries"
+  add_foreign_key "banner_device_types", "banners"
+  add_foreign_key "banner_device_types", "device_types"
   add_foreign_key "brownie_point_transactions", "events"
   add_foreign_key "brownie_point_transactions", "orders"
   add_foreign_key "brownie_point_transactions", "transaction_types"

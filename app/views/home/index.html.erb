@@ -1,0 +1,3 @@
+<%= render "shared/category_list" %>
+<%= render partial: 'home_page_banner', locals: {banners: @banners} %>
+<%= render partial: 'category_list', locals: {sub_categories: @sub_categories, item_per_row: Category.item_per_row} %>

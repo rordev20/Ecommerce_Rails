@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root :to => 'home#index'
   devise_for :users
   ActiveAdmin.routes(self)
   resources :products, only: [:index, :show]
@@ -11,7 +12,6 @@ Rails.application.routes.draw do
   end
 
   resources :orders, only: [:new, :create]
-  root :to => "products#index"
   get "/orders/:order_id/confirm" => "orders#confirm_order", as: :confirm_order
   match "/coupons/apply" => "coupons#apply", as: :apply_coupon, via: [:get, :post]
   post "/coupons/cancel_coupon" => "coupons#cancel_coupon", as: :cancel_coupon

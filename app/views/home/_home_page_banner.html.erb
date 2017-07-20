@@ -1,0 +1,25 @@
+<div class="ibox-content ">
+  <div class="carousel slide" id="carousel2" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <% banners.each_with_index do |banner, index| %>
+        <li data-slide-to="<%= index.to_s %>" data-target="#carousel2" class="<%= 'active' if index == 0 %>"></li>
+      <% end %>
+    </ol>
+    <div class="carousel-inner">
+      <% banners.each_with_index do |banner, index| %>
+        <div class="<%= index == 0 ? 'item active' : 'item' %>">
+          <%= image_tag(banner.image.url(:original), style: "width:100%;", class: "img-responsive", alt: "#{banner.name}") %>
+          <div class="carousel-caption">
+            <p><%= banner.description %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <a data-slide="prev" href="#carousel2" class="left carousel-control">
+      <span class="icon-prev"></span>
+    </a>
+    <a data-slide="next" href="#carousel2" class="right carousel-control">
+      <span class="icon-next"></span>
+    </a>
+  </div>
+</div>

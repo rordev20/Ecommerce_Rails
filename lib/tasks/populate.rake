@@ -52,6 +52,9 @@ namespace :populate_data do
     Event.create!(name: 'by_admin', is_active: true)
     TransactionType.create!(name: 'Debit', is_active: true)
     TransactionType.create!(name: 'Credit', is_active: true)
+    DeviceType.create!(name: 'ios', is_active: true)
+    DeviceType.create!(name: 'android', is_active: true)
+    DeviceType.create!(name: 'web', is_active: true)
   end
 
   desc "system constant"
