@@ -10,7 +10,7 @@ class SubCategory < ActiveRecord::Base
 
   def self.get_sub_category_list
     Rails.cache.fetch ["sub_categories_list"], expires_in: 24.hours do
-      SubCategory.joins(:category, :products).where('categories.is_active = ? AND sub_categories.is_active = ? AND products.is_active = ?', true, true, true)
+      SubCategory.select("DISTINCT sub_categories.*").joins(:category, :products).where('categories.is_active = ? AND sub_categories.is_active = ? AND products.is_active = ?', true, true, true)
     end
   end
 
