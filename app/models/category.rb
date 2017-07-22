@@ -5,6 +5,7 @@ class Category < ActiveRecord::Base
   friendly_id :name, use: [:slugged, :finders]
   @@item_per_row = 4
   cattr_accessor :item_per_row
+  after_save :expire_cache
 
   # This method return category and sub category list
   def self.get_categories_sub_categories_list

@@ -10,6 +10,19 @@ class Banner < ActiveRecord::Base
                                         :thumb => "100x100>"
                                       }
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
+  after_save :expire_cache
   scope :active, -> {where(is_active: true)}
-                             
+
+
+  def self.home_page_banner
+    Rails.cache.fetch ["home_banners"], expires_in: 24.hours do
+      self.active
+    end
+  end
+
+  private
+
+  def expire_cache
+    Rails.cache.delete('home_banners')
+  end
 end
