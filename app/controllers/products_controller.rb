@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
     #if params.present?
       #@products = Product.active.search(params)
     #else
-      @products = Product.includes(:sub_category).active
+      @products = Product.includes(:sub_category, :images).active
     #end
     @cart_item = @cart.cart_items.new
   end

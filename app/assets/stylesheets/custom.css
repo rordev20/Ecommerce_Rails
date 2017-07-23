@@ -17,7 +17,7 @@ div.search {
 }
 
 .touch-spin-custom-width {
-	width: 45%;
+  width: 45%;
 }
 
 .wallet-point-container {
@@ -25,13 +25,31 @@ div.search {
 }
 
 .wallet-point-text {
-	margin-left: 1%;
+  margin-left: 1%;
 }
 
 .wallet-point-value {
-	margin-left: 6%;
+  margin-left: 6%;
 }
 
 .sub-category-img {
   padding: 0px 0;
+}
+
+.home-page-banner{
+  margin-right: -15px;
+  margin-left: -15px;
+  padding: 0px;
+}
+
+.navbar-bottom {
+  margin-bottom: 0px;
+}
+
+.sub-category-list{
+  margin-top: 20px;
+}
+
+.sidebar-vertical-line {
+  border-right: 1px solid #676a6c;
 }
