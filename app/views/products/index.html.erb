@@ -2,10 +2,10 @@
 <div class="wrapper wrapper-content animated fadeInRight">
   <div id='messages'></div>
   <div class="row">
-    <div class="col-md-2 mycontent-left ">
-      <%= render partial: 'sidebar'%>
+    <div class="col-md-2 sidebar-vertical-line">
+      <%= render partial: 'sidebar', locals: {price_ranges: @price_ranges}%>
     </div>
-    <div class="col-md-10">
+    <div class="col-md-10 product-list">
       <%= render partial: 'product_list', locals: {products: @products, cart_item: @cart_item, item_per_row: @item_per_row} %>
     </div>
   </div>

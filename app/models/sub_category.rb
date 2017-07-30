@@ -1,6 +1,7 @@
 class SubCategory < ActiveRecord::Base
   belongs_to :category
   has_many :products
+  has_many :price_ranges
   has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
   scope :active, -> {where(is_active: true)}
@@ -14,9 +15,17 @@ class SubCategory < ActiveRecord::Base
     end
   end
 
+  def self.get_sub_category(slug)
+    Rails.cache.fetch ["sub_category_#{slug}"], expires_in: 24.hours do
+      SubCategory.find(slug)
+    end
+  end
+
   private
 
   def expire_cache
     Rails.cache.delete('sub_categories_list')
+    Rails.cache.delete_matched("sub_category_*")
+    Rails.cache.delete("price_ranges_#{self.id}")
   end
 end

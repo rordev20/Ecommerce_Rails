@@ -6,11 +6,14 @@ class ProductsController < ApplicationController
   # This method show product listing
   def index
     @item_per_row = 4
-    #if params.present?
+    if params.has_key?(:sub_category)
+      @products = Product.filter(params)
       #@products = Product.active.search(params)
-    #else
-      @products = Product.includes(:sub_category, :images).active
-    #end
+      @price_ranges = PriceRange.get_price_range(params[:sub_category])
+    else
+      @products = Product.get_product_list
+      @price_ranges = PriceRange.all
+    end
     @cart_item = @cart.cart_items.new
   end
 

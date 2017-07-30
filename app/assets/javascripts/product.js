@@ -1,7 +1,11 @@
-var ProductUtil = {}
+var ProductUtil = {
+  submitSearchForm: function(data){
+    $('form#filter_form').submit();
+  }
+}
 
-$(document).ready(function () {
-    //initiate the plugin and pass the id of the div containing gallery images
+$(document).on('ready page:load', function() {
+  //initiate the plugin and pass the id of the div containing gallery images
   $("#cover_image").elevateZoom({gallery:'image_gallery', cursor: 'pointer', galleryActiveClass: 'active'});
 
   //pass the images to Fancybox
@@ -10,4 +14,8 @@ $(document).ready(function () {
     $.fancybox(ez.getGalleryList());
     return false;
   });
+});
+
+$(document).on("click", "input[type=checkbox]", function(event) {
+  ProductUtil.submitSearchForm();
 });
