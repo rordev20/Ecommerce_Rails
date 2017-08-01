@@ -1,0 +1,14 @@
+<h4><strong>Price</strong></h4>
+<ul class="list-unstyled"> 
+  <% price_ranges.each do |price_range| %>
+    <li>
+      <div class="checkbox checkbox-primary">
+        <%= check_box_tag 'price_ranges_ids[]', price_range.id %>
+        <label for="checkbox2"> 
+          <%= price_range.min_price.to_i %> to
+          <%= price_range.max_price.to_i %>
+        </label>
+      </div>
+    </li>
+  <% end %>
+</ul>

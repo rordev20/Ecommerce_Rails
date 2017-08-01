@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170719033454) do
+ActiveRecord::Schema.define(version: 20170801025926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -183,6 +183,25 @@ ActiveRecord::Schema.define(version: 20170719033454) do
 
   add_index "categories", ["name"], name: "index_categories_on_name", using: :btree
   add_index "categories", ["slug"], name: "index_categories_on_slug", unique: true, using: :btree
+
+  create_table "color_sub_categories", force: :cascade do |t|
+    t.integer  "color_id"
+    t.integer  "sub_category_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "color_sub_categories", ["color_id"], name: "index_color_sub_categories_on_color_id", using: :btree
+  add_index "color_sub_categories", ["sub_category_id"], name: "index_color_sub_categories_on_sub_category_id", using: :btree
+
+  create_table "colors", force: :cascade do |t|
+    t.string   "name"
+    t.string   "code"
+    t.boolean  "is_active"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "countries", force: :cascade do |t|
     t.string   "name"
@@ -363,6 +382,18 @@ ActiveRecord::Schema.define(version: 20170719033454) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "price_ranges", force: :cascade do |t|
+    t.float    "min_price"
+    t.float    "max_price"
+    t.integer  "sub_category_id"
+    t.boolean  "is_active"
+    t.datetime "deleted_at"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "price_ranges", ["sub_category_id"], name: "index_price_ranges_on_sub_category_id", using: :btree
 
   create_table "products", force: :cascade do |t|
     t.string   "name"
@@ -568,6 +599,8 @@ ActiveRecord::Schema.define(version: 20170719033454) do
   add_foreign_key "cart_items", "vendor_orders"
   add_foreign_key "carts", "coupons"
   add_foreign_key "carts", "users"
+  add_foreign_key "color_sub_categories", "colors"
+  add_foreign_key "color_sub_categories", "sub_categories"
   add_foreign_key "coupons", "coupon_types"
   add_foreign_key "coupons", "discount_types"
   add_foreign_key "currency_rates", "countries"
@@ -581,6 +614,7 @@ ActiveRecord::Schema.define(version: 20170719033454) do
   add_foreign_key "orders", "payment_methods"
   add_foreign_key "orders", "payment_statuses"
   add_foreign_key "orders", "users"
+  add_foreign_key "price_ranges", "sub_categories"
   add_foreign_key "products", "sub_categories"
   add_foreign_key "products", "vendors"
   add_foreign_key "referreds", "referrers"

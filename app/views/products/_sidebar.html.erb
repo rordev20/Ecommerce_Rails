@@ -1,22 +1,7 @@
 <div class="sidebar">
   <%= form_tag(products_path, method: :get, remote: true, id: 'filter_form') do %>
-    <header>
-      <h4><strong>Price</strong></h4>
-    </header>
-    <ul class="list-unstyled"> 
-      <% price_ranges.each do |price_range| %>
-        <li>
-          <div class="checkbox checkbox-primary">
-            <%= check_box_tag 'price_ranges_ids[]', price_range.id %>
-            <label for="checkbox2"> 
-              <%= price_range.min_price.to_i %> to
-              <%= price_range.max_price.to_i %>
-              <%= hidden_field_tag :sub_category, params[:sub_category] %>
-            </label>
-          </div>
-        </li>
-      <% end %>
-    </ul>
+    <%= hidden_field_tag :sub_category, params[:sub_category] %>
+    <%= render partial: 'shared/price_range_filter', locals: {price_ranges: price_ranges} %>
   <% end %>
 </div>
 
