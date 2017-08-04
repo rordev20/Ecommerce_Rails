@@ -55,6 +55,10 @@ namespace :populate_data do
     DeviceType.create!(name: 'ios', is_active: true)
     DeviceType.create!(name: 'android', is_active: true)
     DeviceType.create!(name: 'web', is_active: true)
+    Color.create!(name: 'red', code: '#FF0000', is_active: true)
+    Color.create!(name: 'yellow', code: '#FFFF00', is_active: true)
+    Color.create!(name: 'green', code: '#00FF00', is_active: true)
+    Color.create!(name: 'blue', code: '#0000FF', is_active: true)
   end
 
   desc "system constant"

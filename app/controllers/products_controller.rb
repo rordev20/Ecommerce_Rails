@@ -10,6 +10,7 @@ class ProductsController < ApplicationController
       @products = Product.filter(params)
       #@products = Product.active.search(params)
       @price_ranges = PriceRange.get_price_range(params[:sub_category])
+      @colors = Color.get_colors(params[:sub_category])
     else
       @products = Product.get_product_list
       @price_ranges = PriceRange.all

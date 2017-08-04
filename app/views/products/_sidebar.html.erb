@@ -2,6 +2,7 @@
   <%= form_tag(products_path, method: :get, remote: true, id: 'filter_form') do %>
     <%= hidden_field_tag :sub_category, params[:sub_category] %>
     <%= render partial: 'shared/price_range_filter', locals: {price_ranges: price_ranges} %>
+    <%= render partial: 'shared/color_filter', locals: {colors: colors} %>
   <% end %>
 </div>
 

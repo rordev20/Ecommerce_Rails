@@ -53,3 +53,14 @@ div.search {
 .sidebar-vertical-line {
   border-right: 1px solid #676a6c;
 }
+
+.sort-filter-menu {
+  padding-bottom: 5%;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) { 
+  .sort-filter-menu {
+    padding-bottom: 15%;
+  }
+}
+

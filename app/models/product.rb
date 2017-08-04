@@ -7,6 +7,7 @@ class Product < ActiveRecord::Base
   has_many :images
   has_many :cart_items
   has_many :carts, through: :cart_items
+  belongs_to :color
   accepts_nested_attributes_for :images, reject_if: proc { |attributes| attributes['avatar'].blank? }, allow_destroy: true
   scope :active, -> {where(is_active: true)}
   extend FriendlyId
@@ -15,7 +16,7 @@ class Product < ActiveRecord::Base
 
   def self.get_product_list
     Rails.cache.fetch ["product_list"], expires_in: 24.hours do
-      self.includes(:sub_category, :images).active
+      self.includes(:sub_category, :images, :color).active
     end
   end
 
@@ -40,13 +41,12 @@ class Product < ActiveRecord::Base
   def self.filter(options = {})
     if options[:sub_category].present?
       sub_category = SubCategory.get_sub_category(options[:sub_category])
-      products = sub_category.products.includes(:images)
+      products = sub_category.products.includes(:images, :color)
     else
       products = self.get_product_list
     end
-    if options[:price_ranges_ids].present?
-      products = products_in_price_range(products, options[:price_ranges_ids])
-    end
+    products = get_products_by_colors(products, options[:color_ids]) if options[:color_ids].present?
+    products = get_products_in_price_range(products, options[:price_ranges_ids]) if options[:price_ranges_ids].present?
     products
   end
 
@@ -65,7 +65,11 @@ class Product < ActiveRecord::Base
     end
   end
 
-  def self.products_in_price_range(products, price_ranges_ids)
+  def self.get_products_by_colors(products, color_ids)
+    products.where('color_id IN (?)', color_ids)
+  end
+
+  def self.get_products_in_price_range(products, price_ranges_ids)
     product_by_range = []
     price_range_lists = PriceRange.get_price_list_by_ids(price_ranges_ids)
     price_range_lists.each do |price_range|

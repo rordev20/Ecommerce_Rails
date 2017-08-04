@@ -1,5 +1,9 @@
 var ProductUtil = {
   submitSearchForm: function(data){
+    var form_data = $('form#filter_form').serialize();
+    var myURL = window.location.href.split('?')[0];
+    var absouteURL = myURL + '?' + form_data;
+    history.pushState('', 'Product Page', absouteURL);
     $('form#filter_form').submit();
   }
 }

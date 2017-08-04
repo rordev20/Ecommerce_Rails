@@ -1,0 +1,13 @@
+<h4><strong>Color</strong></h4>
+<ul class="list-unstyled"> 
+  <% colors.each do |color| %>
+    <li>
+      <div class="checkbox checkbox-primary">
+        <%= check_box_tag 'color_ids[]', color.id, show_checked_filter(params[:color_ids], color) %>
+        <label for="checkbox2"> 
+          <%= color.name %> to
+        </label>
+      </div>
+    </li>
+  <% end %>
+</ul>

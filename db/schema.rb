@@ -197,11 +197,14 @@ ActiveRecord::Schema.define(version: 20170801025926) do
   create_table "colors", force: :cascade do |t|
     t.string   "name"
     t.string   "code"
+    t.string   "slug"
     t.boolean  "is_active"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "colors", ["slug"], name: "index_colors_on_slug", unique: true, using: :btree
 
   create_table "countries", force: :cascade do |t|
     t.string   "name"
@@ -403,8 +406,8 @@ ActiveRecord::Schema.define(version: 20170801025926) do
     t.integer  "purchase_price"
     t.integer  "vendor_id"
     t.integer  "sub_category_id"
+    t.integer  "color_id"
     t.integer  "quantity"
-    t.string   "color"
     t.integer  "domestic_pos"
     t.integer  "international_pos"
     t.text     "specification"
@@ -423,7 +426,7 @@ ActiveRecord::Schema.define(version: 20170801025926) do
     t.datetime "updated_at",        null: false
   end
 
-  add_index "products", ["color"], name: "index_products_on_color", using: :btree
+  add_index "products", ["color_id"], name: "index_products_on_color_id", using: :btree
   add_index "products", ["name"], name: "index_products_on_name", using: :btree
   add_index "products", ["sell_price"], name: "index_products_on_sell_price", using: :btree
   add_index "products", ["slug"], name: "index_products_on_slug", unique: true, using: :btree
@@ -615,6 +618,7 @@ ActiveRecord::Schema.define(version: 20170801025926) do
   add_foreign_key "orders", "payment_statuses"
   add_foreign_key "orders", "users"
   add_foreign_key "price_ranges", "sub_categories"
+  add_foreign_key "products", "colors"
   add_foreign_key "products", "sub_categories"
   add_foreign_key "products", "vendors"
   add_foreign_key "referreds", "referrers"

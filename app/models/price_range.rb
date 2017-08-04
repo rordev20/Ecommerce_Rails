@@ -2,10 +2,11 @@ class PriceRange < ActiveRecord::Base
   belongs_to :sub_category
   scope :active, -> {where(is_active: true)}
   after_save :expire_cache
+
   def self.get_price_range(sub_category_slug)
-    subcategory = SubCategory.get_sub_category(sub_category_slug)
-    Rails.cache.fetch ["price_ranges_by_sub_category_#{subcategory.id}"], expires_in: 24.hours do
-      subcategory.price_ranges.active.select('id, min_price, max_price')
+    sub_category = SubCategory.get_sub_category(sub_category_slug)
+    Rails.cache.fetch ["price_ranges_by_sub_category_#{sub_category.id}"], expires_in: 24.hours do
+      sub_category.price_ranges.active.select('id, min_price, max_price')
     end
   end
 

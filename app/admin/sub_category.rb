@@ -1,6 +1,6 @@
 ActiveAdmin.register SubCategory do
 
-  permit_params :name, :description, :image, :category_id, :color_ids, :is_active, :deleted_at
+  permit_params :name, :description, :image, :category_id, :is_active, :deleted_at, color_ids: []
 
   form do |f|
     f.inputs "Coupon" do

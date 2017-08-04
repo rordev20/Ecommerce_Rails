@@ -8,8 +8,8 @@ class CreateProducts < ActiveRecord::Migration
       t.integer :purchase_price
       t.references :vendor, index: true, foreign_key: true
       t.references :sub_category, index: true, foreign_key: true
+      t.references :color, index: true, foreign_key: true
       t.integer :quantity
-      t.string :color
       t.integer :domestic_pos
       t.integer :international_pos
       t.text :specification
@@ -29,7 +29,6 @@ class CreateProducts < ActiveRecord::Migration
     end
     add_index :products, :name
     add_index :products, :sell_price
-    add_index :products, :color
     add_index :products, :slug, unique: true
   end
 end

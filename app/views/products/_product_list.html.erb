@@ -13,7 +13,7 @@
               <span class="product-price">
                 $<%= product.sell_price %>
               </span>
-              <small class="text-muted"><b><%= product.color %></b></small>
+              <small class="text-muted"><b><%= product.color.name %></b></small>
               <a href="#" class="product-name"><%= link_to product.name, product %></a>
               <div class="small m-t-xs">
                 <%= product.sub_category.name %>

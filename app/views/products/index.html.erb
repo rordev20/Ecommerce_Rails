@@ -3,9 +3,12 @@
   <div id='messages'></div>
   <div class="row">
     <div class="col-md-2 sidebar-vertical-line">
-      <%= render partial: 'sidebar', locals: {price_ranges: @price_ranges}%>
+      <%= render partial: 'sidebar', locals: {price_ranges: @price_ranges, colors: @colors}%>
     </div>
     <div class="col-md-10 product-list">
+      <div class='sort-filter-menu'>
+        <%= render 'filtering_sorting_menu' %>
+      </div>
       <%= render partial: 'product_list', locals: {products: @products, cart_item: @cart_item, item_per_row: @item_per_row} %>
     </div>
   </div>
