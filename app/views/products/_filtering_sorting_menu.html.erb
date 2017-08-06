@@ -1,11 +1,6 @@
-<div class="dropdown pull-right">
-  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" data-hover="dropdown">
-   Sort by: <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu dropdown-menu-right">
-    <li><a href="#">Action</a></li>
-    <li><a href="#">Another action</a></li>
-    <li><a href="#">Something else here</a></li>
-    <li><a href="#">Separated link</a></li>
-  </ul>
+<div class="form-group pull-right">
+  <%= form_tag(products_path, method: :get, remote: true, id: 'sort_by_form') do %>
+    <%= hidden_field_tag :sub_category, params[:sub_category] %>
+    <%= select_tag "sort_by", options_from_collection_for_select(sorting_menus, "slug", "display_name", params[:sort_by]), prompt: "Sort By:", class: 'form-control .text-bold', onchange: "ProductUtil.submitSideBarSearchForm();" %>
+  <% end %>
 </div>

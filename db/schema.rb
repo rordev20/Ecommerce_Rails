@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170801025926) do
+ActiveRecord::Schema.define(version: 20170804201807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -332,6 +332,37 @@ ActiveRecord::Schema.define(version: 20170801025926) do
   add_index "images", ["user_id"], name: "index_images_on_user_id", using: :btree
   add_index "images", ["vendor_id"], name: "index_images_on_vendor_id", using: :btree
 
+  create_table "menu_managers", force: :cascade do |t|
+    t.string   "name"
+    t.string   "display_name"
+    t.string   "slug"
+    t.string   "url"
+    t.boolean  "open_in_new_tab"
+    t.integer  "position"
+    t.integer  "menu_type_id"
+    t.boolean  "sign_in_required"
+    t.boolean  "is_active"
+    t.datetime "deleted_at"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "menu_managers", ["menu_type_id"], name: "index_menu_managers_on_menu_type_id", using: :btree
+  add_index "menu_managers", ["name"], name: "index_menu_managers_on_name", using: :btree
+  add_index "menu_managers", ["slug"], name: "index_menu_managers_on_slug", unique: true, using: :btree
+
+  create_table "menu_types", force: :cascade do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.boolean  "is_active"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "menu_types", ["name"], name: "index_menu_types_on_name", using: :btree
+  add_index "menu_types", ["slug"], name: "index_menu_types_on_slug", unique: true, using: :btree
+
   create_table "order_statuses", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -612,6 +643,7 @@ ActiveRecord::Schema.define(version: 20170801025926) do
   add_foreign_key "images", "sub_categories"
   add_foreign_key "images", "users"
   add_foreign_key "images", "vendors"
+  add_foreign_key "menu_managers", "menu_types"
   add_foreign_key "orders", "carts"
   add_foreign_key "orders", "order_statuses"
   add_foreign_key "orders", "payment_methods"

@@ -1,10 +1,19 @@
 var ProductUtil = {
-  submitSearchForm: function(data){
+  submitSideBarSearchForm: function() {
+    $('#sort_by_field').remove();
+    if ($('#sort_by').val()){
+      $.each( $('#sort_by_form select').serializeArray(), function ( i, obj ) {
+        $('<input type="hidden" id="sort_by_field">').prop( obj ).appendTo( $('#filter_form') );
+      });
+    }
+    $('form#filter_form').submit();
+  },
+  setProductUrl: function() {
+    var sort_value = $('#sort_by').val();
     var form_data = $('form#filter_form').serialize();
     var myURL = window.location.href.split('?')[0];
-    var absouteURL = myURL + '?' + form_data;
+    var absouteURL = myURL + '?' + form_data ;
     history.pushState('', 'Product Page', absouteURL);
-    $('form#filter_form').submit();
   }
 }
 
@@ -21,5 +30,9 @@ $(document).on('ready page:load', function() {
 });
 
 $(document).on("click", "input[type=checkbox]", function(event) {
-  ProductUtil.submitSearchForm();
+  ProductUtil.submitSideBarSearchForm();
+});
+
+$(document).on("click", "#sort_by, input[type=checkbox]", function(event) {
+  ProductUtil.setProductUrl();
 });

@@ -47,6 +47,7 @@ class Product < ActiveRecord::Base
     end
     products = get_products_by_colors(products, options[:color_ids]) if options[:color_ids].present?
     products = get_products_in_price_range(products, options[:price_ranges_ids]) if options[:price_ranges_ids].present?
+    products = sort_product(products, options[:sort_by]) if options[:sort_by].present? 
     products
   end
 
@@ -76,6 +77,17 @@ class Product < ActiveRecord::Base
       product_by_range += self.filtered_by_price(products, {min_price: price_range.min_price, max_price: price_range.max_price})
     end
     product_by_range
+  end
+
+  def self.sort_product(products, sort_param)
+    case sort_param
+    when 'new'
+      products.sort_by(&:created_at)
+    when 'low'
+      products.sort_by(&:sell_price)
+    when 'high'
+      products.sort_by(&:sell_price).reverse
+    end
   end
 
   private

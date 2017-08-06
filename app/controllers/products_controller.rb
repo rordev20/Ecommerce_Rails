@@ -6,6 +6,7 @@ class ProductsController < ApplicationController
   # This method show product listing
   def index
     @item_per_row = 4
+    @sorting_menus = MenuManager.get_sorting_menu_list
     if params.has_key?(:sub_category)
       @products = Product.filter(params)
       #@products = Product.active.search(params)
