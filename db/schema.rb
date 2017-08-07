@@ -309,12 +309,8 @@ ActiveRecord::Schema.define(version: 20170804201807) do
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "images", force: :cascade do |t|
-    t.integer  "product_id"
-    t.string   "photo"
-    t.integer  "vendor_id"
-    t.integer  "user_id"
-    t.integer  "category_id"
-    t.integer  "sub_category_id"
+    t.integer  "imageable_id"
+    t.string   "imageable_type"
     t.integer  "position"
     t.boolean  "is_active"
     t.datetime "deleted_at"
@@ -326,11 +322,7 @@ ActiveRecord::Schema.define(version: 20170804201807) do
     t.datetime "avatar_updated_at"
   end
 
-  add_index "images", ["category_id"], name: "index_images_on_category_id", using: :btree
-  add_index "images", ["product_id"], name: "index_images_on_product_id", using: :btree
-  add_index "images", ["sub_category_id"], name: "index_images_on_sub_category_id", using: :btree
-  add_index "images", ["user_id"], name: "index_images_on_user_id", using: :btree
-  add_index "images", ["vendor_id"], name: "index_images_on_vendor_id", using: :btree
+  add_index "images", ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
 
   create_table "menu_managers", force: :cascade do |t|
     t.string   "name"
@@ -638,11 +630,6 @@ ActiveRecord::Schema.define(version: 20170804201807) do
   add_foreign_key "coupons", "coupon_types"
   add_foreign_key "coupons", "discount_types"
   add_foreign_key "currency_rates", "countries"
-  add_foreign_key "images", "categories"
-  add_foreign_key "images", "products"
-  add_foreign_key "images", "sub_categories"
-  add_foreign_key "images", "users"
-  add_foreign_key "images", "vendors"
   add_foreign_key "menu_managers", "menu_types"
   add_foreign_key "orders", "carts"
   add_foreign_key "orders", "order_statuses"

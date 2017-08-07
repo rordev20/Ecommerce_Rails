@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :addresses
   has_many :carts
-  has_one :image
+  has_one :image, as: :imageable
   has_many :orders
   has_many :vendor_orders
 

@@ -4,7 +4,7 @@ class Product < ActiveRecord::Base
   #include Tire::Model::Callbacks
   belongs_to :vendor
   belongs_to :sub_category
-  has_many :images
+  has_many :images, as: :imageable
   has_many :cart_items
   has_many :carts, through: :cart_items
   belongs_to :color
