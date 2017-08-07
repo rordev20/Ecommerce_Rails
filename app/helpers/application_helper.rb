@@ -10,17 +10,17 @@ module ApplicationHelper
       when 'thumb'
         image_tag first_image.avatar.url :thumb, alt: 'Product'
       when 'medium'
-        image_tag first_image.avatar.url :medium, alt: 'Product'
+        image_tag(first_image.avatar.url(:medium), class: "product-image-style")
       else
-        image_tag first_image.avatar.url, alt: 'Product'
+        image_tag(first_image.avatar.url(:medium), class: "product-image-style")
       end
     else
       # Assuming you have a default.svg in your assets folder
       case image_type
       when 'thumb'
-        image_tag 'product/default.svg', style: 'height: 80px; width:80px;', alt: 'Product'
+        image_tag 'product/default.jpg', style: 'height: 80px; width:80px;', alt: 'Product'
       else
-        image_tag 'product/default.svg', style: 'height: 190px; width:308px;', alt: 'Product'
+        image_tag 'product/default.jpg', class: "product-image-style"
       end
     end
   end

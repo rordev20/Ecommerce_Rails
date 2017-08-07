@@ -4,25 +4,24 @@
       <div class="col-md-3">
         <div class="ibox">
           <div class="ibox-content product-box">
-            <div class="product-imitation">
+            <div class="product-imitation product-image-container">
               <%= link_to product do %>
                 <%= product_image(product.images, 'medium') %>
               <% end %>
             </div>
-            <div class="product-desc">
-              <span class="product-price">
-                $<%= product.sell_price %>
-              </span>
-              <small class="text-muted"><b><%= product.color.name %></b></small>
-              <a href="#" class="product-name"><%= link_to product.name, product %></a>
-              <div class="small m-t-xs">
-                <%= product.sub_category.name %>
+            <div class="product-desc description-pos">
+              <div class='product-info'>
+                <strong><%= link_to "#{product.color.name} #{product.name}", product, class: "product-page-product-name" %></strong><br />
+                <strong>$<%= product.sell_price %></strong>
               </div>
-              <%= form_for cart_item, remote: true do |f| %>
-                <%= f.hidden_field :quantity, value: 1 %>
-                <%= f.hidden_field :product_id, value: product.id %>
-                <%= f.submit "Add to Cart", class: "btn btn-primary" %>
-              <% end %>
+              <div>
+                <%= product.sub_category.name %>
+                <%= form_for cart_item, remote: true do |f| %>
+                  <%= f.hidden_field :quantity, value: 1 %>
+                  <%= f.hidden_field :product_id, value: product.id %>
+                  <%= f.submit "Add to Cart", class: "btn btn-primary pull-right add-to-cart" %>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
