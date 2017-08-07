@@ -14,13 +14,17 @@
                 <strong><%= link_to "#{product.color.name} #{product.name}", product, class: "product-page-product-name" %></strong><br />
                 <strong>$<%= product.sell_price %></strong>
               </div>
-              <div>
-                <%= product.sub_category.name %>
-                <%= form_for cart_item, remote: true do |f| %>
-                  <%= f.hidden_field :quantity, value: 1 %>
-                  <%= f.hidden_field :product_id, value: product.id %>
-                  <%= f.submit "Add to Cart", class: "btn btn-primary pull-right add-to-cart" %>
-                <% end %>
+              <div class='row'>
+                <div class="col-md-6">
+                  <%= product.sub_category.name %>
+                </div>
+                <div class="col-md-6">
+                  <%= form_for cart_item, remote: true do |f| %>
+                    <%= f.hidden_field :quantity, value: 1 %>
+                    <%= f.hidden_field :product_id, value: product.id %>
+                    <%= f.submit "Add to Cart", class: "btn btn-primary pull-right" %>
+                  <% end %>
+                </div>
               </div>
             </div>
           </div>
