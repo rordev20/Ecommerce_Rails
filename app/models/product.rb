@@ -8,6 +8,7 @@ class Product < ActiveRecord::Base
   has_many :cart_items
   has_many :carts, through: :cart_items
   belongs_to :color
+  has_and_belongs_to_many :sizes
   accepts_nested_attributes_for :images, reject_if: proc { |attributes| attributes['avatar'].blank? }, allow_destroy: true
   scope :active, -> {where(is_active: true)}
   extend FriendlyId
@@ -41,7 +42,7 @@ class Product < ActiveRecord::Base
   def self.filter(options = {})
     if options[:sub_category].present?
       sub_category = SubCategory.get_sub_category(options[:sub_category])
-      products = sub_category.products.includes(:images, :color)
+      products = sub_category.products.includes(:images, :color, :sizes)
     else
       products = self.get_product_list
     end
@@ -94,5 +95,6 @@ class Product < ActiveRecord::Base
 
   def expire_cache
     Rails.cache.delete('product_list')
+    Rails.cache.delete('product_images_#{self.id}')
   end
 end

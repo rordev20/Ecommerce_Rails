@@ -24,12 +24,14 @@
                 <h1 class="product-main-price">$<%= @product.sell_price %> <small class="text-muted">Exclude Tax</small> </h1>
               </div>
               <hr>
+              <h3 class="font-bold">Select Size</h3>
+              <% @product.sizes.each do |size| %>
+                <button type="button" class="btn btn-default select-size"><strong><%= size.name %></strong></button>
+              <% end %>
+              <hr>
               <h4>Product description</h4>
               <div class="small text-muted">
-                It is a long established fact that a reader will be distracted by the readable
-                content of a page when looking at its layout. The point of using Lorem Ipsum is
-                that it has a more-or-less normal distribution of letters, as opposed to using
-                'Content here, content here', making it look like readable English.
+                <%= @product.description %>
                 <br/>
                 <br/>
                 There are many variations of passages of Lorem Ipsum available, but the majority
@@ -49,7 +51,7 @@
               </dl>
               <div class="text-right">
                 <div class="btn-group">
-                  <button class="btn btn-white btn-sm"><i class="fa fa-star"></i> Add to wishlist </button>
+                  <button class="btn btn-white btn-sm"><i class="fa fa-star"></i>Add to wishlist </button>
                   <button class="btn btn-white btn-sm"><i class="fa fa-envelope"></i> Contact with author </button>
                 </div>
               </div>
@@ -66,5 +68,3 @@
     </div>
   </div>
 </div>
-
-

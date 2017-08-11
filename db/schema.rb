@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170804201807) do
+ActiveRecord::Schema.define(version: 20170811042836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -456,6 +456,14 @@ ActiveRecord::Schema.define(version: 20170804201807) do
   add_index "products", ["sub_category_id"], name: "index_products_on_sub_category_id", using: :btree
   add_index "products", ["vendor_id"], name: "index_products_on_vendor_id", using: :btree
 
+  create_table "products_sizes", id: false, force: :cascade do |t|
+    t.integer "product_id"
+    t.integer "size_id"
+  end
+
+  add_index "products_sizes", ["product_id"], name: "index_products_sizes_on_product_id", using: :btree
+  add_index "products_sizes", ["size_id"], name: "index_products_sizes_on_size_id", using: :btree
+
   create_table "referreds", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -483,6 +491,15 @@ ActiveRecord::Schema.define(version: 20170804201807) do
 
   add_index "referrers", ["email"], name: "index_referrers_on_email", using: :btree
   add_index "referrers", ["name"], name: "index_referrers_on_name", using: :btree
+
+  create_table "sizes", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "category_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "sizes", ["category_id"], name: "index_sizes_on_category_id", using: :btree
 
   create_table "states", force: :cascade do |t|
     t.string   "name"
@@ -641,6 +658,7 @@ ActiveRecord::Schema.define(version: 20170804201807) do
   add_foreign_key "products", "sub_categories"
   add_foreign_key "products", "vendors"
   add_foreign_key "referreds", "referrers"
+  add_foreign_key "sizes", "categories"
   add_foreign_key "states", "countries"
   add_foreign_key "sub_categories", "categories"
   add_foreign_key "vendor_orders", "carts"

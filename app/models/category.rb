@@ -1,6 +1,9 @@
 class Category < ActiveRecord::Base
   has_many :sub_categories
+  has_many :sizes
   scope :active, -> {where(is_active: true)}
+  accepts_nested_attributes_for :sizes, reject_if: proc { |attributes| attributes['name'].blank? }, allow_destroy: true
+
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
   @@item_per_row = 4

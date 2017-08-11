@@ -2,7 +2,7 @@ ActiveAdmin.register Product do
 
   permit_params :name, :dimension, :description, :purchase_price, :vendor, :sub_category_id, :quantity, :color_id, :domestic_pos, :international_pos, :specification, :product_code,
                 :weight, :sell_count, :notes, :clicks, :discount_percent, :discount_amount, :in_stock, :is_active, :deleted_at, :sell_price,
-                images_attributes: [ :id, :avatar, :position, :_destroy ]
+                images_attributes: [ :id, :avatar, :position, :_destroy ], size_ids: []
 
   form :html => { :enctype => "multipart/form-data" } do |f|
     f.inputs "Details" do
@@ -17,6 +17,7 @@ ActiveAdmin.register Product do
         img.input :avatar, label: "Product Image"
         img.input :position
       end
+      f.input :sizes, as: :check_boxes
       f.input :color
       f.input :domestic_pos
       f.input :international_pos
