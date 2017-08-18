@@ -30,7 +30,7 @@
         </tr>
         <% cart_items.each do |cart_item| %>
           <tr>
-            <td><%= product_image(Image.get_product_page_image(cart_item.product.images), 'thumb') %></td>
+            <td><%= product_image(Image.get_product_page_image(cart_item.product), 'thumb') %></td>
             <td><%= cart_item.quantity %></td>
             <td><%= cart_item.product.sell_price %></td>
             <td><%= cart_item.cart_item_total %></td>
