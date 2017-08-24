@@ -29,9 +29,15 @@ $(document).on('ready page:load', function() {
 
   //pass the images to Fancybox
   $("#cover_image").bind("click", function(e) {
-    var ez =   $('#cover_image').data('elevateZoom');
+    var ez = $('#cover_image').data('elevateZoom');
     return false;
   });
+
+  $(".btn-group > .btn").click(function(){
+    $(this).addClass("active btn-primary").siblings().removeClass("active btn-primary");
+    $('#cart_item_size_id').val($(this).attr('id'));
+  });
+
 });
 
 $(document).on("click", "input[type=checkbox]", function(event) {

@@ -4,6 +4,7 @@ class CartItemsController < ApplicationController
   def create
     @cart_item = @cart.cart_items.where(product_id: cart_item_params[:product_id]).first_or_initialize
     @cart_item.quantity = @cart_item.quantity.to_i + cart_item_params[:quantity].to_i
+    @cart_item.size_id = cart_item_params[:size_id].to_i
     @cart_item.save!
     session[:cart_id] = @cart.id
   end
@@ -40,6 +41,6 @@ class CartItemsController < ApplicationController
 private
 
   def cart_item_params
-    params.require(:cart_item).permit(:quantity, :product_id)
+    params.require(:cart_item).permit(:quantity, :product_id, :size_id)
   end
 end

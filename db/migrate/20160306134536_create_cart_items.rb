@@ -4,7 +4,7 @@ class CreateCartItems < ActiveRecord::Migration
       t.references :cart, index: true, foreign_key: true
       t.references :product, index: true, foreign_key: true
       t.integer :quantity
-      t.references :order, index: true, foreign_key: true
+      t.references :size, index: true, foreign_key: true
       t.text :note
       t.references :vendor_order, index: true, foreign_key: true
       t.string :state

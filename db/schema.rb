@@ -141,7 +141,7 @@ ActiveRecord::Schema.define(version: 20170811042836) do
     t.integer  "cart_id"
     t.integer  "product_id"
     t.integer  "quantity"
-    t.integer  "order_id"
+    t.integer  "size_id"
     t.text     "note"
     t.integer  "vendor_order_id"
     t.string   "state"
@@ -152,8 +152,8 @@ ActiveRecord::Schema.define(version: 20170811042836) do
   end
 
   add_index "cart_items", ["cart_id"], name: "index_cart_items_on_cart_id", using: :btree
-  add_index "cart_items", ["order_id"], name: "index_cart_items_on_order_id", using: :btree
   add_index "cart_items", ["product_id"], name: "index_cart_items_on_product_id", using: :btree
+  add_index "cart_items", ["size_id"], name: "index_cart_items_on_size_id", using: :btree
   add_index "cart_items", ["vendor_order_id"], name: "index_cart_items_on_vendor_order_id", using: :btree
 
   create_table "carts", force: :cascade do |t|
@@ -637,8 +637,8 @@ ActiveRecord::Schema.define(version: 20170811042836) do
   add_foreign_key "brownie_point_transactions", "transaction_types"
   add_foreign_key "brownie_point_transactions", "users"
   add_foreign_key "cart_items", "carts"
-  add_foreign_key "cart_items", "orders"
   add_foreign_key "cart_items", "products"
+  add_foreign_key "cart_items", "sizes"
   add_foreign_key "cart_items", "vendor_orders"
   add_foreign_key "carts", "coupons"
   add_foreign_key "carts", "users"

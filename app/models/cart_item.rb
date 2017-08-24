@@ -1,7 +1,7 @@
 class CartItem < ActiveRecord::Base
   belongs_to :cart
   belongs_to :product
-  belongs_to :order
+  belongs_to :size
   belongs_to :vendor_order
   delegate :sell_price, :quantity, :id, to: :product, prefix: :prd
 

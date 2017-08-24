@@ -76,7 +76,12 @@ div.search {
   padding: 20px 12px 20px 15px;
 }
 
+.select-size-container{
+  width: 100%;
+}
+
 .select-size {
+  margin: 1%;
   padding: 1% 3%;
 }
 
