@@ -1,5 +1,5 @@
-<% if @cart.errors.any? || @cart_item.errors.any? %>
-  alert("not valid.")
+<% if flash.now[:alert].present? %>
+  $("#messages").html("<%= escape_javascript(render(partial: "shared/alert_msg", locals: {msg: flash.now[:alert], msg_type: t('message_type.danger')})) %>")
 <% else %>
   $(".cart-text").html("<%= escape_javascript(render 'layouts/cart_text') %>")
   $("#messages").html("<%= escape_javascript(render(partial: "shared/alert_msg", locals: {msg: t('cart.added'), msg_type: t('message_type.success')})) %>")

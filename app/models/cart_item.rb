@@ -27,4 +27,11 @@ class CartItem < ActiveRecord::Base
   def select_as_klass(klass)
     '.' + klass + id.to_s
   end
+
+  def save_cart_item(cart_item_params)
+    self.quantity = self.quantity.to_i + cart_item_params[:quantity].to_i
+    self.size_id = cart_item_params[:size_id].to_i if cart_item_params.has_key?(:size_id)
+    raise CustomException::SizeMissing if cart_item_params.has_key?(:size_id) && cart_item_params[:size_id].blank?
+    self.save!
+  end
 end

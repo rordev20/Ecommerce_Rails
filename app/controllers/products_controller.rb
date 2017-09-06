@@ -23,6 +23,7 @@ class ProductsController < ApplicationController
   def show
     @cart_item = @cart.cart_items.new
     @product_images = Image.get_product_page_image(@product)
+    @product_sizes = @product.get_sizes
   end
 
   private

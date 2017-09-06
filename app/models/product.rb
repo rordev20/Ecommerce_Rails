@@ -42,7 +42,7 @@ class Product < ActiveRecord::Base
   def self.filter(options = {})
     if options[:sub_category].present?
       sub_category = SubCategory.get_sub_category(options[:sub_category])
-      products = sub_category.products.includes(:images, :color, :sizes)
+      products = sub_category.products.includes(:images, :color)
     else
       products = self.get_product_list
     end
@@ -82,7 +82,7 @@ class Product < ActiveRecord::Base
 
   def self.sort_product(products, sort_param)
     case sort_param
-    when 'new'
+    when 'latest'
       products.sort_by(&:created_at)
     when 'low'
       products.sort_by(&:sell_price)
@@ -91,10 +91,17 @@ class Product < ActiveRecord::Base
     end
   end
 
+  def get_sizes
+    Rails.cache.fetch ["product_sizes_#{self.id}"], expires_in: 24.hours do
+      self.sizes
+    end
+  end
+
   private
 
   def expire_cache
     Rails.cache.delete('product_list')
     Rails.cache.delete('product_images_#{self.id}')
+    Rails.cache.delete('product_sizes_#{self.id}')
   end
 end

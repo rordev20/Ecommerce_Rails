@@ -2,11 +2,17 @@ class CartItemsController < ApplicationController
   before_action :current_cart, only: [:create, :update, :destroy, :increase_quantity, :decrease_quantity]
   #This method create user cart item
   def create
-    @cart_item = @cart.cart_items.where(product_id: cart_item_params[:product_id]).first_or_initialize
-    @cart_item.quantity = @cart_item.quantity.to_i + cart_item_params[:quantity].to_i
-    @cart_item.size_id = cart_item_params[:size_id].to_i
-    @cart_item.save!
-    session[:cart_id] = @cart.id
+    begin
+      @cart_item = @cart.cart_items.where(product_id: cart_item_params[:product_id]).first_or_initialize
+      @cart_item.save_cart_item(cart_item_params)
+      session[:cart_id] = @cart.id
+    rescue CustomException::SizeMissing => e
+      logger.info e.message
+      logger.info e.backtrace
+      respond_to do |format|
+        format.js { flash.now[:alert] = e.message }
+      end
+    end
   end
 
   #This method update user cart item 

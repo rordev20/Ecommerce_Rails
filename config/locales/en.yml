@@ -58,3 +58,4 @@ en:
     exclude_size: "Exclude Tax"
   custom_exception:
     insufficient_inventory: "Insufficient inventory for %{product_name}."
+    size_missing: "Please select size"
