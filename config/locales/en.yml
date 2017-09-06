@@ -30,6 +30,7 @@ en:
     discount: "Discount"
     cashback: "Cashback"
     brownie_point: "Brownie Point"
+    add_to_cart: "Add to Cart"
   coupon:
     not_found: "Invalid Coupon Code"
     applied: "Coupon applied successfully"
@@ -51,3 +52,9 @@ en:
   cart_item:
     added: "Quantity increased successfully"
     decreased: "Quantity decreased successfully"
+  product:
+    product_description: "Product description"
+    select_size: "Select Size"
+    exclude_size: "Exclude Tax"
+  custom_exception:
+    insufficient_inventory: "Insufficient inventory for %{product_name}."

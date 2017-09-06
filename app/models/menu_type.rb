@@ -3,10 +3,11 @@ class MenuType < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
   after_save :expire_cache
+  scope :active, -> {where(is_active: true)}
 
-  def self.get_by_slug(slug)
+  def self.get_menu_type(slug)
     Rails.cache.fetch ["menu_type_#{slug}"], expires_in: 24.hours do
-      MenuType.find(slug)
+      MenuType.active.where(slug: slug).first
     end
   end
   

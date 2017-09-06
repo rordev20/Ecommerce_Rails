@@ -20,43 +20,26 @@
                   <%= f.hidden_field :size_id %>
                   <%= f.hidden_field :quantity, value: 1 %>
                   <%= f.hidden_field :product_id, value: @product.id %>
-                  <%= f.submit "Add to Cart", class: "btn btn-primary pull-right" %>
+                  <%= f.submit t('cart.add_to_cart'), class: "btn btn-primary pull-right" %>
                 <% end %>
-                <h1 class="product-main-price">$<%= @product.sell_price %> <small class="text-muted">Exclude Tax</small> </h1>
+                <h1 class="product-main-price">$<%= @product.sell_price %> <small class="text-muted"><%= t('product.exclude_size') %></small> </h1>
               </div>
               <hr>
-              <h3 class="font-bold">Select Size</h3>
+              <h3 class="font-bold"><%= t('product.select_size') %></h3>
               <div class="btn-group select-size-container">
                 <% @product.sizes.each do |size| %>
                   <button type="button" class="btn btn-default select-size" id="<%= size.id %>"><strong><%= size.name %></strong></button>
                 <% end %>
               </div>
               <hr>
-              <h4>Product description</h4>
+              <h4><%= t('product.product_description') %></h4>
               <div class="small text-muted">
+                <br/>
                 <%= @product.description %>
-                <br/>
-                <br/>
-                There are many variations of passages of Lorem Ipsum available, but the majority
-                have suffered alteration in some form, by injected humour, or randomised words
-                which don't look even slightly believable.
               </div>
               <dl class="dl-horizontal m-t-md small">
-                <dt>Description lists</dt>
-                <dd>A description list is perfect for defining terms.</dd>
-                <dt>Euismod</dt>
-                <dd>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</dd>
-                <dd>Donec id elit non mi porta gravida at eget metus.</dd>
-                <dt>Malesuada porta</dt>
-                <dd>Etiam porta sem malesuada magna mollis euismod.</dd>
-                <dt>Felis euismod semper eget</dt>
-                <dd>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</dd>
               </dl>
               <div class="text-right">
-                <div class="btn-group">
-                  <button class="btn btn-white btn-sm"><i class="fa fa-star"></i>Add to wishlist </button>
-                  <button class="btn btn-white btn-sm"><i class="fa fa-envelope"></i> Contact with author </button>
-                </div>
               </div>
             </div>
           </div>
