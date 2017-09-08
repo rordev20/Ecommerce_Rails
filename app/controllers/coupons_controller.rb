@@ -11,9 +11,7 @@ class CouponsController < ApplicationController
       @coupon ||= Coupon.find_by_code(params[:coupon])
       if @coupon && @coupon.is_applicable?(@cart_data)
         @cart_data = @coupon.get_cart_data_for_coupon(@cart_data, @cart)
-        @coupon.use_count += 1
         @cart.coupon_id = @coupon.id
-        @coupon.save!
         @cart.save!
         if @coupon && @coupon.is_cashback_coupon?
           discount_type = Coupon.get_offer_type[:cashback]
@@ -32,9 +30,7 @@ class CouponsController < ApplicationController
   # This method cancel coupon
   def cancel_coupon
     @coupon = @cart.coupon
-    @coupon.use_count = @coupon.use_count - 1
     @cart.coupon_id = nil
-    @coupon.save!
     @cart.save!
     @discount = Cart.get_discount(@cart_data, Coupon.get_offer_type[:discount_amount])
     @cart_data = current_user.get_cart_data_for_brownie_point(@cart, @cart_data) if current_user.is_using_brownie_point?(@cart)

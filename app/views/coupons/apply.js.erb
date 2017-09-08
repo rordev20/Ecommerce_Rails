@@ -9,11 +9,13 @@
       $("#total_section").after("<%= escape_javascript(render(partial: "carts/discount", locals: {discount: @discount})) %>")
     <% end %>
     $("#coupon_section").html("<%= escape_javascript(render(partial: "carts/coupon_section", locals: {coupon: @coupon})) %>")
+    $("#messages").html("<%= escape_javascript(render(partial: "shared/alert_msg", locals: {msg: get_coupon_message_and_type(@coupon)[:message], msg_type: get_coupon_message_and_type(@coupon)[:type]})) %>")
   <% elsif @coupon && @coupon.errors.any? %>
     $("#messages").html("<%= escape_javascript(render(partial: "shared/alert_msg", locals: {msg: get_coupon_message_and_type(@coupon)[:message], msg_type: get_coupon_message_and_type(@coupon)[:type]})) %>")
+  <% elsif @coupon.blank? && params.has_key?(:coupon) %>
+    $("#messages").html("<%= escape_javascript(render(partial: "shared/alert_msg", locals: {msg: t('coupon.coupon_invalid'), msg_type: t('message_type.danger') })) %>")
   <% end %>
   $('#total').html("<%= @sub_total %>")
-
   <% if quantity_changed?(params) %>
     $(".cart-text").html("<%= escape_javascript(render 'layouts/cart_text') %>")
     CartUtil.setItemQtyAndItemTotal('<%= CartItem.get_cart_item_qty_and_total_hash(@cart_items) %>')

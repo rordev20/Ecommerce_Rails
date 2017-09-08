@@ -32,6 +32,7 @@ en:
     brownie_point: "Brownie Point"
     add_to_cart: "Add to Cart"
   coupon:
+    coupon_invalid: "Enter a valid coupon"
     not_found: "Invalid Coupon Code"
     applied: "Coupon applied successfully"
     error_message:
