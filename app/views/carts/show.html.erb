@@ -31,12 +31,12 @@
             <div class="col-md-6"><strong>Total</strong></div>
             <div class="col-md-6" id="total">$<%= @sub_total %></div>
           </div>
+          <hr class="coupon-section"/>
           <% if @coupon && @coupon.is_cashback_coupon? %>
             <%= render partial: 'cashback', locals: {cashback: @cashback} %>
           <% elsif @coupon %>
             <%= render partial: 'discount', locals: {discount: @discount} %>
           <% end %>
-          <hr/>
           <div class="row">
             <div class="col-md-6"><strong>Shipping</strong></div>
             <div class="col-md-6" id="shipping">0</div>
