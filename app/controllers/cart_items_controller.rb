@@ -26,7 +26,7 @@ class CartItemsController < ApplicationController
     cart_item = @cart.cart_items.where(product_id: params[:id]).first
     cart_item.increment!(:quantity)
     respond_to do |format|
-      format.js { redirect_to apply_coupon_path(cart: 'added'), alert: t('cart_item.added') and return }
+      format.js { redirect_to apply_coupon_path(cart: 'added'), notice: t('cart_item.added') and return }
     end
   end
 
@@ -34,7 +34,7 @@ class CartItemsController < ApplicationController
     cart_item = @cart.cart_items.where(product_id: params[:id]).first
     cart_item.decrement!(:quantity)
     respond_to do |format|
-      format.js { redirect_to apply_coupon_path(cart: 'decreased'), alert: t('cart_item.decreased') and return }
+      format.js { redirect_to apply_coupon_path(cart: 'decreased'), notice: t('cart_item.decreased') and return }
     end
   end
 
