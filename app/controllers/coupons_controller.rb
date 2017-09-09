@@ -4,14 +4,11 @@ class CouponsController < ApplicationController
   # This method apply coupon
   def apply
     @coupon = @cart.coupon
-    if params.has_key?(:using_brownie_point)
-      @cart = @cart.set_brownie_point_usage(params[:using_brownie_point])
-    end
+    @cart = @cart.set_brownie_point_usage(params[:using_brownie_point]) if params.has_key?(:using_brownie_point)
     if params.has_key?(:coupon) || @coupon
       @coupon ||= Coupon.find_by_code(params[:coupon])
       if @coupon && @coupon.is_applicable?(@cart_data)
-        @cart.coupon_id = @coupon.id
-        @cart.save!
+        @cart.set_coupon(@coupon.id) if params.has_key?(:coupon)
         cashback_discount_hash = @cart.get_cashback_discount_hash(@cart_data)
         @cashback, @discount = cashback_discount_hash[:cashback], cashback_discount_hash[:discount]
       end

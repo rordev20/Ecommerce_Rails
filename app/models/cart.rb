@@ -85,4 +85,10 @@ class Cart < ActiveRecord::Base
     end
     {discount: discount, cashback: cashback}
   end
+
+  def set_coupon(coupon_id)
+    self.coupon_id = coupon_id
+    self.save!
+  end
+
 end
