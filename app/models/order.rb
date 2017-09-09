@@ -29,10 +29,11 @@ class Order < ActiveRecord::Base
 
   # This method build order params by cart data
   def self.build_order_params(cart_data, cart, current_user)
+    total = Cart.get_cart_total(cart_data)
     cashback_discount_hash = cart.get_cashback_discount_hash(cart_data)
     cashback, discount = cashback_discount_hash[:cashback], cashback_discount_hash[:discount]
     {
-      total: Cart.get_cart_total(cart_data),
+      total: total,
       discount: discount,
       brownie_point: current_user.get_user_used_wallet_amount(cart, cart_data),
       cashback: cashback,
