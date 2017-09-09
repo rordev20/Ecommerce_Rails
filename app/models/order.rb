@@ -29,24 +29,17 @@ class Order < ActiveRecord::Base
 
   # This method build order params by cart data
   def self.build_order_params(cart_data, cart, current_user)
-    discount, brownie_point_used, cashback = 0, 0, 0
-    total = Cart.get_cart_total(cart_data)
-    coupon = cart.coupon
-    if coupon
-      cart_data = coupon.get_cart_data_for_coupon(cart_data, cart)
-      discount_type = coupon.is_cashback_coupon? ? Coupon.get_offer_type[:cashback] : Coupon.get_offer_type[:discount_amount]
-    end
-    if coupon && coupon.is_cashback_coupon?
-      cashback = Cart.get_discount(cart_data, discount_type)
-    elsif coupon
-      discount = Cart.get_discount(cart_data, discount_type)
-    end
-    if current_user.is_using_brownie_point?(cart)
-      cart_data = current_user.get_cart_data_for_brownie_point(cart, cart_data)
-      brownie_point_used = Cart.get_discount(cart_data, 'brownie_point_used')
-    end
-    grand_total = Cart.get_cart_total(cart_data)
-    current_user.orders.new({total: total, grand_total: grand_total, discount: discount, brownie_point: brownie_point_used, cashback: cashback, cart: cart})
+    cashback_discount_hash = cart.get_cashback_discount_hash(cart_data)
+    cashback, discount = cashback_discount_hash[:cashback], cashback_discount_hash[:discount]
+    {
+      total: Cart.get_cart_total(cart_data),
+      discount: discount,
+      brownie_point: current_user.get_user_used_wallet_amount(cart, cart_data),
+      cashback: cashback,
+      grand_total: Cart.get_cart_total(cart_data),
+      cart: cart,
+      user: current_user
+    }
   end
 
   # This method set user wallet after order creation

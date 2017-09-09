@@ -46,4 +46,13 @@ class User < ActiveRecord::Base
     end
     {cart.id => array_of_hash_after_brownie_point_used}
   end
+
+  def get_user_used_wallet_amount(cart, cart_data)
+    brownie_point_used = 0
+    if self.is_using_brownie_point?(cart)
+      cart_data = self.get_cart_data_for_brownie_point(cart, cart_data)
+      brownie_point_used = Cart.get_discount(cart_data, 'brownie_point_used')
+    end
+    brownie_point_used
+  end
 end

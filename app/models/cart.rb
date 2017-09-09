@@ -70,4 +70,19 @@ class Cart < ActiveRecord::Base
     cart_items = Cart.get_items_from_cart_data(cart_data)
     cart_items.inject(0) {|sum, cart_item| sum + cart_item[:brownie_point_used].to_i}
   end
+
+  def get_cashback_discount_hash(cart_data)
+    discount, cashback = 0, 0
+    coupon = self.coupon
+    if coupon
+      cart_data = coupon.get_cart_data_for_coupon(cart_data, self)
+      discount_type = coupon.is_cashback_coupon? ? Coupon.get_offer_type[:cashback] : Coupon.get_offer_type[:discount_amount]
+    end
+    if coupon && coupon.is_cashback_coupon?
+      cashback = Cart.get_discount(cart_data, discount_type)
+    elsif coupon
+      discount = Cart.get_discount(cart_data, discount_type)
+    end
+    {discount: discount, cashback: cashback}
+  end
 end
