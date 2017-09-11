@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170811042836) do
+ActiveRecord::Schema.define(version: 20170909075417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -421,6 +421,20 @@ ActiveRecord::Schema.define(version: 20170811042836) do
 
   add_index "price_ranges", ["sub_category_id"], name: "index_price_ranges_on_sub_category_id", using: :btree
 
+  create_table "product_attributes", force: :cascade do |t|
+    t.integer  "product_id"
+    t.integer  "sub_category_attribute_id"
+    t.string   "name"
+    t.string   "description"
+    t.integer  "position"
+    t.boolean  "is_active"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "product_attributes", ["product_id"], name: "index_product_attributes_on_product_id", using: :btree
+  add_index "product_attributes", ["sub_category_attribute_id"], name: "index_product_attributes_on_sub_category_attribute_id", using: :btree
+
   create_table "products", force: :cascade do |t|
     t.string   "name"
     t.string   "dimension"
@@ -531,6 +545,16 @@ ActiveRecord::Schema.define(version: 20170811042836) do
   add_index "sub_categories", ["category_id"], name: "index_sub_categories_on_category_id", using: :btree
   add_index "sub_categories", ["name"], name: "index_sub_categories_on_name", using: :btree
   add_index "sub_categories", ["slug"], name: "index_sub_categories_on_slug", unique: true, using: :btree
+
+  create_table "sub_category_attributes", force: :cascade do |t|
+    t.integer  "sub_category_id"
+    t.string   "name"
+    t.boolean  "is_active"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "sub_category_attributes", ["sub_category_id"], name: "index_sub_category_attributes_on_sub_category_id", using: :btree
 
   create_table "system_constants", force: :cascade do |t|
     t.string   "name"
@@ -654,6 +678,8 @@ ActiveRecord::Schema.define(version: 20170811042836) do
   add_foreign_key "orders", "payment_statuses"
   add_foreign_key "orders", "users"
   add_foreign_key "price_ranges", "sub_categories"
+  add_foreign_key "product_attributes", "products"
+  add_foreign_key "product_attributes", "sub_category_attributes"
   add_foreign_key "products", "colors"
   add_foreign_key "products", "sub_categories"
   add_foreign_key "products", "vendors"
@@ -661,6 +687,7 @@ ActiveRecord::Schema.define(version: 20170811042836) do
   add_foreign_key "sizes", "categories"
   add_foreign_key "states", "countries"
   add_foreign_key "sub_categories", "categories"
+  add_foreign_key "sub_category_attributes", "sub_categories"
   add_foreign_key "vendor_orders", "carts"
   add_foreign_key "vendor_orders", "coupons"
   add_foreign_key "vendor_orders", "users"

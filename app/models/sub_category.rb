@@ -4,9 +4,11 @@ class SubCategory < ActiveRecord::Base
   has_many :price_ranges
   has_many :color_sub_categories
   has_many :colors, through: :color_sub_categories
+  has_many :sub_category_attributes
   has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
   accepts_nested_attributes_for :price_ranges
+  accepts_nested_attributes_for :sub_category_attributes
   scope :active, -> {where(is_active: true)}
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
