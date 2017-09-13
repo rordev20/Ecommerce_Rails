@@ -1,0 +1,19 @@
+<hr/>
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#<%= t('product.specification') %>"><%= t('product.specification') %></a></li>
+  <% sub_category_attributes.each do |sub_category_attribute| %>
+    <li><a data-toggle="tab" href="#<%= sub_category_attribute.name %>"><%= sub_category_attribute.name %></a></li>
+  <% end %>
+</ul>
+
+<div class="tab-content">
+  <div id="<%= t('product.specification') %>" class="tab-pane fade in active">
+    <%= render partial: "product_attributes", locals: { product_attributes: product_attributes } %>
+  </div>
+  <% sub_category_attributes.each do |sub_category_attribute| %>
+    <div id="<%= sub_category_attribute.name %>" class="tab-pane fade">
+      <h3><%= sub_category_attribute.name %></h3>
+      <p><%=raw sub_category_attribute.content %></p>
+    </div>
+  <% end %>
+</div>

@@ -24,6 +24,8 @@ class ProductsController < ApplicationController
     @cart_item = @cart.cart_items.new
     @product_images = Image.get_product_page_image(@product)
     @product_sizes = @product.get_sizes
+    @product_attributes = @product.get_product_attributes
+    @sub_category_attributes = @product.get_product_sub_category_attributes
   end
 
   private

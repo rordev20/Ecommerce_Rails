@@ -12,6 +12,11 @@ class SubCategory < ActiveRecord::Base
   scope :active, -> {where(is_active: true)}
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
+
+  @@attribute_types = ['Specification', 'Shipping', 'Stiching', 'Payment', 'Returns', 'Wash & Care']
+
+  cattr_accessor :attribute_types
+
   after_save :expire_cache
 
   def self.get_sub_category_list
@@ -24,6 +29,10 @@ class SubCategory < ActiveRecord::Base
     Rails.cache.fetch ["sub_category_#{slug}"], expires_in: 24.hours do
       SubCategory.find(slug)
     end
+  end
+
+  def self.get_attribute_type_lists
+    self.attribute_types.collect {|v| [v, v.downcase]}
   end
 
   private

@@ -548,12 +548,16 @@ ActiveRecord::Schema.define(version: 20170909075417) do
 
   create_table "sub_category_attributes", force: :cascade do |t|
     t.integer  "sub_category_id"
+    t.string   "attribute_type"
     t.string   "name"
+    t.text     "content"
+    t.integer  "position"
     t.boolean  "is_active"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
 
+  add_index "sub_category_attributes", ["attribute_type"], name: "index_sub_category_attributes_on_attribute_type", using: :btree
   add_index "sub_category_attributes", ["sub_category_id"], name: "index_sub_category_attributes_on_sub_category_id", using: :btree
 
   create_table "system_constants", force: :cascade do |t|

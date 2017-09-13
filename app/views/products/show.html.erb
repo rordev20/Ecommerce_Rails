@@ -13,7 +13,7 @@
               <h2 class="font-bold m-b-xs">
                 <%= @product.name %>
               </h2>
-              <small><%= @product.description %></small>
+              <small></small>
               <hr>
               <div>
                 <%= form_for @cart_item, remote: true do |f| %>
@@ -43,12 +43,7 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="ibox-footer">
-            <span class="pull-right">
-                Full stock - <i class="fa fa-clock-o"></i> 14.04.2016 10:04 pm
-            </span>
-            The generated Lorem Ipsum is therefore always free
+          <%= render partial: "product_detail_tables", locals: { product_attributes: @product_attributes, sub_category_attributes: @sub_category_attributes } %>
         </div>
       </div>
     </div>

@@ -57,6 +57,7 @@ en:
     product_description: "Product description"
     select_size: "Select Size"
     exclude_size: "Exclude Tax"
+    specification: "Specification"
   custom_exception:
     insufficient_inventory: "Insufficient inventory for %{product_name}."
     size_missing: "Please select size"

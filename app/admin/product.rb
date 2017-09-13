@@ -47,7 +47,7 @@ ActiveAdmin.register Product do
 
   controller do
     def get_sub_category_attributes
-      @sub_category_attributes = SubCategory.find_by_id(params[:sub_category_id]).try(:sub_category_attributes)
+      @sub_category_attributes = SubCategory.find(params[:sub_category_id]).sub_category_attributes.where(attribute_type: 'specification').active
       respond_to do |format|
         format.json { render json: @sub_category_attributes }
       end

@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-content">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+          </tr>
+          </thead>
+          <tbody>
+            <% product_attributes.each do |product_attribute| %>
+            <tr>
+              <td><strong><%= product_attribute.name %></strong></td>
+              <td><%= product_attribute.description %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

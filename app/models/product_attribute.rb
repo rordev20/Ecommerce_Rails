@@ -1,6 +1,7 @@
 class ProductAttribute < ActiveRecord::Base
   belongs_to :product
   belongs_to :sub_category_attribute
+  scope :active, -> {where(is_active: true)}
   before_save :set_name
 
   def set_name
