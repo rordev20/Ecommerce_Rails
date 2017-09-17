@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  before_action :get_category_list
+  before_action :get_category_list, only: [:index]
   def index
     @banners = Banner.home_page_banner
     @sub_categories = SubCategory.get_sub_category_list

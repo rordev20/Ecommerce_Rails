@@ -14,8 +14,8 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/get_sub_category_attributes', to: 'products#get_sub_category_attributes'
   end
-
   resources :orders, only: [:new, :create]
+  get 'user/orders', to: 'users#orders'
   get "/orders/:order_id/confirm" => "orders#confirm_order", as: :confirm_order
   match "/coupons/apply" => "coupons#apply", as: :apply_coupon, via: [:get, :post]
   post "/coupons/cancel_coupon" => "coupons#cancel_coupon", as: :cancel_coupon

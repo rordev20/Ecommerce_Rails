@@ -24,4 +24,8 @@ module ApplicationHelper
       end
     end
   end
+
+  def main_menus
+    MenuManager.main_menu_list(current_user)
+  end
 end
