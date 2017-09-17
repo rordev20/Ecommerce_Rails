@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170909075417) do
+ActiveRecord::Schema.define(version: 20170917075943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -355,6 +355,22 @@ ActiveRecord::Schema.define(version: 20170909075417) do
   add_index "menu_types", ["name"], name: "index_menu_types_on_name", using: :btree
   add_index "menu_types", ["slug"], name: "index_menu_types_on_slug", unique: true, using: :btree
 
+  create_table "order_items", force: :cascade do |t|
+    t.integer  "order_id"
+    t.integer  "product_id"
+    t.integer  "quantity"
+    t.float    "rate"
+    t.float    "net_amount"
+    t.float    "discount_amount", default: 0.0
+    t.float    "brownie_point",   default: 0.0
+    t.float    "cashback",        default: 0.0
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
+  add_index "order_items", ["product_id"], name: "index_order_items_on_product_id", using: :btree
+
   create_table "order_statuses", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -676,6 +692,8 @@ ActiveRecord::Schema.define(version: 20170909075417) do
   add_foreign_key "coupons", "discount_types"
   add_foreign_key "currency_rates", "countries"
   add_foreign_key "menu_managers", "menu_types"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "products"
   add_foreign_key "orders", "carts"
   add_foreign_key "orders", "order_statuses"
   add_foreign_key "orders", "payment_methods"

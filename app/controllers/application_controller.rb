@@ -19,9 +19,8 @@ class ApplicationController < ActionController::Base
       quantity = cart_item.quantity
       total_cost = cart_item.cart_item_total
       product_id = cart_item.prd_id
-      discount_amount = 0
       cart_item_id = cart_item.id
-      data_array << {per_item_cost: per_item_cost, quantity: quantity, total_cost: total_cost, net_amount: total_cost, product_id: product_id, discount_amount: discount_amount, cart_item_id: cart_item_id}
+      data_array << {per_item_cost: per_item_cost, quantity: quantity, total_cost: total_cost, net_amount: total_cost, product_id: product_id, discount_amount: 0, cart_item_id: cart_item_id, brownie_point_used: 0, cashback: 0}
     end
     @cart_data = {@cart.id => data_array}
   end

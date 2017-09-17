@@ -6,6 +6,8 @@ class Order < ActiveRecord::Base
   belongs_to :billing_address, foreign_key: :billing_address_id, class_name: 'Address'
   belongs_to :shipping_address, foreign_key: :shipping_address_id, class_name: 'Address'
   belongs_to :payment_method
+  has_many :order_items
+  accepts_nested_attributes_for :order_items
 
   validates :cart, presence: true
   validates :user, presence: true
@@ -39,7 +41,8 @@ class Order < ActiveRecord::Base
       cashback: cashback,
       grand_total: Cart.get_cart_total(cart_data),
       cart: cart,
-      user: current_user
+      user: current_user,
+      order_items_attributes: OrderItem.build_order_items_attributes(cart_data)
     }
   end
 
