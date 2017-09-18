@@ -28,11 +28,11 @@
                       <th>Quantity</th>
                       <th>Price</th>
                     </tr>
-                    <% @cart_items.each do |cart_item| %>
+                    <% @order.order_items.each do |order_item| %>
                       <tr>
-                        <td><%= product_image(Image.get_product_page_image(cart_item.product), 'thumb') %></td>
-                        <td><%= cart_item.quantity %></td>
-                        <td><%= cart_item.product.sell_price %></td>
+                        <td><%= product_image(Image.get_product_page_image(order_item.product), 'thumb') %></td>
+                        <td><%= order_item.quantity %></td>
+                        <td><%= order_item.rate %></td>
                       </tr>
                     <% end %>
                     <tr>

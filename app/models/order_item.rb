@@ -1,7 +1,7 @@
 class OrderItem < ActiveRecord::Base
   belongs_to :order
   belongs_to :product
-
+  has_many :images, through: :product
   def self.build_order_items_attributes(cart_data)
     cart_items = Cart.get_items_from_cart_data(cart_data)
     order_items_array = []

@@ -55,4 +55,12 @@ class User < ActiveRecord::Base
     end
     brownie_point_used
   end
+
+  def get_confirm_order(order_id)
+    self.orders.includes(:order_items, shipping_address: [:state, :country]).where(id: order_id).first
+  end
+
+  def get_orders
+    self.orders.includes(:shipping_address, order_items: [:product, :images])
+  end
 end

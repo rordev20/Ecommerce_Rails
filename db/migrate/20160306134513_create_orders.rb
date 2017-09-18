@@ -5,6 +5,7 @@ class CreateOrders < ActiveRecord::Migration
       t.float :total
       t.float :grand_total
       t.float :shipping
+      t.date :date
       t.references :order_status, index: true, foreign_key: true
       t.string :number
       t.references :payment_status, index: true, foreign_key: true
@@ -19,8 +20,6 @@ class CreateOrders < ActiveRecord::Migration
       t.float :market_rate
       t.integer :billing_address_id
       t.integer :shipping_address_id
-      t.boolean :is_active
-      t.datetime :deleted_at
 
       t.timestamps null: false
     end

@@ -12,7 +12,7 @@
             <div class="product-desc description-pos">
               <div class='product-info'>
                 <strong><%= link_to "#{product.color.name} #{product.name}", product, class: "product-page-product-name" %></strong><br />
-                <strong>$<%= product.sell_price %></strong>
+                <strong><i class="<%= t('currency_icon') %>" aria-hidden="true"><%= product.sell_price %></i></strong>
               </div>
               <div class='row'>
                 <div class="col-md-6">

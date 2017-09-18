@@ -1,0 +1,40 @@
+<div class="col-lg-12">
+  <div class="ibox float-e-margins">
+    <div class="ibox-title">
+      <div class="row">
+        <div class="col-sm-2"><%= t('order.order_placed') %></div>
+        <div class="col-sm-2"><%= t('order.total') %></div>
+        <div class="col-sm-2"><%= t('order.ship_to') %></div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2"><%= order.date.strftime("%d %B %Y") %></div>
+        <div class="col-sm-2"><%= order.grand_total.to_i %></div>
+        <div class="col-sm-2" data-toggle="popover" data-placement="auto bottom" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="" title=""><%= order.shipping_address.full_name %></div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2"></div>
+      </div>
+    </div>
+    <div class="ibox-content">
+      <div class="row">
+        <div class="col-sm-8"></div>
+        <div class="col-sm-4"></div>
+      </div>
+      <% order.order_items.each do |order_item| %>
+        <div class="row">
+          <div class="col-sm-2"><%= image_tag order_item.images.first.try(:avatar).try(:url, :thumb) %></div>
+          <div class="col-sm-6">
+            <strong><%= link_to "#{order_item.product.name}", order_item.product %></strong><br>
+            795 Folsom Ave, Suite 600<br>
+            San Francisco, CA 94107<br>
+            <i class="<%= t('currency_icon') %>" aria-hidden="true"><%= order_item.rate %></i>
+          </div>
+          <div class="col-sm-4"></div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div> 

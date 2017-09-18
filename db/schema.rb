@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20170917075943) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "user_id"
+    t.string   "full_name"
     t.string   "address1"
     t.string   "address2"
     t.string   "landmark"
@@ -364,6 +365,7 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.float    "discount_amount", default: 0.0
     t.float    "brownie_point",   default: 0.0
     t.float    "cashback",        default: 0.0
+    t.datetime "delivery_date"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
   end
@@ -382,6 +384,7 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.float    "total"
     t.float    "grand_total"
     t.float    "shipping"
+    t.date     "date"
     t.integer  "order_status_id"
     t.string   "number"
     t.integer  "payment_status_id"
@@ -396,8 +399,6 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.float    "market_rate"
     t.integer  "billing_address_id"
     t.integer  "shipping_address_id"
-    t.boolean  "is_active"
-    t.datetime "deleted_at"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end

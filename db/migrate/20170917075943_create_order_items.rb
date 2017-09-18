@@ -9,7 +9,7 @@ class CreateOrderItems < ActiveRecord::Migration
       t.float :discount_amount, default: 0
       t.float :brownie_point, default: 0
       t.float :cashback, default: 0
-
+      t.datetime :delivery_date
 
       t.timestamps null: false
     end

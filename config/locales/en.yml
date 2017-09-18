@@ -61,3 +61,8 @@ en:
   custom_exception:
     insufficient_inventory: "Insufficient inventory for %{product_name}."
     size_missing: "Please select size"
+  order:
+    order_placed: "ORDER PLACED"
+    total: "TOTAL"
+    ship_to: "SHIP TO"
+  currency_icon: "fa fa-inr"

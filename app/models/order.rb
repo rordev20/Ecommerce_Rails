@@ -16,8 +16,12 @@ class Order < ActiveRecord::Base
   validates :total, presence: true
   validates :grand_total, presence: true
   validates :payment_method, presence: true
-
+  before_save :set_fields
   after_save :update_user_wallet
+
+  def set_fields
+    self.date = Date.today
+  end
 
   # This method set user billing and shipping address
   def set_address(bill_address_same_as_ship, order_address_hash)

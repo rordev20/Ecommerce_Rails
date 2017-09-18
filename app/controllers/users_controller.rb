@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
 
   def orders
-    current_user.orders
+    @orders = current_user.get_orders
   end
-
 
 end

@@ -35,8 +35,7 @@ class OrdersController < ApplicationController
 
   # This method show confirm order page
   def confirm_order
-    @order = current_user.orders.includes(shipping_address: [:state, :country]).where(id: params[:order_id]).first
-    @cart_items = @order.cart.cart_items
+    @order = current_user.get_confirm_order(params[:order_id])
   end
 
   private
@@ -46,10 +45,10 @@ class OrdersController < ApplicationController
   end
 
   def build_bill_address_params
-    {country_id: params[:country].to_i, zipcode: params[:pincode], address1: params[:address_1], address2: params[:address_2], city: params[:city], state_id: params[:state].to_i, address_type_id: params[:address_type].to_i}
+    {full_name: params[:full_name], country_id: params[:country].to_i, zipcode: params[:pincode], address1: params[:address_1], address2: params[:address_2], city: params[:city], state_id: params[:state].to_i, address_type_id: params[:address_type].to_i}
   end
 
   def build_ship_address_params
-    {country_id: params[:shipping_country].to_i, zipcode: params[:shipping_pincode] , address1: params[:shipping_address_1], address2: params[:shipping_address_2], city: params[:shipping_city], state_id: params[:shipping_state].to_i, address_type_id: params[:ship_address_type].to_i}
+    {full_name: params[:shipping_full_name], country_id: params[:shipping_country].to_i, zipcode: params[:shipping_pincode] , address1: params[:shipping_address_1], address2: params[:shipping_address_2], city: params[:shipping_city], state_id: params[:shipping_state].to_i, address_type_id: params[:ship_address_type].to_i}
   end
 end
