@@ -18,8 +18,13 @@ class MenuManager < ActiveRecord::Base
   end
 
   def self.get_without_signin_menu(all_main_menus)
-    Rails.cache.fetch ["main_menu"], expires_in: 24.hours do
-      all_main_menus.without_signin_menu
+    menus = []
+    unless all_main_menus.empty?
+      menus = Rails.cache.fetch ["main_menu"], expires_in: 24.hours do
+        all_main_menus.without_signin_menu
+      end
+    else
+      menus
     end
   end
 
