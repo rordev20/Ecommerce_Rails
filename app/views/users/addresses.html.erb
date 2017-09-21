@@ -1,0 +1,27 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+  <% flash.each do |name, msg| %>
+    <%= render partial: 'shared/alert_msg',  locals: {msg: msg, msg_type: t('message_type.success')} %>
+  <% end %>
+  <div class="row">
+    <% @addresses.each do |address| %>
+      <div class="col-lg-3">
+        <div class="contact-box center-version">
+          <a href="profile.html">
+            <h3 class="m-b-xs"><strong><%= address.full_name %></strong></h3>
+            <div class="font-bold"></div>
+            <address class="m-t-md">
+              <strong><%= address.address1 %></strong><br>
+              <%= address.address2 %>, <%= address.city %><br>
+              <%= address.state.name %>, <%= address.country.name %> <%= address.zipcode %><br>
+              Phone: <%= address.phone %>
+            </address>
+          </a>
+          <div class="contact-box-footer">
+            <%= link_to "Edit", edit_address_path(address), class: "btn" %>
+            <%= link_to 'Destroy', address, class: "btn", method: :delete, data: { confirm: 'Are you sure?' } %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</dive>        
