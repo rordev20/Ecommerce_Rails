@@ -16,8 +16,12 @@ Rails.application.routes.draw do
   end
   resources :orders, only: [:new, :create]
   resources :addresses, only: [:edit, :update, :destroy]
+  resources :users, only: [:update]
   get 'user/orders', to: 'users#orders'
   get 'user/addresses', to: 'users#addresses'
+  get 'user/account', to: 'users#account'
+  get 'user/wallet', to: 'users#wallet'
+  get 'user/my_coupon', to: 'users#my_coupon'
   get "/orders/:order_id/confirm" => "orders#confirm_order", as: :confirm_order
   match "/coupons/apply" => "coupons#apply", as: :apply_coupon, via: [:get, :post]
   post "/coupons/cancel_coupon" => "coupons#cancel_coupon", as: :cancel_coupon

@@ -8,4 +8,15 @@ class UsersController < ApplicationController
     @addresses = current_user.addresses.includes(:country, :state)
   end
 
+  def wallet
+  end
+
+  def account
+  end
+
+  def update
+  end
+
+  def my_coupon
+  end
 end

@@ -1,7 +1,5 @@
 <div class="wrapper wrapper-content animated fadeInRight">
-  <% flash.each do |name, msg| %>
-    <%= render partial: 'shared/alert_msg',  locals: {msg: msg, msg_type: t('message_type.success')} %>
-  <% end %>
+  <%= render 'shared/flash' %>
   <div class="row">
     <% @addresses.each do |address| %>
       <div class="col-lg-3">

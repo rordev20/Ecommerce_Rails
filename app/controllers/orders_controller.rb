@@ -4,11 +4,20 @@ class OrdersController < ApplicationController
 
   # new order page
   def new
-    @order = Order.new(build_order_params)
-    @countries = Country.list_of_countries
-    @states = State.active
-    @cart_items = @cart.items_in_cart
-    @payment_methods = PaymentMethod.active
+    begin
+      @order = Order.new(build_order_params)
+      @countries = Country.list_of_countries
+      @states = State.active
+      @cart_items = @cart.items_in_cart
+      @payment_methods = PaymentMethod.active
+    rescue CustomException::InsufficientInventory => e
+      logger.info e.message
+      logger.info e.backtrace
+      respond_to do |format|
+        format.js { flash[:alert] = e.message }
+        format.html {redirect_to @cart, alert: e.message and return}
+      end
+    end
   end
 
   # create order
@@ -21,6 +30,13 @@ class OrdersController < ApplicationController
       order.payment_method_id = params[:payment_method]
       if order.save!
         clear_sessions
+      end
+    rescue CustomException::InsufficientInventory => e
+      logger.info e.message
+      logger.info e.backtrace
+      respond_to do |format|
+        format.js { flash[:alert] = e.message }
+        format.html {redirect_to @cart, alert: e.message and return}
       end
     rescue ActiveRecord::RecordInvalid => e
       logger.info e.message

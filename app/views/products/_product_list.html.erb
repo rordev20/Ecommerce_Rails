@@ -5,13 +5,13 @@
         <div class="ibox">
           <div class="ibox-content product-box">
             <div class="product-imitation product-image-container">
-              <%= link_to product do %>
+              <%= link_to product, target: '_blank' do %>
                 <%= product_image(product.images, 'medium') %>
               <% end %>
             </div>
             <div class="product-desc description-pos">
               <div class='product-info'>
-                <strong><%= link_to "#{product.color.name} #{product.name}", product, class: "product-page-product-name" %></strong><br />
+                <strong><%= link_to "#{product.color.name} #{product.name}", product, target: '_blank', class: "product-page-product-name" %></strong><br />
                 <strong><i class="<%= t('currency_icon') %>" aria-hidden="true"><%= product.sell_price %></i></strong>
               </div>
               <div class='row'>

@@ -21,6 +21,11 @@
 
 en:
   hello: "Hello world"
+  logout: "Logout"
+  more: "More"
+  email: "Email"
+  password: "Password"
+  login: "Login"
   cart:
     added: "Item successfully added to cart"
     removed: "Item successfully removed from cart"
@@ -47,6 +52,8 @@ en:
     warning: "warning"
     info: "info"
     danger: "danger"
+    alert: "danger"
+    notice: "success"
   transaction_type:
     credit: "credit"
     debit: "debit"
@@ -76,4 +83,7 @@ en:
     address2: "Address Line 2"
     city: "Town/City"
     state: "State"
-    title: "Address" 
+    title: "Address"
+  user:
+   email: "Email"
+   info: "Account Information"

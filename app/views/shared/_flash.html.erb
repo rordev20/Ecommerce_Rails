@@ -1,0 +1,5 @@
+<% flash.each do |name, msg| %>
+  <%= render partial: 'shared/alert_msg',  locals: {msg: msg, msg_type: t("message_type.#{name}")} %>
+<% end %>
+
+

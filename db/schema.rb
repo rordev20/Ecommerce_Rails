@@ -333,6 +333,7 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.boolean  "open_in_new_tab"
     t.integer  "position"
     t.integer  "menu_type_id"
+    t.string   "icon_class"
     t.boolean  "sign_in_required"
     t.boolean  "is_active"
     t.datetime "deleted_at"

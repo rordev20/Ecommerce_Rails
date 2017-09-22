@@ -11,7 +11,7 @@ class MenuManager < ActiveRecord::Base
     menu_managers = []
     if menu_type.present?
       menu_managers = Rails.cache.fetch ["menu_manager_#{menu_type.id}"], expires_in: 24.hours do
-        menu_type.menu_managers.active.order(:position).select('id, slug, display_name, url')
+        menu_type.menu_managers.active.order(:position).select('id, slug, display_name, url, icon_class')
       end
     end
     menu_managers
