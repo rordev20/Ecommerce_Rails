@@ -1,8 +1,8 @@
 class CreateDeviceTypes < ActiveRecord::Migration
   def change
     create_table :device_types do |t|
-      t.string :name
-      t.boolean :is_active, default: false
+      t.string :name, limit: 40, null: false
+      t.boolean :is_active, default: false, null: false
 
       t.timestamps null: false
     end

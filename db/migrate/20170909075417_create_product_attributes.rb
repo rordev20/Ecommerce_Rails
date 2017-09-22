@@ -3,10 +3,10 @@ class CreateProductAttributes < ActiveRecord::Migration
     create_table :product_attributes do |t|
       t.references :product, index: true, foreign_key: true
       t.references :sub_category_attribute, index: true, foreign_key: true
-      t.string :name
+      t.string :name, limit: 50, null: false
       t.string :description
       t.integer :position
-      t.boolean :is_active
+      t.boolean :is_active, null: false, default: false
 
       t.timestamps null: false
     end

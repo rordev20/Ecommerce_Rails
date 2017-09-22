@@ -3,10 +3,10 @@ class CreateSubCategoryAttributes < ActiveRecord::Migration
     create_table :sub_category_attributes do |t|
       t.references :sub_category, index: true, foreign_key: true
       t.string :attribute_type
-      t.string :name
+      t.string :name, limit: 50, null: false
       t.text :content
       t.integer :position
-      t.boolean :is_active
+      t.boolean :is_active, null: false, default: false
 
       t.timestamps null: false
     end

@@ -1,7 +1,7 @@
 class CreateMenuManagers < ActiveRecord::Migration
   def change
     create_table :menu_managers do |t|
-      t.string :name
+      t.string :name, limit: 50, null: false
       t.string :display_name
       t.string :slug
       t.string :url
@@ -9,8 +9,8 @@ class CreateMenuManagers < ActiveRecord::Migration
       t.integer :position
       t.references :menu_type, index: true, foreign_key: true
       t.string :icon_class
-      t.boolean :sign_in_required
-      t.boolean :is_active
+      t.boolean :sign_in_required, null: false, default: false
+      t.boolean :is_active, null: false, default: false
       t.datetime :deleted_at
 
       t.timestamps null: false

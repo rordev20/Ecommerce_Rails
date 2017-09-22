@@ -3,7 +3,7 @@ class CreateBrowniePointTransactions < ActiveRecord::Migration
     create_table :brownie_point_transactions do |t|
       t.references :user, index: true, foreign_key: true
       t.references :order, index: true, foreign_key: true
-      t.float :points
+      t.float :points, default: 0, null: false
       t.references :event, index: true, foreign_key: true
       t.references :transaction_type, index: true, foreign_key: true
       t.text :comment

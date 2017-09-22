@@ -1,7 +1,7 @@
 class CreateAddressTypes < ActiveRecord::Migration
   def self.up
     create_table :address_types do |t|
-      t.string :name
+      t.string :name,        limit: 40, null: false
 
       t.timestamps null: false
     end

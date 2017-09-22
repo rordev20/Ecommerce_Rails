@@ -3,12 +3,12 @@ class CreateOrderItems < ActiveRecord::Migration
     create_table :order_items do |t|
       t.references :order, index: true, foreign_key: true
       t.references :product, index: true, foreign_key: true
-      t.integer :quantity
-      t.float :rate
-      t.float :net_amount
-      t.float :discount_amount, default: 0
-      t.float :brownie_point, default: 0
-      t.float :cashback, default: 0
+      t.integer :quantity, default: 1
+      t.decimal :rate, precision: 8, scale: 2, null: false
+      t.decimal :net_amount, precision: 8, scale: 2, null: false 
+      t.decimal :discount_amount, precision: 8, scale: 2, default: 0
+      t.decimal :brownie_point,  precision: 8, scale: 2, default: 0
+      t.decimal :cashback, precision: 8, scale: 2, default: 0
       t.datetime :delivery_date
 
       t.timestamps null: false

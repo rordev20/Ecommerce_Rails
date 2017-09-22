@@ -1,11 +1,11 @@
 class CreateReferreds < ActiveRecord::Migration
   def change
     create_table :referreds do |t|
-      t.string :name
-      t.string :email
-      t.string :phone_no
+      t.string :name,           limit: 64, null: false
+      t.string :email,          limit: 40
+      t.string :phone_no,       limit: 20, null: false
       t.references :referrer, index: true, foreign_key: true
-      t.boolean :is_active
+      t.boolean :is_active,     null: false, default: true
       t.datetime :deleted_at
 
       t.timestamps null: false
