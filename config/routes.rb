@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root :to => 'home#index'
-  devise_for :users
+  devise_for :users, :controllers => { registrations: 'users/registrations' }
+
   ActiveAdmin.routes(self)
   resources :products, only: [:index, :show]
   resources :carts, only: [:show]

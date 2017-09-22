@@ -20,12 +20,14 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  global:
+    login: "Login"
+    sign_up: "Sign Up"
   hello: "Hello world"
   logout: "Logout"
   more: "More"
   email: "Email"
   password: "Password"
-  login: "Login"
   cart:
     added: "Item successfully added to cart"
     removed: "Item successfully removed from cart"
