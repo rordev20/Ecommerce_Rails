@@ -1,5 +1,5 @@
 <% if @cart.try(:product_in_cart).to_i != 0 %>
-  <%= link_to @cart do %>
-    <i class="fa fa-shopping-cart" aria-hidden="true"><%= @cart.product_in_cart %></i>
+  <%= link_to @cart, class: "dropdown-toggle count-info" do %>
+    <i class="fa fa-shopping-cart"></i><span class="label label-primary item-in-cart"><%= @cart.product_in_cart %></span>
   <% end %>
 <% end %>

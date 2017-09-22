@@ -15,6 +15,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    redirect_to user_account_path
   end
 
   def my_coupon
