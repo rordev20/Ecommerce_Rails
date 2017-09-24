@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   ActiveAdmin.routes(self)
   resources :products, only: [:index, :show]
-  resources :carts, only: [:show]
+  resource :cart, only: [:show]
   resources :cart_items, only: [:create, :update, :destroy] do
     member do
       post :increase_quantity
