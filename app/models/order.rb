@@ -1,7 +1,10 @@
 class Order < ActiveRecord::Base
+  include AASM
+  enum status: [ :draft, :confirmed, :dispatched, :delivered, :cancelled,
+                 :returned, :refunded, :damaged, :not_delivered, :reordered
+               ]
   belongs_to :user
   belongs_to :cart
-  belongs_to :order_status
   belongs_to :payment_status
   belongs_to :billing_address, foreign_key: :billing_address_id, class_name: 'Address'
   belongs_to :shipping_address, foreign_key: :shipping_address_id, class_name: 'Address'
@@ -18,6 +21,24 @@ class Order < ActiveRecord::Base
   validates :payment_method, presence: true
   before_save :set_fields
   after_save :update_user_wallet
+
+  aasm column: :status, enum: true do
+    state :draft, initial: true
+    state :confirmed
+    state :dispatched
+    state :delivered
+    state :cancelled
+    state :returned
+    state :refunded
+    state :damaged
+    state :not_delivered
+    state :reordered
+
+    event :confirm do
+      transitions from: :draft, to: :confirmed
+    end
+
+  end
 
   def set_fields
     self.date = Date.today

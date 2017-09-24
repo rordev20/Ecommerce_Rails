@@ -372,20 +372,13 @@ ActiveRecord::Schema.define(version: 20170917075943) do
   add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
   add_index "order_items", ["product_id"], name: "index_order_items_on_product_id", using: :btree
 
-  create_table "order_statuses", force: :cascade do |t|
-    t.string   "name",       limit: 40,                null: false
-    t.boolean  "is_active",             default: true, null: false
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-  end
-
   create_table "orders", force: :cascade do |t|
     t.integer  "user_id"
     t.decimal  "total",               precision: 8, scale: 2,               null: false
     t.decimal  "grand_total",         precision: 8, scale: 2,               null: false
     t.decimal  "shipping",            precision: 8, scale: 2, default: 0.0
     t.date     "date",                                                      null: false
-    t.integer  "order_status_id"
+    t.integer  "status"
     t.string   "number"
     t.integer  "payment_status_id"
     t.float    "cod_charge",                                  default: 0.0
@@ -405,7 +398,6 @@ ActiveRecord::Schema.define(version: 20170917075943) do
 
   add_index "orders", ["cart_id"], name: "index_orders_on_cart_id", using: :btree
   add_index "orders", ["number"], name: "index_orders_on_number", using: :btree
-  add_index "orders", ["order_status_id"], name: "index_orders_on_order_status_id", using: :btree
   add_index "orders", ["payment_method_id"], name: "index_orders_on_payment_method_id", using: :btree
   add_index "orders", ["payment_status_id"], name: "index_orders_on_payment_status_id", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
@@ -699,7 +691,6 @@ ActiveRecord::Schema.define(version: 20170917075943) do
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "carts"
-  add_foreign_key "orders", "order_statuses"
   add_foreign_key "orders", "payment_methods"
   add_foreign_key "orders", "payment_statuses"
   add_foreign_key "orders", "users"

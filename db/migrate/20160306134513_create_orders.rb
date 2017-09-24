@@ -6,7 +6,7 @@ class CreateOrders < ActiveRecord::Migration
       t.decimal :grand_total,  precision: 8, scale: 2, null: false
       t.decimal :shipping,     precision: 8, scale: 2, default: 0
       t.date :date,            null: false
-      t.references :order_status, index: true, foreign_key: true
+      t.integer :status
       t.string :number
       t.references :payment_status, index: true, foreign_key: true
       t.float :cod_charge,    default: 0
