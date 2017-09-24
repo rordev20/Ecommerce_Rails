@@ -7,7 +7,7 @@ ActiveAdmin.register Product do
 
   form :html => { :enctype => "multipart/form-data" } do |f|
     f.inputs "Details" do
-      f.input :sub_category
+      f.input :sub_category, input_html: { class: "select2" }
       f.input :name
       f.input :dimension
       f.input :description

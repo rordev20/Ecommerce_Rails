@@ -1,4 +1,5 @@
 //= require active_admin/base
+//= require activeadmin_addons/all
 //= require just_datetime_picker/nested_form_workaround
 
 $(document).on('ready page:load', function () {
