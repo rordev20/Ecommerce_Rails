@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5>Usage Summary</h5>
+      </div>
+      <div class="ibox-content">
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th><%= t('wallet.date') %></th>
+              <th><%= t('wallet.description') %></th>
+              <th><%= t('wallet.point') %></th>
+              <th><%= t('wallet.balance') %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @wallet_transactions.each do |wallet_transaction| %>
+              <tr>
+                <td><%= wallet_transaction.created_at %></td>
+                <td><%= wallet_transaction.event.try(:name) %></td>
+                <td><%= wallet_transaction.points %></td>
+                <td><%#= wallet_transaction.created_at %></td>
+                <td></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   end
 
   def wallet
+    @wallet_transactions = current_user.brownie_point_transactions
   end
 
   def account

@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_one :image, as: :imageable
   has_many :orders
   has_many :vendor_orders
+  has_many :brownie_point_transactions
 
   def save_user_address(bill_address_same_as_ship, bill_address_params, ship_address_params)
     billing_address = self.addresses.new(bill_address_params)

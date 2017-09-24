@@ -89,3 +89,8 @@ en:
   user:
    email: "Email"
    info: "Account Information"
+  wallet:
+    date: "Date"
+    description: "Description"
+    point: "Point"
+    balance: "Balance"
