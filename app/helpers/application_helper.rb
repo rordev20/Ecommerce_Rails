@@ -3,6 +3,10 @@ module ApplicationHelper
   def product_data(product)
   end
 
+  def cart_item_count(cart)
+    cart.present? ? cart.product_in_cart : 0
+  end
+
   def product_image(images, image_type)
     if images.first.present?
       first_image = images.first
