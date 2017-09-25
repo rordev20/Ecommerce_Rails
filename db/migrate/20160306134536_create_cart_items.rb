@@ -11,5 +11,6 @@ class CreateCartItems < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+    add_index :cart_items, :deleted_at
   end
 end

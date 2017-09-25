@@ -7,8 +7,10 @@ class CreateProductAttributes < ActiveRecord::Migration
       t.string :description
       t.integer :position
       t.boolean :is_active, null: false, default: false
+      t.datetime :deleted_at
 
       t.timestamps null: false
     end
+    add_index :product_attributes, :deleted_at
   end
 end

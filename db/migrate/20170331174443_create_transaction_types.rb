@@ -8,6 +8,7 @@ class CreateTransactionTypes < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :transaction_types, :slug, unique: true
+    add_index :transaction_types, :slug, unique: true, where: "deleted_at IS NULL"
+    add_index :transaction_types, :deleted_at
   end
 end

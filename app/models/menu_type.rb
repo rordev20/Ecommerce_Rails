@@ -1,4 +1,5 @@
 class MenuType < ActiveRecord::Base
+  acts_as_paranoid
   has_many :menu_managers
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]

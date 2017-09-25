@@ -9,7 +9,8 @@ class CreateCountries < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :countries, :name
-    add_index :countries, :iso_code
+    add_index :countries, :name, where: "deleted_at IS NULL"
+    add_index :countries, :iso_code, where: "deleted_at IS NULL"
+    add_index :countries, :deleted_at
   end
 end

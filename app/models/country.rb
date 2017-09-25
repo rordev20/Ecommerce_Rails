@@ -1,4 +1,5 @@
 class Country < ActiveRecord::Base
+  acts_as_paranoid
   has_one :currency_rate
   has_many :states
   has_many :banner_countries

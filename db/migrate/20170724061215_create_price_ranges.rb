@@ -9,5 +9,6 @@ class CreatePriceRanges < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+    add_index :price_ranges, :deleted_at
   end
 end

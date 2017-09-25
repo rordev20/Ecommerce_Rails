@@ -2,6 +2,7 @@ class Product < ActiveRecord::Base
   # Elastic search module commented
   #include Tire::Model::Search
   #include Tire::Model::Callbacks
+  acts_as_paranoid
   belongs_to :vendor
   belongs_to :sub_category
   has_many :images, as: :imageable

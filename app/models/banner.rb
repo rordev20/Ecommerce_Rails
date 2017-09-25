@@ -1,4 +1,5 @@
 class Banner < ActiveRecord::Base
+  acts_as_paranoid
   just_define_datetime_picker :start_date
   just_define_datetime_picker :end_date
   has_many :banner_device_types

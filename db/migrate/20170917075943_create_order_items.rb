@@ -10,8 +10,10 @@ class CreateOrderItems < ActiveRecord::Migration
       t.decimal :brownie_point,  precision: 8, scale: 2, default: 0
       t.decimal :cashback, precision: 8, scale: 2, default: 0
       t.datetime :delivery_date
+      t.datetime :deleted_at
 
       t.timestamps null: false
     end
+    add_index :order_items, :deleted_at
   end
 end

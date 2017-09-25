@@ -9,5 +9,6 @@ class CreateStates < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+    add_index :states, :deleted_at
   end
 end

@@ -20,9 +20,11 @@ class CreateOrders < ActiveRecord::Migration
       t.decimal :market_rate,    precision: 8, scale: 2
       t.integer :billing_address_id
       t.integer :shipping_address_id
+      t.datetime :deleted_at
 
       t.timestamps null: false
     end
-    add_index :orders, :number
+    add_index :orders, :number, where: "deleted_at IS NULL"
+    add_index :orders, :deleted_at
   end
 end

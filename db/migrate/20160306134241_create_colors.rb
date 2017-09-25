@@ -9,6 +9,7 @@ class CreateColors < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :colors, :slug, unique: true
+    add_index :colors, :slug, unique: true, where: "deleted_at IS NULL"
+    add_index :colors, :deleted_at
   end
 end

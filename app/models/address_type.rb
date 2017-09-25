@@ -1,4 +1,5 @@
 class AddressType < ActiveRecord::Base
+  acts_as_paranoid
   has_many :addresses
 
   def self.bill_address

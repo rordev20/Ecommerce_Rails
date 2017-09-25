@@ -1,7 +1,7 @@
 class CreateSubCategories < ActiveRecord::Migration
   def change
     create_table :sub_categories do |t|
-      t.string :name,            limit: 50, null: false
+      t.string :name,            limit: 50, null: false, unique: true
       t.text :description
       t.references :category, index: true, foreign_key: true
       t.string :slug
@@ -10,7 +10,8 @@ class CreateSubCategories < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :sub_categories, :name
-    add_index :sub_categories, :slug, unique: true
+    add_index :sub_categories, :name, where: "deleted_at IS NULL"
+    add_index :sub_categories, :slug, unique: true, where: "deleted_at IS NULL"
+    add_index :sub_categories, :deleted_at
   end
 end

@@ -19,5 +19,6 @@ class CreateAddresses < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+    add_index :addresses, :deleted_at
   end
 end

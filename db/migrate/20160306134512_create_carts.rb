@@ -11,6 +11,7 @@ class CreateCarts < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_index :carts, :email
+    add_index :carts, :email, where: "deleted_at IS NULL"
+    add_index :carts, :deleted_at
   end
 end

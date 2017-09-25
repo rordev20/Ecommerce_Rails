@@ -13,8 +13,9 @@ class CreateBanners < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :banners, :name
-    add_index :banners, :start_date
-    add_index :banners, :end_date
+    add_index :banners, :name, where: "deleted_at IS NULL"
+    add_index :banners, :start_date, where: "deleted_at IS NULL"
+    add_index :banners, :end_date, where: "deleted_at IS NULL"
+    add_index :banners, :deleted_at
   end
 end

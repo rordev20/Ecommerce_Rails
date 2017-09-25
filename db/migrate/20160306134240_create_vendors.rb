@@ -2,7 +2,7 @@ class CreateVendors < ActiveRecord::Migration
   def change
     create_table :vendors do |t|
       t.string :name,            limit: 50, null: false
-      t.string :email,           null: false
+      t.string :email,           null: false, unique: true
       t.text :description
       t.text :policy
       t.boolean :is_whole_seller
@@ -12,7 +12,8 @@ class CreateVendors < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :vendors, :name
-    add_index :vendors, :email
+    add_index :vendors, :name, where: "deleted_at IS NULL"
+    add_index :vendors, :email, where: "deleted_at IS NULL"
+    add_index :vendors, :deleted_at
   end
 end

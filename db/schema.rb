@@ -33,11 +33,13 @@ ActiveRecord::Schema.define(version: 20170917075943) do
 
   create_table "address_types", force: :cascade do |t|
     t.string   "name",       limit: 40, null: false
+    t.datetime "deleted_at"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
   end
 
-  add_index "address_types", ["name"], name: "index_address_types_on_name", using: :btree
+  add_index "address_types", ["deleted_at"], name: "index_address_types_on_deleted_at", using: :btree
+  add_index "address_types", ["name"], name: "index_address_types_on_name", where: "(deleted_at IS NULL)", using: :btree
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "user_id"
@@ -61,6 +63,7 @@ ActiveRecord::Schema.define(version: 20170917075943) do
 
   add_index "addresses", ["address_type_id"], name: "index_addresses_on_address_type_id", using: :btree
   add_index "addresses", ["country_id"], name: "index_addresses_on_country_id", using: :btree
+  add_index "addresses", ["deleted_at"], name: "index_addresses_on_deleted_at", using: :btree
   add_index "addresses", ["state_id"], name: "index_addresses_on_state_id", using: :btree
   add_index "addresses", ["user_id"], name: "index_addresses_on_user_id", using: :btree
   add_index "addresses", ["vendor_id"], name: "index_addresses_on_vendor_id", using: :btree
@@ -78,6 +81,7 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.datetime "updated_at",                 null: false
   end
 
+  add_index "bank_accounts", ["deleted_at"], name: "index_bank_accounts_on_deleted_at", using: :btree
   add_index "bank_accounts", ["vendor_id"], name: "index_bank_accounts_on_vendor_id", using: :btree
 
   create_table "banner_countries", force: :cascade do |t|
@@ -118,9 +122,10 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.datetime "image_updated_at"
   end
 
-  add_index "banners", ["end_date"], name: "index_banners_on_end_date", using: :btree
-  add_index "banners", ["name"], name: "index_banners_on_name", using: :btree
-  add_index "banners", ["start_date"], name: "index_banners_on_start_date", using: :btree
+  add_index "banners", ["deleted_at"], name: "index_banners_on_deleted_at", using: :btree
+  add_index "banners", ["end_date"], name: "index_banners_on_end_date", where: "(deleted_at IS NULL)", using: :btree
+  add_index "banners", ["name"], name: "index_banners_on_name", where: "(deleted_at IS NULL)", using: :btree
+  add_index "banners", ["start_date"], name: "index_banners_on_start_date", where: "(deleted_at IS NULL)", using: :btree
 
   create_table "brownie_point_transactions", force: :cascade do |t|
     t.integer  "user_id"
@@ -129,10 +134,12 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.integer  "event_id"
     t.integer  "transaction_type_id"
     t.text     "comment"
+    t.datetime "deleted_at"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
   end
 
+  add_index "brownie_point_transactions", ["deleted_at"], name: "index_brownie_point_transactions_on_deleted_at", using: :btree
   add_index "brownie_point_transactions", ["event_id"], name: "index_brownie_point_transactions_on_event_id", using: :btree
   add_index "brownie_point_transactions", ["order_id"], name: "index_brownie_point_transactions_on_order_id", using: :btree
   add_index "brownie_point_transactions", ["transaction_type_id"], name: "index_brownie_point_transactions_on_transaction_type_id", using: :btree
@@ -151,6 +158,7 @@ ActiveRecord::Schema.define(version: 20170917075943) do
   end
 
   add_index "cart_items", ["cart_id"], name: "index_cart_items_on_cart_id", using: :btree
+  add_index "cart_items", ["deleted_at"], name: "index_cart_items_on_deleted_at", using: :btree
   add_index "cart_items", ["product_id"], name: "index_cart_items_on_product_id", using: :btree
   add_index "cart_items", ["size_id"], name: "index_cart_items_on_size_id", using: :btree
   add_index "cart_items", ["vendor_order_id"], name: "index_cart_items_on_vendor_order_id", using: :btree
@@ -167,7 +175,8 @@ ActiveRecord::Schema.define(version: 20170917075943) do
   end
 
   add_index "carts", ["coupon_id"], name: "index_carts_on_coupon_id", using: :btree
-  add_index "carts", ["email"], name: "index_carts_on_email", using: :btree
+  add_index "carts", ["deleted_at"], name: "index_carts_on_deleted_at", using: :btree
+  add_index "carts", ["email"], name: "index_carts_on_email", where: "(deleted_at IS NULL)", using: :btree
   add_index "carts", ["user_id"], name: "index_carts_on_user_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
@@ -180,8 +189,9 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.datetime "updated_at",                            null: false
   end
 
-  add_index "categories", ["name"], name: "index_categories_on_name", using: :btree
-  add_index "categories", ["slug"], name: "index_categories_on_slug", unique: true, using: :btree
+  add_index "categories", ["deleted_at"], name: "index_categories_on_deleted_at", using: :btree
+  add_index "categories", ["name"], name: "index_categories_on_name", where: "(deleted_at IS NULL)", using: :btree
+  add_index "categories", ["slug"], name: "index_categories_on_slug", unique: true, where: "(deleted_at IS NULL)", using: :btree
 
   create_table "color_sub_categories", force: :cascade do |t|
     t.integer  "color_id"
@@ -203,7 +213,8 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.datetime "updated_at",                           null: false
   end
 
-  add_index "colors", ["slug"], name: "index_colors_on_slug", unique: true, using: :btree
+  add_index "colors", ["deleted_at"], name: "index_colors_on_deleted_at", using: :btree
+  add_index "colors", ["slug"], name: "index_colors_on_slug", unique: true, where: "(deleted_at IS NULL)", using: :btree
 
   create_table "countries", force: :cascade do |t|
     t.string   "name",       limit: 40,                null: false
@@ -215,15 +226,19 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.datetime "updated_at",                           null: false
   end
 
-  add_index "countries", ["iso_code"], name: "index_countries_on_iso_code", using: :btree
-  add_index "countries", ["name"], name: "index_countries_on_name", using: :btree
+  add_index "countries", ["deleted_at"], name: "index_countries_on_deleted_at", using: :btree
+  add_index "countries", ["iso_code"], name: "index_countries_on_iso_code", where: "(deleted_at IS NULL)", using: :btree
+  add_index "countries", ["name"], name: "index_countries_on_name", where: "(deleted_at IS NULL)", using: :btree
 
   create_table "coupon_types", force: :cascade do |t|
     t.string   "name",       limit: 40,                null: false
     t.boolean  "is_active",             default: true, null: false
+    t.datetime "deleted_at"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
   end
+
+  add_index "coupon_types", ["deleted_at"], name: "index_coupon_types_on_deleted_at", using: :btree
 
   create_table "coupons", force: :cascade do |t|
     t.string   "name",                         limit: 40,                 null: false
@@ -250,10 +265,11 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.datetime "updated_at",                                              null: false
   end
 
-  add_index "coupons", ["code"], name: "index_coupons_on_code", using: :btree
+  add_index "coupons", ["code"], name: "index_coupons_on_code", where: "(deleted_at IS NULL)", using: :btree
   add_index "coupons", ["coupon_type_id"], name: "index_coupons_on_coupon_type_id", using: :btree
+  add_index "coupons", ["deleted_at"], name: "index_coupons_on_deleted_at", using: :btree
   add_index "coupons", ["discount_type_id"], name: "index_coupons_on_discount_type_id", using: :btree
-  add_index "coupons", ["name"], name: "index_coupons_on_name", using: :btree
+  add_index "coupons", ["name"], name: "index_coupons_on_name", where: "(deleted_at IS NULL)", using: :btree
 
   create_table "currency_rates", force: :cascade do |t|
     t.integer  "country_id"
@@ -266,22 +282,28 @@ ActiveRecord::Schema.define(version: 20170917075943) do
   end
 
   add_index "currency_rates", ["country_id"], name: "index_currency_rates_on_country_id", using: :btree
+  add_index "currency_rates", ["deleted_at"], name: "index_currency_rates_on_deleted_at", using: :btree
 
   create_table "device_types", force: :cascade do |t|
     t.string   "name",       limit: 40,                 null: false
     t.boolean  "is_active",             default: false, null: false
+    t.datetime "deleted_at"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
   end
 
-  add_index "device_types", ["name"], name: "index_device_types_on_name", using: :btree
+  add_index "device_types", ["deleted_at"], name: "index_device_types_on_deleted_at", using: :btree
+  add_index "device_types", ["name"], name: "index_device_types_on_name", where: "(deleted_at IS NULL)", using: :btree
 
   create_table "discount_types", force: :cascade do |t|
     t.string   "name",                      null: false
     t.boolean  "is_active",  default: true, null: false
+    t.datetime "deleted_at"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end
+
+  add_index "discount_types", ["deleted_at"], name: "index_discount_types_on_deleted_at", using: :btree
 
   create_table "events", force: :cascade do |t|
     t.string   "name",       limit: 40,                 null: false
@@ -292,7 +314,8 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.datetime "updated_at",                            null: false
   end
 
-  add_index "events", ["slug"], name: "index_events_on_slug", unique: true, using: :btree
+  add_index "events", ["deleted_at"], name: "index_events_on_deleted_at", using: :btree
+  add_index "events", ["slug"], name: "index_events_on_slug", unique: true, where: "(deleted_at IS NULL)", using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -321,6 +344,7 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.datetime "avatar_updated_at"
   end
 
+  add_index "images", ["deleted_at"], name: "index_images_on_deleted_at", using: :btree
   add_index "images", ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
 
   create_table "menu_managers", force: :cascade do |t|
@@ -339,9 +363,10 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.datetime "updated_at",                                  null: false
   end
 
+  add_index "menu_managers", ["deleted_at"], name: "index_menu_managers_on_deleted_at", using: :btree
   add_index "menu_managers", ["menu_type_id"], name: "index_menu_managers_on_menu_type_id", using: :btree
-  add_index "menu_managers", ["name"], name: "index_menu_managers_on_name", using: :btree
-  add_index "menu_managers", ["slug"], name: "index_menu_managers_on_slug", unique: true, using: :btree
+  add_index "menu_managers", ["name"], name: "index_menu_managers_on_name", where: "(deleted_at IS NULL)", using: :btree
+  add_index "menu_managers", ["slug"], name: "index_menu_managers_on_slug", unique: true, where: "(deleted_at IS NULL)", using: :btree
 
   create_table "menu_types", force: :cascade do |t|
     t.string   "name",       limit: 50,                 null: false
@@ -352,8 +377,9 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.datetime "updated_at",                            null: false
   end
 
-  add_index "menu_types", ["name"], name: "index_menu_types_on_name", using: :btree
-  add_index "menu_types", ["slug"], name: "index_menu_types_on_slug", unique: true, using: :btree
+  add_index "menu_types", ["deleted_at"], name: "index_menu_types_on_deleted_at", using: :btree
+  add_index "menu_types", ["name"], name: "index_menu_types_on_name", where: "(deleted_at IS NULL)", using: :btree
+  add_index "menu_types", ["slug"], name: "index_menu_types_on_slug", unique: true, where: "(deleted_at IS NULL)", using: :btree
 
   create_table "order_items", force: :cascade do |t|
     t.integer  "order_id"
@@ -365,10 +391,12 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.decimal  "brownie_point",   precision: 8, scale: 2, default: 0.0
     t.decimal  "cashback",        precision: 8, scale: 2, default: 0.0
     t.datetime "delivery_date"
+    t.datetime "deleted_at"
     t.datetime "created_at",                                            null: false
     t.datetime "updated_at",                                            null: false
   end
 
+  add_index "order_items", ["deleted_at"], name: "index_order_items_on_deleted_at", using: :btree
   add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
   add_index "order_items", ["product_id"], name: "index_order_items_on_product_id", using: :btree
 
@@ -392,12 +420,14 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.decimal  "market_rate",         precision: 8, scale: 2
     t.integer  "billing_address_id"
     t.integer  "shipping_address_id"
+    t.datetime "deleted_at"
     t.datetime "created_at",                                                null: false
     t.datetime "updated_at",                                                null: false
   end
 
   add_index "orders", ["cart_id"], name: "index_orders_on_cart_id", using: :btree
-  add_index "orders", ["number"], name: "index_orders_on_number", using: :btree
+  add_index "orders", ["deleted_at"], name: "index_orders_on_deleted_at", using: :btree
+  add_index "orders", ["number"], name: "index_orders_on_number", where: "(deleted_at IS NULL)", using: :btree
   add_index "orders", ["payment_method_id"], name: "index_orders_on_payment_method_id", using: :btree
   add_index "orders", ["payment_status_id"], name: "index_orders_on_payment_status_id", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
@@ -406,18 +436,23 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.string   "name",         limit: 40,                 null: false
     t.string   "payment_mode"
     t.boolean  "is_active",               default: false, null: false
+    t.datetime "deleted_at"
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
   end
 
-  add_index "payment_methods", ["name"], name: "index_payment_methods_on_name", using: :btree
+  add_index "payment_methods", ["deleted_at"], name: "index_payment_methods_on_deleted_at", using: :btree
+  add_index "payment_methods", ["name"], name: "index_payment_methods_on_name", where: "(deleted_at IS NULL)", using: :btree
 
   create_table "payment_statuses", force: :cascade do |t|
     t.string   "name",       limit: 40,                null: false
     t.boolean  "is_active",             default: true, null: false
+    t.datetime "deleted_at"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
   end
+
+  add_index "payment_statuses", ["deleted_at"], name: "index_payment_statuses_on_deleted_at", using: :btree
 
   create_table "price_ranges", force: :cascade do |t|
     t.float    "min_price",       default: 0.0,   null: false
@@ -429,6 +464,7 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.datetime "updated_at",                      null: false
   end
 
+  add_index "price_ranges", ["deleted_at"], name: "index_price_ranges_on_deleted_at", using: :btree
   add_index "price_ranges", ["sub_category_id"], name: "index_price_ranges_on_sub_category_id", using: :btree
 
   create_table "product_attributes", force: :cascade do |t|
@@ -438,10 +474,12 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.string   "description"
     t.integer  "position"
     t.boolean  "is_active",                            default: false, null: false
+    t.datetime "deleted_at"
     t.datetime "created_at",                                           null: false
     t.datetime "updated_at",                                           null: false
   end
 
+  add_index "product_attributes", ["deleted_at"], name: "index_product_attributes_on_deleted_at", using: :btree
   add_index "product_attributes", ["product_id"], name: "index_product_attributes_on_product_id", using: :btree
   add_index "product_attributes", ["sub_category_attribute_id"], name: "index_product_attributes_on_sub_category_attribute_id", using: :btree
 
@@ -474,9 +512,10 @@ ActiveRecord::Schema.define(version: 20170917075943) do
   end
 
   add_index "products", ["color_id"], name: "index_products_on_color_id", using: :btree
-  add_index "products", ["name"], name: "index_products_on_name", using: :btree
-  add_index "products", ["sell_price"], name: "index_products_on_sell_price", using: :btree
-  add_index "products", ["slug"], name: "index_products_on_slug", unique: true, using: :btree
+  add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree
+  add_index "products", ["name"], name: "index_products_on_name", where: "(deleted_at IS NULL)", using: :btree
+  add_index "products", ["sell_price"], name: "index_products_on_sell_price", where: "(deleted_at IS NULL)", using: :btree
+  add_index "products", ["slug"], name: "index_products_on_slug", unique: true, where: "(deleted_at IS NULL)", using: :btree
   add_index "products", ["sub_category_id"], name: "index_products_on_sub_category_id", using: :btree
   add_index "products", ["vendor_id"], name: "index_products_on_vendor_id", using: :btree
 
@@ -499,8 +538,9 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.datetime "updated_at",                            null: false
   end
 
-  add_index "referreds", ["email"], name: "index_referreds_on_email", using: :btree
-  add_index "referreds", ["name"], name: "index_referreds_on_name", using: :btree
+  add_index "referreds", ["deleted_at"], name: "index_referreds_on_deleted_at", using: :btree
+  add_index "referreds", ["email"], name: "index_referreds_on_email", where: "(deleted_at IS NULL)", using: :btree
+  add_index "referreds", ["name"], name: "index_referreds_on_name", where: "(deleted_at IS NULL)", using: :btree
   add_index "referreds", ["referrer_id"], name: "index_referreds_on_referrer_id", using: :btree
 
   create_table "referrers", force: :cascade do |t|
@@ -513,17 +553,20 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.datetime "updated_at",                           null: false
   end
 
-  add_index "referrers", ["email"], name: "index_referrers_on_email", using: :btree
-  add_index "referrers", ["name"], name: "index_referrers_on_name", using: :btree
+  add_index "referrers", ["deleted_at"], name: "index_referrers_on_deleted_at", using: :btree
+  add_index "referrers", ["email"], name: "index_referrers_on_email", where: "(deleted_at IS NULL)", using: :btree
+  add_index "referrers", ["name"], name: "index_referrers_on_name", where: "(deleted_at IS NULL)", using: :btree
 
   create_table "sizes", force: :cascade do |t|
     t.string   "name",        limit: 40, null: false
     t.integer  "category_id"
+    t.datetime "deleted_at"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
   add_index "sizes", ["category_id"], name: "index_sizes_on_category_id", using: :btree
+  add_index "sizes", ["deleted_at"], name: "index_sizes_on_deleted_at", using: :btree
 
   create_table "states", force: :cascade do |t|
     t.string   "name",       limit: 40,                null: false
@@ -536,6 +579,7 @@ ActiveRecord::Schema.define(version: 20170917075943) do
   end
 
   add_index "states", ["country_id"], name: "index_states_on_country_id", using: :btree
+  add_index "states", ["deleted_at"], name: "index_states_on_deleted_at", using: :btree
 
   create_table "sub_categories", force: :cascade do |t|
     t.string   "name",               limit: 50,                null: false
@@ -553,8 +597,9 @@ ActiveRecord::Schema.define(version: 20170917075943) do
   end
 
   add_index "sub_categories", ["category_id"], name: "index_sub_categories_on_category_id", using: :btree
-  add_index "sub_categories", ["name"], name: "index_sub_categories_on_name", using: :btree
-  add_index "sub_categories", ["slug"], name: "index_sub_categories_on_slug", unique: true, using: :btree
+  add_index "sub_categories", ["deleted_at"], name: "index_sub_categories_on_deleted_at", using: :btree
+  add_index "sub_categories", ["name"], name: "index_sub_categories_on_name", where: "(deleted_at IS NULL)", using: :btree
+  add_index "sub_categories", ["slug"], name: "index_sub_categories_on_slug", unique: true, where: "(deleted_at IS NULL)", using: :btree
 
   create_table "sub_category_attributes", force: :cascade do |t|
     t.integer  "sub_category_id"
@@ -563,11 +608,13 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.text     "content"
     t.integer  "position"
     t.boolean  "is_active",                  default: false, null: false
+    t.datetime "deleted_at"
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
   end
 
-  add_index "sub_category_attributes", ["attribute_type"], name: "index_sub_category_attributes_on_attribute_type", using: :btree
+  add_index "sub_category_attributes", ["attribute_type"], name: "index_sub_category_attributes_on_attribute_type", where: "(deleted_at IS NULL)", using: :btree
+  add_index "sub_category_attributes", ["deleted_at"], name: "index_sub_category_attributes_on_deleted_at", using: :btree
   add_index "sub_category_attributes", ["sub_category_id"], name: "index_sub_category_attributes_on_sub_category_id", using: :btree
 
   create_table "system_constants", force: :cascade do |t|
@@ -580,7 +627,8 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.datetime "updated_at",                            null: false
   end
 
-  add_index "system_constants", ["name"], name: "index_system_constants_on_name", using: :btree
+  add_index "system_constants", ["deleted_at"], name: "index_system_constants_on_deleted_at", using: :btree
+  add_index "system_constants", ["name"], name: "index_system_constants_on_name", where: "(deleted_at IS NULL)", using: :btree
 
   create_table "transaction_types", force: :cascade do |t|
     t.string   "name",       limit: 40,                null: false
@@ -591,7 +639,8 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.datetime "updated_at",                           null: false
   end
 
-  add_index "transaction_types", ["slug"], name: "index_transaction_types_on_slug", unique: true, using: :btree
+  add_index "transaction_types", ["deleted_at"], name: "index_transaction_types_on_deleted_at", using: :btree
+  add_index "transaction_types", ["slug"], name: "index_transaction_types_on_slug", unique: true, where: "(deleted_at IS NULL)", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "username",               limit: 64,                null: false
@@ -613,6 +662,7 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.inet     "last_sign_in_ip"
   end
 
+  add_index "users", ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
@@ -659,8 +709,9 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.datetime "updated_at",                                                         null: false
   end
 
-  add_index "vendors", ["email"], name: "index_vendors_on_email", using: :btree
-  add_index "vendors", ["name"], name: "index_vendors_on_name", using: :btree
+  add_index "vendors", ["deleted_at"], name: "index_vendors_on_deleted_at", using: :btree
+  add_index "vendors", ["email"], name: "index_vendors_on_email", where: "(deleted_at IS NULL)", using: :btree
+  add_index "vendors", ["name"], name: "index_vendors_on_name", where: "(deleted_at IS NULL)", using: :btree
 
   add_foreign_key "addresses", "address_types"
   add_foreign_key "addresses", "countries"

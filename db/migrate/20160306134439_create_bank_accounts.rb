@@ -12,5 +12,6 @@ class CreateBankAccounts < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+    add_index :bank_accounts, :deleted_at
   end
 end

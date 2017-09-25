@@ -1,4 +1,5 @@
 class Order < ActiveRecord::Base
+  acts_as_paranoid
   include AASM
   enum status: [ :draft, :confirmed, :dispatched, :delivered, :cancelled,
                  :returned, :refunded, :damaged, :not_delivered, :reordered

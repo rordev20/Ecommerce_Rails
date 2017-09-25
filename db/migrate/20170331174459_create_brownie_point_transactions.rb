@@ -7,8 +7,10 @@ class CreateBrowniePointTransactions < ActiveRecord::Migration
       t.references :event, index: true, foreign_key: true
       t.references :transaction_type, index: true, foreign_key: true
       t.text :comment
+      t.datetime :deleted_at
 
       t.timestamps null: false
     end
+    add_index :brownie_point_transactions, :deleted_at
   end
 end

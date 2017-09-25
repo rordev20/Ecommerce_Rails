@@ -25,7 +25,8 @@ class CreateCoupons < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_index :coupons, :name
-    add_index :coupons, :code
+    add_index :coupons, :name, where: "deleted_at IS NULL"
+    add_index :coupons, :code, where: "deleted_at IS NULL"
+    add_index :coupons, :deleted_at
   end
 end

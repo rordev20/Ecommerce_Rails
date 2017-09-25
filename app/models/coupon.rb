@@ -1,4 +1,5 @@
 class Coupon < ActiveRecord::Base
+  acts_as_paranoid
   just_define_datetime_picker :start_date
   just_define_datetime_picker :end_date
   belongs_to :coupon_type

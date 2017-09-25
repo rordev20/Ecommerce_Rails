@@ -9,6 +9,7 @@ class CreateSystemConstants < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :system_constants, :name
+    add_index :system_constants, :name, where: "deleted_at IS NULL"
+    add_index :system_constants, :deleted_at
   end
 end

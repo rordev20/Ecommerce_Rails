@@ -1,4 +1,5 @@
 class ProductAttribute < ActiveRecord::Base
+  acts_as_paranoid
   belongs_to :product
   belongs_to :sub_category_attribute
   scope :active, -> {where(is_active: true)}

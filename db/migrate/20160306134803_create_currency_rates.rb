@@ -9,5 +9,6 @@ class CreateCurrencyRates < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+    add_index :currency_rates, :deleted_at
   end
 end

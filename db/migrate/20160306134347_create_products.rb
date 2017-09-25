@@ -27,8 +27,9 @@ class CreateProducts < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :products, :name
-    add_index :products, :sell_price
-    add_index :products, :slug, unique: true
+    add_index :products, :name, where: "deleted_at IS NULL"
+    add_index :products, :sell_price, where: "deleted_at IS NULL"
+    add_index :products, :slug, unique: true, where: "deleted_at IS NULL"
+    add_index :products, :deleted_at
   end
 end

@@ -15,7 +15,8 @@ class CreateMenuManagers < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :menu_managers, :name
-    add_index :menu_managers, :slug, unique: true
+    add_index :menu_managers, :name, where: "deleted_at IS NULL"
+    add_index :menu_managers, :slug, unique: true, where: "deleted_at IS NULL"
+    add_index :menu_managers, :deleted_at
   end
 end

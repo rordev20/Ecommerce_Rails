@@ -1,4 +1,5 @@
 class OrderItem < ActiveRecord::Base
+  acts_as_paranoid
   belongs_to :order
   belongs_to :product
   has_many :images, through: :product

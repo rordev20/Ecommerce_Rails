@@ -8,6 +8,7 @@ class CreateEvents < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :events, :slug, unique: true
+    add_index :events, :slug, unique: true, where: "deleted_at IS NULL"
+    add_index :events, :deleted_at
   end
 end

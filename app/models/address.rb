@@ -1,4 +1,5 @@
 class Address < ActiveRecord::Base
+  acts_as_paranoid
   belongs_to :user
   belongs_to :state
   belongs_to :country

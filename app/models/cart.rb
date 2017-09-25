@@ -1,4 +1,5 @@
 class Cart < ActiveRecord::Base
+  acts_as_paranoid
   belongs_to :user
   belongs_to :coupon, -> { includes(:discount_type)}
   has_many :cart_items

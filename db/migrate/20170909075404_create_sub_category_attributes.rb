@@ -7,9 +7,11 @@ class CreateSubCategoryAttributes < ActiveRecord::Migration
       t.text :content
       t.integer :position
       t.boolean :is_active, null: false, default: false
+      t.datetime :deleted_at
 
       t.timestamps null: false
     end
-    add_index :sub_category_attributes, :attribute_type
+    add_index :sub_category_attributes, :attribute_type, where: "deleted_at IS NULL"
+    add_index :sub_category_attributes, :deleted_at
   end
 end

@@ -1,4 +1,5 @@
 class Category < ActiveRecord::Base
+  acts_as_paranoid
   has_many :sub_categories
   has_many :sizes
   scope :active, -> {where(is_active: true)}
