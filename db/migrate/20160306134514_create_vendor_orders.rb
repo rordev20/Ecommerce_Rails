@@ -1,4 +1,4 @@
-class CreateVendorOrders < ActiveRecord::Migration
+class CreateVendorOrders < ActiveRecord::Migration[5.1]
   def change
     create_table :vendor_orders do |t|
       t.references :vendor, index: true, foreign_key: true

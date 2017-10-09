@@ -1,9 +1,9 @@
-class CartItem < ActiveRecord::Base
+class CartItem < ApplicationRecord
   acts_as_paranoid
   belongs_to :cart
   belongs_to :product
-  belongs_to :size
-  belongs_to :vendor_order
+  belongs_to :size, optional: true
+  belongs_to :vendor_order, optional: true
   delegate :sell_price, :quantity, :id, to: :product, prefix: :prd
 
   # total cost for cart item

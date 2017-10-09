@@ -1,4 +1,4 @@
-class AddAttachmentToSubCategories < ActiveRecord::Migration
+class AddAttachmentToSubCategories < ActiveRecord::Migration[5.1]
   def up
     add_attachment :sub_categories, :image
   end

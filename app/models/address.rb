@@ -1,9 +1,9 @@
-class Address < ActiveRecord::Base
+class Address < ApplicationRecord
   acts_as_paranoid
   belongs_to :user
   belongs_to :state
   belongs_to :country
-  belongs_to :vendor
+  belongs_to :vendor, optional: true
   belongs_to :address_type
 
   validates :country, presence: true

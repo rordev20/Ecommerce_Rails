@@ -1,4 +1,4 @@
-class CreateReferreds < ActiveRecord::Migration
+class CreateReferreds < ActiveRecord::Migration[5.1]
   def change
     create_table :referreds do |t|
       t.string :name,           limit: 64, null: false

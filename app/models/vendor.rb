@@ -1,4 +1,4 @@
-class Vendor < ActiveRecord::Base
+class Vendor < ApplicationRecord
   acts_as_paranoid
   has_many :bank_accounts
   has_one :image, as: :imageable

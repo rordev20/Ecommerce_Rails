@@ -1,4 +1,4 @@
-class CreateSubCategoryAttributes < ActiveRecord::Migration
+class CreateSubCategoryAttributes < ActiveRecord::Migration[5.1]
   def change
     create_table :sub_category_attributes do |t|
       t.references :sub_category, index: true, foreign_key: true

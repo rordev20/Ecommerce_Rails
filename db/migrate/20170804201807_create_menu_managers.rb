@@ -1,4 +1,4 @@
-class CreateMenuManagers < ActiveRecord::Migration
+class CreateMenuManagers < ActiveRecord::Migration[5.1]
   def change
     create_table :menu_managers do |t|
       t.string :name, limit: 50, null: false

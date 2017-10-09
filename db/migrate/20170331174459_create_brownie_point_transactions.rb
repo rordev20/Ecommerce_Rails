@@ -1,4 +1,4 @@
-class CreateBrowniePointTransactions < ActiveRecord::Migration
+class CreateBrowniePointTransactions < ActiveRecord::Migration[5.1]
   def change
     create_table :brownie_point_transactions do |t|
       t.references :user, index: true, foreign_key: true

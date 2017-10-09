@@ -1,4 +1,4 @@
-class Category < ActiveRecord::Base
+class Category < ApplicationRecord
   acts_as_paranoid
   has_many :sub_categories
   has_many :sizes

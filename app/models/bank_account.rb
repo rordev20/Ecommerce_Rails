@@ -1,4 +1,4 @@
-class BankAccount < ActiveRecord::Base
+class BankAccount < ApplicationRecord
   acts_as_paranoid
   belongs_to :vendor
 end

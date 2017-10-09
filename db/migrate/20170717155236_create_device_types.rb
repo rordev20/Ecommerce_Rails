@@ -1,4 +1,4 @@
-class CreateDeviceTypes < ActiveRecord::Migration
+class CreateDeviceTypes < ActiveRecord::Migration[5.1]
   def change
     create_table :device_types do |t|
       t.string :name, limit: 40, null: false

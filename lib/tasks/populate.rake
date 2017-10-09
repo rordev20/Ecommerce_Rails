@@ -3,6 +3,7 @@
 namespace :populate_data do
   desc "Dummy data"
   task :populate_dummy_data => :environment do
+    Vendor.create!(name: 'Rohit', email: 'xyz@gmail.com')
     Color.create!(name: 'red', code: '#FF0000', is_active: true)
     Color.create!(name: 'yellow', code: '#FFFF00', is_active: true)
     Color.create!(name: 'green', code: '#00FF00', is_active: true)
@@ -11,10 +12,10 @@ namespace :populate_data do
     Category.create!(name: 'shoes', description: 'shoes collection', is_active: true)
     SubCategory.create!(category: Category.first, name: 'saree sub_category', description: 'saree sub_category description', is_active: true)
     SubCategory.create!(category: Category.last, name: 'Shoe sub_category', description: 'Shoe sub_category description', is_active: true)
-    Product.create!(name: 'saree one', dimension: '1x2', description: 'saree one description', sell_price: 90, purchase_price: 100, sub_category: SubCategory.first, is_active: true, color: Color.last, domestic_pos: 1, international_pos: 1, product_code: 'xyz', quantity: 10)
-    Product.create!(name: 'saree two', dimension: '1x2', description: 'saree two description', sell_price: 200, purchase_price: 100, sub_category: SubCategory.first, is_active: true, color: Color.first, domestic_pos: 1, international_pos: 1, product_code: 'abc', quantity: 10)
-    Product.create!(name: 'shoe one', dimension: '1x2', description: 'shoe one description', sell_price: 300, purchase_price: 100, sub_category: SubCategory.last, is_active: true, color: Color.last, domestic_pos: 1, international_pos: 1, product_code: 'efg', quantity: 10)
-    Product.create!(name: 'shoe two', dimension: '1x2', description: 'shoe two description', sell_price: 400, purchase_price: 100, sub_category: SubCategory.last, is_active: true, color: Color.last, domestic_pos: 1, international_pos: 1, product_code: 'klm', quantity: 10)
+    Product.create!(name: 'saree one', dimension: '1x2', description: 'saree one description', sell_price: 90, purchase_price: 100, sub_category: SubCategory.first, is_active: true, color: Color.last, domestic_pos: 1, international_pos: 1, product_code: 'xyz', quantity: 10, vendor: Vendor.first)
+    Product.create!(name: 'saree two', dimension: '1x2', description: 'saree two description', sell_price: 200, purchase_price: 100, sub_category: SubCategory.first, is_active: true, color: Color.first, domestic_pos: 1, international_pos: 1, product_code: 'abc', quantity: 10, vendor: Vendor.first)
+    Product.create!(name: 'shoe one', dimension: '1x2', description: 'shoe one description', sell_price: 300, purchase_price: 100, sub_category: SubCategory.last, is_active: true, color: Color.last, domestic_pos: 1, international_pos: 1, product_code: 'efg', quantity: 10, vendor: Vendor.first)
+    Product.create!(name: 'shoe two', dimension: '1x2', description: 'shoe two description', sell_price: 400, purchase_price: 100, sub_category: SubCategory.last, is_active: true, color: Color.last, domestic_pos: 1, international_pos: 1, product_code: 'klm', quantity: 10, vendor: Vendor.first)
     Country.create!(name: 'India', is_active: true)
     Country.create!(name: 'Usa', is_active: true)
     State.create!(name: 'Up', is_active: true, country: Country.last)

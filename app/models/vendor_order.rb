@@ -1,4 +1,4 @@
-class VendorOrder < ActiveRecord::Base
+class VendorOrder < ApplicationRecord
   acts_as_paranoid
   belongs_to :vendor
   belongs_to :user

@@ -1,4 +1,4 @@
-class Size < ActiveRecord::Base
+class Size < ApplicationRecord
   acts_as_paranoid
   belongs_to :category
   has_and_belongs_to_many :products

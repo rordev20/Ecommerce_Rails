@@ -1,4 +1,4 @@
-class AddAttachmentToBannerDeviceTypes < ActiveRecord::Migration
+class AddAttachmentToBannerDeviceTypes < ActiveRecord::Migration[5.1]
   def up
     add_attachment :banners, :image
   end

@@ -1,4 +1,4 @@
-class MenuType < ActiveRecord::Base
+class MenuType < ApplicationRecord
   acts_as_paranoid
   has_many :menu_managers
   extend FriendlyId

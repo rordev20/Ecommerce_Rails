@@ -1,7 +1,7 @@
-class Cart < ActiveRecord::Base
+class Cart < ApplicationRecord
   acts_as_paranoid
-  belongs_to :user
-  belongs_to :coupon, -> { includes(:discount_type)}
+  belongs_to :user, optional: true
+  belongs_to :coupon, -> { includes(:discount_type)}, optional: true
   has_many :cart_items
   has_many :products, through: :cart_items
 
