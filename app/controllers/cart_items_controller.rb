@@ -1,5 +1,7 @@
 class CartItemsController < ApplicationController
   before_action :current_cart, only: [:create, :update, :destroy, :increase_quantity, :decrease_quantity]
+  skip_before_action :verify_authenticity_token, only: [:increase_quantity, :decrease_quantity]
+
   #This method create user cart item
   def create
     begin

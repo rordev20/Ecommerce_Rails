@@ -1,4 +1,4 @@
-class Banner < ActiveRecord::Base
+class Banner < ApplicationRecord
   acts_as_paranoid
   just_define_datetime_picker :start_date
   just_define_datetime_picker :end_date

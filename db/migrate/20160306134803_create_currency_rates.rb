@@ -1,4 +1,4 @@
-class CreateCurrencyRates < ActiveRecord::Migration
+class CreateCurrencyRates < ActiveRecord::Migration[5.1]
   def change
     create_table :currency_rates do |t|
       t.references :country, index: true, foreign_key: true

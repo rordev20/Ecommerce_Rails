@@ -1,4 +1,4 @@
-class TransactionType < ActiveRecord::Base
+class TransactionType < ApplicationRecord
   acts_as_paranoid
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]

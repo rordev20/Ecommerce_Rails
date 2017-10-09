@@ -1,4 +1,4 @@
-class Order < ActiveRecord::Base
+class Order < ApplicationRecord
   acts_as_paranoid
   include AASM
   enum status: [ :draft, :confirmed, :dispatched, :delivered, :cancelled,
@@ -6,7 +6,7 @@ class Order < ActiveRecord::Base
                ]
   belongs_to :user
   belongs_to :cart
-  belongs_to :payment_status
+  belongs_to :payment_status, optional: true
   belongs_to :billing_address, foreign_key: :billing_address_id, class_name: 'Address'
   belongs_to :shipping_address, foreign_key: :shipping_address_id, class_name: 'Address'
   belongs_to :payment_method

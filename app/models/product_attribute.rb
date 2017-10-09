@@ -1,4 +1,4 @@
-class ProductAttribute < ActiveRecord::Base
+class ProductAttribute < ApplicationRecord
   acts_as_paranoid
   belongs_to :product
   belongs_to :sub_category_attribute

@@ -1,4 +1,4 @@
-class CreateCouponTypes < ActiveRecord::Migration
+class CreateCouponTypes < ActiveRecord::Migration[5.1]
   def change
     create_table :coupon_types do |t|
       t.string :name,        limit: 40, null: false, unique: true

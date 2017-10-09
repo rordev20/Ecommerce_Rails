@@ -1,4 +1,4 @@
-class CreateBannerCountries < ActiveRecord::Migration
+class CreateBannerCountries < ActiveRecord::Migration[5.1]
   def change
     create_table :banner_countries do |t|
       t.references :banner, index: true, foreign_key: true

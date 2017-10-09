@@ -1,4 +1,4 @@
-class CreateBannerDeviceTypes < ActiveRecord::Migration
+class CreateBannerDeviceTypes < ActiveRecord::Migration[5.1]
   def change
     create_table :banner_device_types do |t|
       t.references :banner, index: true, foreign_key: true

@@ -1,9 +1,9 @@
-class Product < ActiveRecord::Base
+class Product < ApplicationRecord
   # Elastic search module commented
   #include Tire::Model::Search
   #include Tire::Model::Callbacks
   acts_as_paranoid
-  belongs_to :vendor
+  belongs_to :vendor, optional: true
   belongs_to :sub_category
   has_many :images, as: :imageable
   has_many :cart_items

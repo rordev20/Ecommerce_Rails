@@ -1,4 +1,4 @@
-class BrowniePointTransaction < ActiveRecord::Base
+class BrowniePointTransaction < ApplicationRecord
   acts_as_paranoid
   belongs_to :user
   belongs_to :order

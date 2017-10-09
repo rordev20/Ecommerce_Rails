@@ -1,4 +1,4 @@
-class AddressType < ActiveRecord::Base
+class AddressType < ApplicationRecord
   acts_as_paranoid
   has_many :addresses
 

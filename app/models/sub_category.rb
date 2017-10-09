@@ -1,4 +1,4 @@
-class SubCategory < ActiveRecord::Base
+class SubCategory < ApplicationRecord  
   acts_as_paranoid
   belongs_to :category
   has_many :products
@@ -14,9 +14,7 @@ class SubCategory < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
 
-  @@attribute_types = ['Specification', 'Shipping', 'Stiching', 'Payment', 'Returns', 'Wash & Care']
-
-  cattr_accessor :attribute_types
+  ATTRIBUTE_TYPES = ['Specification', 'Shipping', 'Stiching', 'Payment', 'Returns', 'Wash & Care'].freeze
 
   after_save :expire_cache
 
@@ -33,7 +31,7 @@ class SubCategory < ActiveRecord::Base
   end
 
   def self.get_attribute_type_lists
-    self.attribute_types.collect {|v| [v, v.downcase]}
+    self::ATTRIBUTE_TYPES.collect {|v| [v, v.downcase]}
   end
 
   private
@@ -42,5 +40,5 @@ class SubCategory < ActiveRecord::Base
     Rails.cache.delete('sub_categories_list')
     Rails.cache.delete_matched("sub_category_*")
     Rails.cache.delete("price_ranges_#{self.id}")
-  end
+  end 
 end

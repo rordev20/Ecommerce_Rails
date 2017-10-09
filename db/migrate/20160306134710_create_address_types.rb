@@ -1,4 +1,4 @@
-class CreateAddressTypes < ActiveRecord::Migration
+class CreateAddressTypes < ActiveRecord::Migration[5.1]
   def self.up
     create_table :address_types do |t|
       t.string :name,        limit: 40, null: false

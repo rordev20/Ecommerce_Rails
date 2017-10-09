@@ -1,4 +1,4 @@
-class CreatePriceRanges < ActiveRecord::Migration
+class CreatePriceRanges < ActiveRecord::Migration[5.1]
   def change
     create_table :price_ranges do |t|
       t.float :min_price, default: 0,  null: false
