@@ -92,4 +92,11 @@ class Cart < ApplicationRecord
     self.save!
   end
 
+  def get_cart_item(params)
+    if params[:size_id].present?
+      cart_items.where(product_id: params[:product_id], size_id: params[:size_id].to_i).first_or_initialize
+    else
+      cart_items.where(product_id: params[:product_id]).first_or_initialize
+    end
+  end
 end

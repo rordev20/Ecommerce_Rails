@@ -45,7 +45,7 @@ class Product < ApplicationRecord
   def self.filter(options = {})
     if options[:sub_category].present?
       sub_category = SubCategory.get_sub_category(options[:sub_category])
-      products = sub_category.products.includes(:images, :color).active
+      products = sub_category.products.includes(:images, :color, :sizes).active
     else
       products = self.get_product_list
     end

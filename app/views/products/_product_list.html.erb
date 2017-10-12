@@ -19,10 +19,14 @@
                   <%= product.sub_category.name %>
                 </div>
                 <div class="col-md-6">
-                  <%= form_for cart_item, remote: true do |f| %>
-                    <%= f.hidden_field :quantity, value: 1 %>
-                    <%= f.hidden_field :product_id, value: product.id %>
-                    <%= f.submit "Add to Cart", class: "btn btn-primary pull-right" %>
+                  <% if product.sizes.blank? %>
+                    <%= form_for cart_item, remote: true do |f| %>
+                      <%= f.hidden_field :quantity, value: 1 %>
+                      <%= f.hidden_field :product_id, value: product.id %>
+                      <%= f.submit t('cart.add_to_cart'), class: "btn btn-primary pull-right" %>
+                    <% end %>
+                  <% else %>
+                    <%= link_to t('cart.add_to_cart'), product, target: '_blank', class: "btn btn-primary pull-right" %>
                   <% end %>
                 </div>
               </div>

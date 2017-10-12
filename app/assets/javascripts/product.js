@@ -32,12 +32,11 @@ $(document).on('ready page:load', function() {
     var ez = $('#cover_image').data('elevateZoom');
     return false;
   });
+});
 
-  $(".btn-group > .btn").click(function(){
-    $(this).addClass("active btn-primary").siblings().removeClass("active btn-primary");
-    $('#cart_item_size_id').val($(this).attr('id'));
-  });
-
+$(document).on("click", ".btn-group > .btn", function(event) {
+  $(this).addClass("active btn-primary").siblings().removeClass("active btn-primary");
+  $('#cart_item_size_id').val($(this).attr('id'));
 });
 
 $(document).on("click", "input[type=checkbox]", function(event) {

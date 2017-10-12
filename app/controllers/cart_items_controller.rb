@@ -5,7 +5,7 @@ class CartItemsController < ApplicationController
   #This method create user cart item
   def create
     begin
-      @cart_item = @cart.cart_items.where(product_id: cart_item_params[:product_id]).first_or_initialize
+      @cart_item = @cart.get_cart_item(cart_item_params)
       @cart_item.save_cart_item(cart_item_params)
       session[:cart_id] = @cart.id
     rescue CustomException::SizeMissing => e
