@@ -360,6 +360,7 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.bigint "order_id"
     t.bigint "product_id"
     t.integer "quantity", default: 1
+    t.integer "status"
     t.decimal "rate", precision: 8, scale: 2, null: false
     t.decimal "net_amount", precision: 8, scale: 2, null: false
     t.decimal "discount_amount", precision: 8, scale: 2, default: "0.0"

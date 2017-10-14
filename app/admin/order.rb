@@ -4,6 +4,6 @@ ActiveAdmin.register Order do
 
   permit_params :user, :total, :shipping, :status, :number, :payment_status, :cod_charge, :cart,
                 :currency_rate, :pay_type, :notes, :discount, :market_rate, :billing_address_id, :shipping_address_id,
-                :is_active, :deleted_at
+                :is_active
 
 end

@@ -35,10 +35,13 @@ class Order < ApplicationRecord
     state :not_delivered
     state :reordered
 
-    event :confirm do
+    event :confirm, before: [:check_product_availability], after: [:confirm_order_items] do
       transitions from: :draft, to: :confirmed
     end
 
+    event :cancel, after: [:cancel_order_items] do
+      transitions from: [:confirmed, :dispatched, :delivered], to: :cancelled
+    end
   end
 
   def set_fields
@@ -77,5 +80,20 @@ class Order < ApplicationRecord
     user = self.user
     user.brownie_point -= self.brownie_point
     user.save!
+  end
+
+  def check_product_availability
+    order_items = self.order_items.includes(:product)
+    order_items.map(&:sufficient_product_quantity)
+  end
+
+  def confirm_order_items
+    order_items.each { |order_item| order_item.confirm! }
+  end
+
+  def cancel_order_items
+    order_items.each do |order_item|
+      order_item.cancel!
+    end
   end
 end

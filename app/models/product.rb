@@ -17,6 +17,7 @@ class Product < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
   after_save :expire_cache
+  validates :quantity, numericality: { greater_than: 0}, presence: true
 
   def self.get_product_list
     Rails.cache.fetch ["product_list"], expires_in: 24.hours do
