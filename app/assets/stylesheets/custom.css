@@ -93,6 +93,10 @@ div.search {
   position: inherit;
 }
 
+.product-discount{
+  margin-left: 4%;
+}
+
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) { 
   .sort-filter-content {
     padding-bottom: 15%;

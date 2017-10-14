@@ -12,7 +12,21 @@
             <div class="product-desc description-pos">
               <div class='product-info'>
                 <strong><%= link_to "#{product.color.name} #{product.name}", product, target: '_blank', class: "product-page-product-name" %></strong><br />
-                <strong><i class="<%= t('currency_icon') %>" aria-hidden="true"><%= product.sell_price %></i></strong>
+                <span>
+                  <strong>
+                    <i class="<%= t('currency_icon') %> product-discount" aria-hidden="true">
+                      <%= product.sell_price.to_i %>
+                    </i>
+                  </strong>
+                  <i class="<%= t('currency_icon') %> product-discount" aria-hidden="true">
+                    <strike>
+                      <%= product.original_price.to_i %>
+                    </strike>
+                  </i>
+                  <i class='badge badge-danger'>
+                    <%= product.discount_percent.to_i %>% <%= t('global.off') %>
+                  </i>
+                <span>
               </div>
               <div class='row'>
                 <div class="col-md-6">

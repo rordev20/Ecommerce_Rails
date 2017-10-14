@@ -457,8 +457,9 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.string "name", limit: 100, null: false
     t.string "dimension"
     t.text "description"
-    t.decimal "sell_price", precision: 8, scale: 2, null: false
     t.decimal "purchase_price", precision: 8, scale: 2
+    t.decimal "original_price", precision: 8, scale: 2, null: false
+    t.decimal "sell_price", precision: 8, scale: 2, null: false
     t.bigint "vendor_id"
     t.bigint "sub_category_id"
     t.bigint "color_id"
@@ -472,7 +473,6 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.text "notes"
     t.integer "clicks", default: 0, null: false
     t.integer "discount_percent", default: 0, null: false
-    t.decimal "discount_amount", precision: 8, scale: 2, default: "0.0", null: false
     t.boolean "in_stock", default: false, null: false
     t.string "slug"
     t.boolean "is_active", default: false, null: false

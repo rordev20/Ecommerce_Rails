@@ -33,6 +33,7 @@ en:
   global:
     login: "Login"
     sign_up: "Sign Up"
+    off: "% OFF"
   hello: "Hello world"
   logout: "Logout"
   more: "More"

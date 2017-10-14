@@ -18,6 +18,11 @@ class Product < ApplicationRecord
   friendly_id :name, use: [:slugged, :finders]
   after_save :expire_cache
   validates :quantity, numericality: { greater_than: 0}, presence: true
+  before_save :set_fields
+
+  def set_fields
+    self.sell_price = get_sell_price
+  end
 
   def self.get_product_list
     Rails.cache.fetch ["product_list"], expires_in: 24.hours do
@@ -109,6 +114,13 @@ class Product < ApplicationRecord
 
   def get_product_sub_category_attributes
     sub_category.sub_category_attributes.where.not(attribute_type: 'specification').active
+  end
+
+  protected
+
+  def get_sell_price
+    discounted_price = discount_percent/BigDecimal.new(100) * original_price
+    (original_price - discounted_price).floor
   end
 
   private

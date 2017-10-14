@@ -1,7 +1,7 @@
 ActiveAdmin.register Product do
 
   permit_params :name, :dimension, :description, :purchase_price, :vendor, :sub_category_id, :quantity, :color_id, :domestic_pos, :international_pos, :specification, :product_code,
-                :weight, :sell_count, :notes, :clicks, :discount_percent, :discount_amount, :in_stock, :is_active, :deleted_at, :sell_price,
+                :weight, :sell_count, :notes, :clicks, :discount_percent, :discount_amount, :in_stock, :is_active, :deleted_at, :sell_price, :original_price,
                 images_attributes: [ :id, :avatar, :position, :_destroy ], size_ids: [],
                 product_attributes_attributes: [ :id, :sub_category_attribute_id, :description, :position, :is_active, :_destroy ]
 
@@ -11,8 +11,9 @@ ActiveAdmin.register Product do
       f.input :name
       f.input :dimension
       f.input :description
-      f.input :sell_price
       f.input :purchase_price
+      f.input :original_price
+      f.input :sell_price
       f.input :quantity
       f.has_many :images, heading: false, allow_destroy: true do |img|
         img.input :avatar, label: "Product Image"
@@ -29,7 +30,6 @@ ActiveAdmin.register Product do
       f.input :notes
       f.input :clicks
       f.input :discount_percent
-      f.input :discount_amount
       f.input :in_stock
       f.input :is_active
       f.input :deleted_at

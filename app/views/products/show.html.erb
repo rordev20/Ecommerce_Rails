@@ -22,7 +22,23 @@
                   <%= f.hidden_field :product_id, value: @product.id %>
                   <%= f.submit t('cart.add_to_cart'), class: "btn btn-primary pull-right" %>
                 <% end %>
-                <h1 class="product-main-price"><i class="<%= t('currency_icon') %>" aria-hidden="true"><%= @product.sell_price %></i><small class="text-muted"><%= t('product.exclude_size') %></small> </h1>
+                <h3 class="product-main-price">
+                  <i class="<%= t('currency_icon') %>" aria-hidden="true">
+                    <strike>
+                      <%= @product.original_price %>
+                    </strike>
+                  </i>
+                  <i class='badge badge-danger'>
+                    <%= @product.discount_percent.to_i %>% <%= t('global.off') %>
+                  </i>
+                  <br />
+                  <i class="<%= t('currency_icon') %>" aria-hidden="true">
+                    <%= @product.sell_price %>
+                  </i>
+                  <small class="text-muted">
+                    <%= t('product.exclude_size') %>
+                  </small>
+                </h3>
               </div>
               <hr>
               <h3 class="font-bold"><%= t('product.select_size') %></h3>

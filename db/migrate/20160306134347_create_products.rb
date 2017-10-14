@@ -4,8 +4,9 @@ class CreateProducts < ActiveRecord::Migration[5.1]
       t.string :name,                   limit: 100, null: false
       t.string :dimension
       t.text :description
-      t.decimal :sell_price,            precision: 8, scale: 2, null: false
       t.decimal :purchase_price,        precision: 8, scale: 2
+      t.decimal :original_price,        precision: 8, scale: 2, null: false
+      t.decimal :sell_price,            precision: 8, scale: 2, null: false
       t.references :vendor, index: true, foreign_key: true
       t.references :sub_category, index: true, foreign_key: true
       t.references :color, index: true, foreign_key: true
@@ -19,7 +20,6 @@ class CreateProducts < ActiveRecord::Migration[5.1]
       t.text :notes
       t.integer :clicks,                default: 0,  null: false
       t.integer :discount_percent,      default: 0,  null: false
-      t.decimal :discount_amount,       precision: 8, scale: 2, default: 0,  null: false
       t.boolean :in_stock,              null: false, default: false
       t.string :slug
       t.boolean :is_active,             null: false, default: false
