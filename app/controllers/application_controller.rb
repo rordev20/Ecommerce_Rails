@@ -41,4 +41,15 @@ class ApplicationController < ActionController::Base
   def get_category_list
     @categories = Category.get_categories_sub_categories_list
   end
+
+  def set_country_rate
+    currency_code = request.headers['COUNTRY']
+    currency_rate = Country.get_rate(currency_code)
+    unless currency_rate.present?
+      currency_code = SystemConstant.get_value('default_country')
+      currency_rate = SystemConstant.get_value('default_conversion_rate')
+    end
+    @country_rate = CountryCurrencyRate.new({currency_rate: currency_rate, currency_code: currency_code})
+  end
+
 end

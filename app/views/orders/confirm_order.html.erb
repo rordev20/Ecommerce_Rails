@@ -8,7 +8,7 @@
           <div class="ibox-title">
             <center><h4><b>Success</b> - your order is confirmed!</h4>
               <b>Order number:</b> #<%= @order.id %><br />
-              <b>Rs.</b> <%= @order.grand_total %>
+              <%= currency_rate_with_symbol(@country_rate, @order.grand_total) %>
             </center>
           </div>
           <div class="ibox-content">
@@ -32,18 +32,18 @@
                       <tr>
                         <td><%= product_image(Image.get_product_page_image(order_item.product), 'thumb') %></td>
                         <td><%= order_item.quantity %></td>
-                        <td><%= order_item.rate %></td>
+                        <td><%= currency_rate_with_symbol(@country_rate, order_item.rate) %></td>
                       </tr>
                     <% end %>
                     <tr>
                       <td></td>
                       <td><%= t('cart.discount') %></td>
-                      <td><%= @order.discount %></td>
+                      <td><%= currency_rate_with_symbol(@country_rate, @order.discount) %></td>
                     </tr>
                     <tr>
                       <td></td>
                       <td><%= t('cart.cashback') %></td>
-                      <td><%= @order.cashback %></td>
+                      <td><%= currency_rate_with_symbol(@country_rate, @order.cashback) %></td>
                     </tr>
                     <tr>
                       <td></td>
@@ -53,17 +53,17 @@
                     <tr>
                       <td></td>
                       <td><%= t('cart.total') %></td>
-                      <td><%= @order.total %></td>
+                      <td><%= currency_rate_with_symbol(@country_rate, @order.total) %></td>
                     </tr>
                     <tr>
                       <td></td>
                       <td><%= t('cart.shipping') %></td>
-                      <td><%= @order.shipping %></td>
+                      <td><%= currency_rate_with_symbol(@country_rate, @order.shipping) %></td>
                     </tr>
                     <tr>
                       <td></td>
                       <td><strong><%= t('cart.grand_total') %></strong></td>
-                      <td><strong><%= @order.grand_total %></strong></td>
+                      <td><strong><%= currency_rate_with_symbol(@country_rate, @order.grand_total) %></strong></td>
                     </tr>
                   </tbody>
                 </table>

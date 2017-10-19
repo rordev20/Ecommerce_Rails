@@ -1,5 +1,6 @@
 class CouponsController < ApplicationController
   before_action :set_cart_data, only: [:apply, :cancel_coupon]
+  before_action :set_country_rate, only: [:apply]
 
   # This method apply coupon
   def apply

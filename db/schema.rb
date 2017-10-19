@@ -256,8 +256,8 @@ ActiveRecord::Schema.define(version: 20170917075943) do
 
   create_table "currency_rates", force: :cascade do |t|
     t.bigint "country_id"
-    t.decimal "rate", precision: 8, scale: 2
-    t.decimal "market_rate", precision: 8, scale: 2
+    t.decimal "rate", precision: 8, scale: 4
+    t.decimal "market_rate", precision: 8, scale: 4
     t.boolean "is_active", default: true, null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false

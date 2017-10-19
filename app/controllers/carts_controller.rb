@@ -1,6 +1,8 @@
 class CartsController < ApplicationController
   before_action :set_cart_data, only: [:show]
   before_action :get_category_list, only: [:show]
+  before_action :set_country_rate, only: [:show]
+
 
   #This method show cart page
   def show

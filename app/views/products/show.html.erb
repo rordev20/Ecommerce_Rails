@@ -25,7 +25,7 @@
                 <h3 class="product-main-price">
                   <i class="<%= t('currency_icon') %>" aria-hidden="true">
                     <strike>
-                      <%= @product.original_price %>
+                      <%= currency_rate_with_symbol(@country_rate, @product.original_price) %>
                     </strike>
                   </i>
                   <i class='badge badge-danger'>
@@ -33,7 +33,7 @@
                   </i>
                   <br />
                   <i class="<%= t('currency_icon') %>" aria-hidden="true">
-                    <%= @product.sell_price %>
+                    <%= currency_rate_with_symbol(@country_rate, @product.sell_price) %>
                   </i>
                   <small class="text-muted">
                     <%= t('product.exclude_size') %>

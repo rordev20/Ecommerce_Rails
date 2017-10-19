@@ -30,7 +30,7 @@
           <hr/>
           <div class="row" id="total_section">
             <div class="col-md-6"><strong>Total</strong></div>
-            <div class="col-md-6" id="total"><i class="<%= t('currency_icon') %>" aria-hidden="true"><%= @sub_total %></i></div>
+            <div class="col-md-6" id="total"><i class="<%= t('currency_icon') %>" aria-hidden="true"><%= currency_rate_with_symbol(@country_rate, @sub_total) %></i></div>            
           </div>
           <hr class="coupon-section"/>
           <% if @coupon && @coupon.is_cashback_coupon? %>
@@ -49,7 +49,7 @@
           <hr/>
           <div class="row">
             <div class="col-md-6"><strong>Grand Total</strong></div>
-             <div class="col-md-6" id="grand_total"><i class="<%= t('currency_icon') %>" aria-hidden="true"><%= @grand_total %></i></div>
+            <div class="col-md-6" id="grand_total"><i class="<%= t('currency_icon') %>" aria-hidden="true"><%= currency_rate_with_symbol(@country_rate, @grand_total) %></i></div>
           </div>
           <hr/>
           <div class="m-t-sm">

@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :current_cart, only: [:new, :create]
   before_action :create_cart_data, only: [:new, :create]
+  before_action :set_country_rate, only: [:new, :confirm_order]
 
   # new order page
   def new

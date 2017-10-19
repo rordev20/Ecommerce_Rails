@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show]
   before_action :current_cart, only: [:index, :show]
   before_action :get_category_list
+  before_action :set_country_rate, only: [:index, :show]
 
   # This method show product listing
   def index

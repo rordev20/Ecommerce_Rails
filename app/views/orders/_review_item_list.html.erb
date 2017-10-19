@@ -32,45 +32,45 @@
           <tr>
             <td><%= product_image(Image.get_product_page_image(cart_item.product), 'thumb') %></td>
             <td><%= cart_item.quantity %></td>
-            <td><%= cart_item.product.sell_price %></td>
-            <td><%= cart_item.cart_item_total %></td>
+            <td><%= currency_rate_with_symbol(@country_rate, cart_item.product.sell_price)  %></td>
+            <td><%= currency_rate_with_symbol(@country_rate, cart_item.cart_item_total)  %></td>
           </tr>
         <% end %>
         <tr>
           <td></td>
           <td></td>
           <td><%= t('cart.total') %></td>
-          <td><%= @order.total %></td>
+          <td><%= currency_rate_with_symbol(@country_rate, @order.total) %></td>
         </tr>
         <tr>
           <td></td>
           <td></td>
           <td><%= t('cart.discount') %></td>
-          <td><%= @order.discount %></td>
+          <td><%= currency_rate_with_symbol(@country_rate, @order.discount) %></td>
         </tr>
         <tr>
           <td></td>
           <td></td>
           <td><%= t('cart.cashback') %></td>
-          <td><%= @order.cashback %></td>
+          <td><%= currency_rate_with_symbol(@country_rate, @order.cashback) %></td>
         </tr>
         <tr>
           <td></td>
           <td></td>
           <td><%= t('cart.brownie_point') %></td>
-          <td><%= @order.brownie_point %></td>
+          <td><%= currency_rate_with_symbol(@country_rate, @order.brownie_point) %></td>
         </tr>
         <tr>
           <td></td>
           <td></td>
           <td><%= t('cart.shipping') %></td>
-          <td><%= @order.shipping %></td>
+          <td><%= currency_rate_with_symbol(@country_rate, @order.shipping) %></td>
         </tr>
         <tr>
           <td></td>
           <td></td>
           <td><strong><%= t('cart.grand_total') %></strong></td>
-          <td><strong><%= @order.grand_total %></strong></td>
+          <td><strong><%= currency_rate_with_symbol(@country_rate, @order.grand_total) %></strong></td>
         </tr>
       </tbody>
     </table>

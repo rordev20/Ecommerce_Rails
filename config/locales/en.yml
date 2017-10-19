@@ -33,7 +33,7 @@ en:
   global:
     login: "Login"
     sign_up: "Sign Up"
-    off: "% OFF"
+    off: "OFF"
   hello: "Hello world"
   logout: "Logout"
   more: "More"
@@ -85,7 +85,7 @@ en:
     order_placed: "ORDER PLACED"
     total: "TOTAL"
     ship_to: "SHIP TO"
-  currency_icon: "fa fa-inr"
+  currency_icon: "fa"
   address:
     update: "Address was successfully updated."
     destroy: "Address was successfully destroyed."

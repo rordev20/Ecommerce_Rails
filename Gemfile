@@ -47,6 +47,7 @@ gem 'tire'
 gem 'aasm'
 gem 'activeadmin_addons'
 gem "paranoia", "~> 2.2"
+gem 'money'
 
 
 group :development, :test do

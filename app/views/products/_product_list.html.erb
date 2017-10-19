@@ -15,12 +15,12 @@
                 <span>
                   <strong>
                     <i class="<%= t('currency_icon') %> product-discount" aria-hidden="true">
-                      <%= product.sell_price.to_i %>
+                      <%= currency_rate_with_symbol(@country_rate, product.sell_price) %>
                     </i>
                   </strong>
                   <i class="<%= t('currency_icon') %> product-discount" aria-hidden="true">
                     <strike>
-                      <%= product.original_price.to_i %>
+                      <%= currency_rate_with_symbol(@country_rate, product.original_price) %>
                     </strike>
                   </i>
                   <i class='badge badge-danger'>

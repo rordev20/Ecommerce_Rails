@@ -32,4 +32,14 @@ module ApplicationHelper
   def main_menus
     MenuManager.main_menu_list(current_user)
   end
+
+  def currency_rate_with_symbol(country_rate, amount)
+    evaluated_amount = product_sell_price(country_rate.currency_rate, amount)
+    Money.new(evaluated_amount, country_rate.currency_code).format
+  end
+
+
+  def product_sell_price(rate, amount)
+    BigDecimal.new(rate) * amount * BigDecimal.new(100)
+  end
 end

@@ -17,11 +17,11 @@
   <% elsif @coupon.blank? && params.has_key?(:coupon) %>
     $("#messages").html("<%= escape_javascript(render(partial: "shared/alert_msg", locals: {msg: t('coupon.coupon_invalid'), msg_type: t('message_type.danger') })) %>")
   <% end %>
-  $('#total').html("<%= @sub_total %>")
+  $('#total').html("<%= currency_rate_with_symbol(@country_rate, @sub_total) %>")
   <% if quantity_changed?(params) %>
     $(".cart-text").html("<%= escape_javascript(render 'layouts/cart_text') %>")
     $("#messages").html("<%= escape_javascript(render(partial: "shared/alert_msg", locals: {msg: flash[:notice], msg_type: t('message_type.success')})) %>")
     CartUtil.setItemQtyAndItemTotal('<%= CartItem.get_cart_item_qty_and_total_hash(@cart_items) %>')
   <% end %>
 <% end %>
-$('#grand_total').html("<%= @grand_total %>")
+$('#grand_total').html("<%= currency_rate_with_symbol(@country_rate, @grand_total) %>")

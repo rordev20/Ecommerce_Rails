@@ -35,8 +35,8 @@
                 </div>
               </td>
               <td>
-                <%= cart_item.product.sell_price %>
-                <s class="small text-muted"><%= cart_item.product.sell_price %></s>
+                <%= currency_rate_with_symbol(@country_rate, cart_item.product.sell_price) %>
+                <s class="small text-muted"><%= currency_rate_with_symbol(@country_rate, cart_item.product.sell_price) %></s>
               </td>
               <td>
                 <input type="text" value="<%= cart_item.quantity %>" name="item_count" data-item-id="<%=cart_item.product_id%>" data-cart-item-id="<%= cart_item.id %>" data-item-qty="<%= cart_item.quantity %>" class="<%= append_class_with_id('item_qty_', cart_item.id) %>">
@@ -44,7 +44,7 @@
               <td>
                 <h4>
                   <span class="<%= append_class_with_id('item_total_', cart_item.id) %>">
-                    <%= cart_item.cart_item_total %>
+                    <%= currency_rate_with_symbol(@country_rate, cart_item.cart_item_total) %>
                   <span>
                 </h4>
               </td>
