@@ -10,9 +10,11 @@ class Product < ApplicationRecord
   has_many :carts, through: :cart_items
   has_many :product_attributes
   belongs_to :color
-  has_and_belongs_to_many :sizes
+  has_many :product_sizes
+  has_many :sizes, through: :product_sizes
   accepts_nested_attributes_for :images, reject_if: proc { |attributes| attributes['avatar'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :product_attributes
+  accepts_nested_attributes_for :product_sizes
   scope :active, -> {where(is_active: true)}
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]

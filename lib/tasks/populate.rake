@@ -16,8 +16,8 @@ namespace :populate_data do
     Product.create!(name: 'saree two', dimension: '1x2', description: 'saree two description', original_price: 200, purchase_price: 100, sub_category: SubCategory.first, is_active: true, color: Color.first, domestic_pos: 1, international_pos: 1, product_code: 'abc', quantity: 10, vendor: Vendor.first)
     Product.create!(name: 'shoe one', dimension: '1x2', description: 'shoe one description', original_price: 300, purchase_price: 100, sub_category: SubCategory.last, is_active: true, color: Color.last, domestic_pos: 1, international_pos: 1, product_code: 'efg', quantity: 10, vendor: Vendor.first)
     Product.create!(name: 'shoe two', dimension: '1x2', description: 'shoe two description', original_price: 400, purchase_price: 100, sub_category: SubCategory.last, is_active: true, color: Color.last, domestic_pos: 1, international_pos: 1, product_code: 'klm', quantity: 10, vendor: Vendor.first)
-    Country.create!(name: 'India', iso_code: 'IN', iso_name: 'IND', is_active: true)
-    Country.create!(name: 'Usa', iso_code: 'US', iso_name: 'USA', is_active: true)
+    Country.create!(name: 'India', iso_code: 'IN', iso_name: 'INR', is_active: true)
+    Country.create!(name: 'Usa', iso_code: 'US', iso_name: 'USD', is_active: true)
     State.create!(name: 'Up', is_active: true, country: Country.last)
     State.create!(name: 'Maharashtra', is_active: true, country: Country.last)
     State.create!(name: 'Newyork', is_active: true, country: Country.first)
@@ -47,7 +47,7 @@ namespace :populate_data do
   desc "system constant"
   task :create_system_constant => :environment do
     constant_array = []
-    constant_array << {name: 'default_country', value: 'IND' }
+    constant_array << {name: 'default_country', value: 'INR' }
     constant_array << {name: 'default_conversion_rate', value: 1 }
     constant_array.each do |constant|
       system_constant = SystemConstant.where(name: constant[:name]).first_or_initialize

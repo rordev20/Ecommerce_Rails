@@ -1,5 +1,6 @@
 class Size < ApplicationRecord
   acts_as_paranoid
   belongs_to :category
-  has_and_belongs_to_many :products
+  has_many :product_sizes
+  has_many :products, through: :product_sizes
 end

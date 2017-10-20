@@ -453,6 +453,16 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.index ["sub_category_attribute_id"], name: "index_product_attributes_on_sub_category_attribute_id"
   end
 
+  create_table "product_sizes", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "size_id"
+    t.integer "quantity", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_product_sizes_on_product_id"
+    t.index ["size_id"], name: "index_product_sizes_on_size_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name", limit: 100, null: false
     t.string "dimension"
@@ -486,13 +496,6 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.index ["slug"], name: "index_products_on_slug", unique: true, where: "(deleted_at IS NULL)"
     t.index ["sub_category_id"], name: "index_products_on_sub_category_id"
     t.index ["vendor_id"], name: "index_products_on_vendor_id"
-  end
-
-  create_table "products_sizes", id: false, force: :cascade do |t|
-    t.bigint "product_id"
-    t.bigint "size_id"
-    t.index ["product_id"], name: "index_products_sizes_on_product_id"
-    t.index ["size_id"], name: "index_products_sizes_on_size_id"
   end
 
   create_table "referreds", force: :cascade do |t|
@@ -705,6 +708,8 @@ ActiveRecord::Schema.define(version: 20170917075943) do
   add_foreign_key "price_ranges", "sub_categories"
   add_foreign_key "product_attributes", "products"
   add_foreign_key "product_attributes", "sub_category_attributes"
+  add_foreign_key "product_sizes", "products"
+  add_foreign_key "product_sizes", "sizes"
   add_foreign_key "products", "colors"
   add_foreign_key "products", "sub_categories"
   add_foreign_key "products", "vendors"
