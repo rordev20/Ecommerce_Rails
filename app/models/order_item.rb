@@ -8,6 +8,7 @@ class OrderItem < ApplicationRecord
   belongs_to :order
   belongs_to :product
   has_many :images, through: :product
+  belongs_to :cart_item
 
   aasm column: :status, enum: true do
     state :draft, initial: true
@@ -42,7 +43,8 @@ class OrderItem < ApplicationRecord
                             net_amount: cart_item[:net_amount],
                             discount_amount: cart_item[:discount_amount],
                             cashback: cart_item[:cashback], 
-                            brownie_point: cart_item[:brownie_point_used]
+                            brownie_point: cart_item[:brownie_point_used],
+                            cart_item_id: cart_item[:cart_item_id]
                           }
     end
     order_items_array
@@ -58,11 +60,23 @@ class OrderItem < ApplicationRecord
 
   def update_product_quantity
     product.sell_count = product.sell_count + self.quantity
+    product.quantity -= self.quantity
+    if product.product_sizes.count > 0
+      product_size = product.product_sizes.where(size_id: self.cart_item.size_id).first
+      product_size.quantity -= self.quantity
+      product.product_sizes << product_size
+    end
     product.save!
   end
 
   def restore_product_quantity
     product.sell_count = product.sell_count - self.quantity
+    product.quantity += self.quantity
+    if product.product_sizes.count > 0
+      product_size = product.product_sizes.where(size_id: self.cart_item.size_id).first
+      product_size.quantity += self.quantity
+      product.product_sizes << product_size
+    end
     product.save!
   end
 end

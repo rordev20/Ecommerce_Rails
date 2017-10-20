@@ -3,6 +3,7 @@ class CreateOrderItems < ActiveRecord::Migration[5.1]
     create_table :order_items do |t|
       t.references :order, index: true, foreign_key: true
       t.references :product, index: true, foreign_key: true
+      t.references :cart_item, index: true, foreign_key: true
       t.integer :quantity, default: 1
       t.integer :status
       t.decimal :rate, precision: 8, scale: 2, null: false

@@ -1,6 +1,7 @@
 class CartItem < ApplicationRecord
   acts_as_paranoid
   belongs_to :cart
+  has_one :order_item
   belongs_to :product
   belongs_to :size, optional: true
   belongs_to :vendor_order, optional: true

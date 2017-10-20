@@ -1,7 +1,7 @@
 //= require active_admin/base
 //= require activeadmin_addons/all
 //= require just_datetime_picker/nested_form_workaround
-
+//= require admin/product
 $(document).on('ready page:load', function () {
   $(".product_attributes .has_many_add").on("click", function(event) {
     var sub_category_id = $('#product_sub_category_id').val()

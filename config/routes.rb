@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/get_sub_category_attributes', to: 'products#get_sub_category_attributes'
+    get '/get_category_sizes', to: 'products#get_category_sizes'
   end
   resources :orders, only: [:new, :create]
   resources :addresses, only: [:edit, :update, :destroy]

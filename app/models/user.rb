@@ -59,7 +59,7 @@ class User < ApplicationRecord
   end
 
   def get_confirm_order(order_id)
-    self.orders.includes(:order_items, shipping_address: [:state, :country]).where(id: order_id).first
+    self.orders.includes(order_items: [:product], shipping_address: [:state, :country]).where(id: order_id).first
   end
 
   def get_orders
