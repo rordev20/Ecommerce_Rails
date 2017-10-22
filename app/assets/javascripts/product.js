@@ -6,7 +6,12 @@ var ProductUtil = {
         $('<input type="hidden" id="sort_by_field">').prop( obj ).appendTo( $('#filter_form') );
       });
     }
-    $('form#filter_form').submit();
+    $.ajax({
+      method: "GET",
+      url: "/products",
+      data: $('form#filter_form').serialize(),
+      dataType: "script"
+    });
   },
   setProductUrl: function() {
     var sort_value = $('#sort_by').val();
