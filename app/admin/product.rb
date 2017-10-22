@@ -65,5 +65,9 @@ ActiveAdmin.register Product do
         format.json { render json: sizes }
       end
     end
+
+    def scoped_collection
+      super.includes :sub_category, :color, :vendor # prevents N+1 queries to your database
+    end
   end
 end

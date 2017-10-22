@@ -33,4 +33,10 @@ ActiveAdmin.register SubCategory do
     f.actions
   end
 
+  controller do
+    def scoped_collection
+      super.includes :category # prevents N+1 queries to your database
+    end
+  end
+
 end

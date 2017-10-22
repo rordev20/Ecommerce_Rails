@@ -6,4 +6,10 @@ ActiveAdmin.register Order do
                 :currency_rate, :pay_type, :notes, :discount, :market_rate, :billing_address_id, :shipping_address_id,
                 :is_active
 
+  controller do
+    def scoped_collection
+      super.includes :user, :payment_status, :cart, :payment_method, :billing_address, :shipping_address
+    end
+  end
+
 end

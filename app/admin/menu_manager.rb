@@ -19,4 +19,10 @@ ActiveAdmin.register MenuManager do
     f.actions
   end
 
+  controller do
+    def scoped_collection
+      super.includes :menu_type
+    end
+  end
+
 end

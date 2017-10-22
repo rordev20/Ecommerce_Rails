@@ -1,7 +1,7 @@
 class BrowniePointTransaction < ApplicationRecord
   acts_as_paranoid
   belongs_to :user
-  belongs_to :order
+  belongs_to :order, optional: true
   belongs_to :event
   belongs_to :transaction_type
   after_save :set_user_brownie_points
