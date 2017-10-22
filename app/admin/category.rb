@@ -1,4 +1,5 @@
 ActiveAdmin.register Category do
+  menu parent: "Category", priority: 1
 
   permit_params :name, :description, :is_active, :deleted_at, sizes_attributes: [ :id, :name, :_destroy ]
 

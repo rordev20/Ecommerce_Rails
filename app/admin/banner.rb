@@ -1,4 +1,5 @@
 ActiveAdmin.register Banner do
+  menu parent: "Banner", priority: 1
 
   permit_params :name, :description, :image, :start_date_date, :start_date_time_hour, :start_date_time_minute, :end_date_date, :end_date_time_hour, :end_date_time_minute, :target_url, :in_new_tab, :position, :is_active, :deleted_at,
                 device_type_ids: [], country_ids: []

@@ -1,4 +1,5 @@
 ActiveAdmin.register Coupon do
+  menu parent: "Coupon", priority: 1
 
   permit_params :name, :limit, :start_date_date, :start_date_time_hour, :start_date_time_minute, :end_date_date, :end_date_time_hour, :end_date_time_minute, :code, :coupon_type_id, :percent_off, :flat_off, :minimum_amount,
                 :discount_type_id, :use_count, :maximum_discount, :is_cashback, :app_only, :only_for_new_user, :discount_with_cashback_offer, :products_specific, :product_ids, :is_active, :deleted_at

@@ -1,4 +1,5 @@
 ActiveAdmin.register SubCategory do
+  menu parent: "Category", priority: 2
 
   permit_params :name, :description, :image, :category_id, :is_active, :deleted_at, color_ids: [],
   price_ranges_attributes: [ :id, :min_price, :max_price, :is_active, :_destroy ],
