@@ -13,8 +13,8 @@ class Banner < ApplicationRecord
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
   after_save :expire_cache
   scope :active, -> {where(is_active: true)}
-
-
+  validates :name, presence: true, uniqueness: true
+  validates :start_date, :end_date, presence: true
   def self.home_page_banner
     Rails.cache.fetch ["home_banners"], expires_in: 24.hours do
       self.active

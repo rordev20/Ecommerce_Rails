@@ -10,6 +10,7 @@ class Category < ApplicationRecord
   @@item_per_row = 4
   cattr_accessor :item_per_row
   after_save :expire_cache
+  validates :name, presence: true, uniqueness: true
 
   # This method return category and sub category list
   def self.get_categories_sub_categories_list

@@ -7,6 +7,7 @@ class Country < ApplicationRecord
   scope :active, -> {where(is_active: true)}
 
   after_save :expire_cache
+  validates :name, :iso_code, :iso_name, presence: true, uniqueness: true
 
   # This method return list of active countries
   def self.list_of_countries

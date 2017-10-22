@@ -20,6 +20,10 @@ class Product < ApplicationRecord
   friendly_id :name, use: [:slugged, :finders]
   after_save :expire_cache
   validates :quantity, numericality: { greater_than: 0}, presence: true
+  validates_uniqueness_of :name, :scope => :sub_category_id, presence: true
+  validates_numericality_of :original_price, :greater_than_or_equal_to => 0, presence: true
+  validates_numericality_of :sell_price, :greater_than_or_equal_to => 0, presence: true
+
   before_save :set_fields
 
   def set_fields

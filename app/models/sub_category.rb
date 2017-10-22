@@ -13,6 +13,7 @@ class SubCategory < ApplicationRecord
   scope :active, -> {where(is_active: true)}
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
+  validates :name, presence: true, uniqueness: true
 
   ATTRIBUTE_TYPES = ['Specification', 'Shipping', 'Stiching', 'Payment', 'Returns', 'Wash & Care'].freeze
 

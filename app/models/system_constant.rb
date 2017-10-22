@@ -1,5 +1,7 @@
 class SystemConstant < ApplicationRecord
   acts_as_paranoid
+  validates :name, presence: true, uniqueness: true
+
   def self.get_value_in_array(name)
     self.find_by_name(name) ? JSON.parse(self.find_by_name(name).value) : []
   end

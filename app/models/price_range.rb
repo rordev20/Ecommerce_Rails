@@ -3,6 +3,9 @@ class PriceRange < ApplicationRecord
   belongs_to :sub_category
   scope :active, -> {where(is_active: true)}
   after_save :expire_cache
+  validates_numericality_of :min_price, presence: true
+  validates_numericality_of :max_price, presence: true
+  validate :max_price_must_be_greater_than_min_price
 
   def self.get_price_range(sub_category_slug)
     sub_category = SubCategory.get_sub_category(sub_category_slug)
@@ -20,5 +23,13 @@ class PriceRange < ApplicationRecord
   def expire_cache
     Rails.cache.delete_matched("price_ranges_*")
     Rails.cache.delete_matched("price_ranges_by_sub_category_*")
+  end
+
+  private
+
+  def max_price_must_be_greater_than_min_price
+    if min_price.present? && max_price.present? && max_price <= min_price
+      errors.add :max_price, "must be greater than min price"
+    end
   end
 end

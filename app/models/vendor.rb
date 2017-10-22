@@ -4,4 +4,6 @@ class Vendor < ApplicationRecord
   has_one :image, as: :imageable
   has_one :address
   has_many :products
+  validates :name, presence: true
+  validates :email, presence: true, email: true, uniqueness: true
 end

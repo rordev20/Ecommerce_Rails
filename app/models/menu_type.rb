@@ -5,6 +5,7 @@ class MenuType < ApplicationRecord
   friendly_id :name, use: [:slugged, :finders]
   after_save :expire_cache
   scope :active, -> {where(is_active: true)}
+  validates :name, presence: true, uniqueness: true
 
   def self.get_menu_type(slug)
     Rails.cache.fetch ["menu_type_#{slug}"], expires_in: 24.hours do

@@ -5,7 +5,9 @@ class Coupon < ApplicationRecord
   belongs_to :coupon_type
   belongs_to :discount_type
   OFFER_TYPE = { discount_amount: 'discount_amount', cashback: 'cashback' }.freeze
-
+  validates :name, :code, presence: true, uniqueness: true
+  validate :end_date_after_start_date?
+  validates :start_date, :end_date, presence: true
   # This method check if coupon is applicable or not
   def is_applicable?(cart_data)
     return false if is_expired?
@@ -170,5 +172,12 @@ class Coupon < ApplicationRecord
   # This method check coupon with discount as well as cashback
   def is_discount_with_cashback_offer?
     self.discount_with_cashback_offer == true
+  end
+
+  private
+  def end_date_after_start_date?
+    if end_date.present? && start_date.present? && end_date < start_date
+      errors.add :end_date, "must be after start date"
+    end
   end
 end

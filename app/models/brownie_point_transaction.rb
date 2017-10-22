@@ -5,6 +5,7 @@ class BrowniePointTransaction < ApplicationRecord
   belongs_to :event
   belongs_to :transaction_type
   after_save :set_user_brownie_points
+  validates_numericality_of :points, :greater_than_or_equal_to => 0, presence: true
 
   # This method set user brownie point after transaction
   def set_user_brownie_points

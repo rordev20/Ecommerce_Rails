@@ -7,6 +7,7 @@ class Color < ApplicationRecord
   friendly_id :name, use: [:slugged, :finders]
   scope :active, -> {where(is_active: true)}
   after_save :expire_cache
+  validates :name, presence: true, uniqueness: true
 
   def self.get_colors(sub_category_slug)
     sub_category = SubCategory.get_sub_category(sub_category_slug)

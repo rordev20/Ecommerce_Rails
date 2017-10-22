@@ -6,6 +6,7 @@ class MenuManager < ApplicationRecord
   scope :active, -> {where(is_active: true)}
   scope :without_signin_menu, -> {where(sign_in_required: false)}
   after_save :expire_cache
+  validates :name, :display_name, presence: true, uniqueness: true
 
   def self.get_menu_list(menu_type)
     menu_type = MenuType.get_menu_type(menu_type)
