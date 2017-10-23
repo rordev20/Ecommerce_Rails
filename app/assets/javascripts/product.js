@@ -22,7 +22,7 @@ var ProductUtil = {
   }
 }
 
-$(document).on('ready page:load', function() {
+$( document ).on('turbolinks:load', function() {
   //initiate the plugin and pass the id of the div containing gallery images
   $("#cover_image").elevateZoom({
     gallery:'image_gallery',
@@ -37,7 +37,7 @@ $(document).on('ready page:load', function() {
     var ez = $('#cover_image').data('elevateZoom');
     return false;
   });
-});
+})
 
 $(document).on("click", ".btn-group > .btn", function(event) {
   $(this).addClass("active btn-primary").siblings().removeClass("active btn-primary");
