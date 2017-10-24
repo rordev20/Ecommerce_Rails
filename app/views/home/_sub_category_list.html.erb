@@ -1,22 +1,24 @@
 <div class='sub-category-list'>
   <% sub_categories.each_slice(item_per_row) do |sub_category_batch| %>
-    <div class="row">
-      <% sub_category_batch.each do |sub_category| %>
-        <div class="col-md-3">
-          <div class="ibox">
-            <div class="ibox-content product-box">
-              <div class="product-imitation sub-category-img">
-                <%= link_to products_path(sub_category: sub_category) do %>
-                  <%= image_tag(sub_category.image(:medium), alt: sub_category.name) %>
-                <% end %>
-              </div>
-              <div class="product-desc">
-                <%= link_to sub_category.name, products_path(sub_category: sub_category) %>
-              </div>
+  <div class="row">
+    <% sub_category_batch.each do |sub_category| %>
+    <div class="col-md-3">
+      <div class="ibox">
+        <div class="ibox-content product-box">
+          <div class="product-imitation sub-category-img">
+            <%= link_to products_path(sub_category: sub_category) do %>
+            <%= image_tag(sub_category.image(:medium), alt: sub_category.name) %>
+            <% end %>
+          </div>
+          <div class="product-desc description-pos">
+            <div class='product-info align-center'>
+              <strong><%= link_to sub_category.name.try(:camelize), products_path(sub_category: sub_category), class: "product-page-product-name" %></strong>
             </div>
           </div>
         </div>
-      <% end %>
+      </div>
     </div>
+    <% end %>
+  </div>
   <% end %>
 </div>

@@ -16,6 +16,10 @@ div.search {
   text-align: right;
 }
 
+.align-center {
+  text-align: center;
+}
+
 .touch-spin-custom-width {
   width: 45%;
 }
