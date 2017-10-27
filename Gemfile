@@ -61,6 +61,12 @@ group :development, :test do
   gem 'bullet'
 end
 
+group :test do
+  gem 'rspec-rails', '~> 3.6'
+  gem "factory_bot_rails", "~> 4.0"
+  gem 'faker', '~> 1.8', '>= 1.8.4'
+end
+
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
