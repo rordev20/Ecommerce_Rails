@@ -1,9 +1,15 @@
 require 'rails_helper'
 
-RSpec.describe Vendor, :type => :model do
-  it "has a valid factory" do
-    expect(build(:vendor)).to be_valid
+describe Vendor, :type => :model do
+  describe 'Associations' do
+    it { is_expected.to have_many(:bank_accounts) }
+    it { is_expected.to have_one(:address) }
+    it { is_expected.to have_one(:image) }
+    it { is_expected.to have_many(:products) }
   end
-  it "is not valid without a name"
-  it "is not valid without an email"
+
+  describe 'Validations' do
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:email) }
+  end
 end
