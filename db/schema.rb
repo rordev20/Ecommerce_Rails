@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170917075943) do
+ActiveRecord::Schema.define(version: 20171225102416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -596,6 +596,24 @@ ActiveRecord::Schema.define(version: 20170917075943) do
     t.index ["name"], name: "index_system_constants_on_name", where: "(deleted_at IS NULL)"
   end
 
+  create_table "taxes", force: :cascade do |t|
+    t.string "name", limit: 50, null: false
+    t.float "rate", default: 0.0, null: false
+    t.bigint "sub_category_id"
+    t.bigint "country_id"
+    t.float "min_range"
+    t.float "max_range"
+    t.boolean "is_active"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_taxes_on_country_id"
+    t.index ["max_range"], name: "index_taxes_on_max_range", where: "(deleted_at IS NULL)"
+    t.index ["min_range"], name: "index_taxes_on_min_range", where: "(deleted_at IS NULL)"
+    t.index ["name"], name: "index_taxes_on_name", where: "(deleted_at IS NULL)"
+    t.index ["sub_category_id"], name: "index_taxes_on_sub_category_id"
+  end
+
   create_table "transaction_types", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.string "slug"
@@ -721,6 +739,8 @@ ActiveRecord::Schema.define(version: 20170917075943) do
   add_foreign_key "states", "countries"
   add_foreign_key "sub_categories", "categories"
   add_foreign_key "sub_category_attributes", "sub_categories"
+  add_foreign_key "taxes", "countries"
+  add_foreign_key "taxes", "sub_categories"
   add_foreign_key "vendor_orders", "carts"
   add_foreign_key "vendor_orders", "coupons"
   add_foreign_key "vendor_orders", "users"

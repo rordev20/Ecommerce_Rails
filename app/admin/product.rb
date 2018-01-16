@@ -7,6 +7,7 @@ ActiveAdmin.register Product do
                 product_attributes_attributes: [ :id, :sub_category_attribute_id, :description, :position, :is_active, :_destroy ]
 
   form :html => { :enctype => "multipart/form-data" } do |f|
+    f.semantic_errors *f.object.errors.keys
     f.inputs "Details" do
       f.input :sub_category, input_html: { class: "select2" }
       f.input :name

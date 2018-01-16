@@ -102,8 +102,8 @@ div.search {
 }
 
 .dropdown:hover .dropdown-menu {
-    display: block;
-    margin-top: 0; // remove the gap so it doesn't close
+  display: block;
+  margin-top: 0; // remove the gap so it doesn't close
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) { 
