@@ -1,4 +1,5 @@
 ActiveAdmin.register CurrencyRate do
+  menu parent: "Master", priority: 3 
 
   permit_params :country_id, :rate, :market_rate, :is_active, :deleted_at
 
