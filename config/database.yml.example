@@ -92,8 +92,8 @@ staging:
 
 production:
   <<: *default
-  database: marketing_production
+  database: aayina_production
   #username: marketing
   #password: <%= ENV['MARKETING_DATABASE_PASSWORD'] %>
-  username: root
-  password: root
+  username: deploy
+  password: deploy
