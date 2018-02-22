@@ -42,7 +42,7 @@ gem 'redis-namespace'
 gem 'redis-rails'
 gem 'redis-rack-cache'
 gem 'friendly_id', '~> 5.1.0'
-gem 'rails_12factor', group: "production"
+#gem 'rails_12factor', group: "production"
 gem 'tire'
 gem 'aasm'
 gem 'activeadmin_addons'

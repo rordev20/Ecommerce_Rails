@@ -10,7 +10,7 @@ set :rails_env, "production"
 ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/data/apps/deploy_app"
+set :deploy_to, "/data/apps"
 
 #set :user, "ubuntu"
 set :scm, :git
