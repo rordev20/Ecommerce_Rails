@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 20171225102416) do
 
-  create_table "active_admin_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
     t.string "resource_id", null: false
@@ -26,16 +29,16 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
   end
 
-  create_table "address_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "address_types", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_address_types_on_deleted_at"
-    t.index ["name"], name: "index_address_types_on_name"
+    t.index ["name"], name: "index_address_types_on_name", where: "(deleted_at IS NULL)"
   end
 
-  create_table "addresses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "addresses", force: :cascade do |t|
     t.bigint "user_id"
     t.string "full_name", limit: 64, null: false
     t.string "address1", null: false
@@ -61,7 +64,7 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["vendor_id"], name: "index_addresses_on_vendor_id"
   end
 
-  create_table "bank_accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "bank_accounts", force: :cascade do |t|
     t.string "name", null: false
     t.string "bank_name", null: false
     t.string "branch_name"
@@ -76,7 +79,7 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["vendor_id"], name: "index_bank_accounts_on_vendor_id"
   end
 
-  create_table "banner_countries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "banner_countries", force: :cascade do |t|
     t.bigint "banner_id"
     t.bigint "country_id"
     t.datetime "created_at", null: false
@@ -85,7 +88,7 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["country_id"], name: "index_banner_countries_on_country_id"
   end
 
-  create_table "banner_device_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "banner_device_types", force: :cascade do |t|
     t.bigint "banner_id"
     t.bigint "device_type_id"
     t.datetime "created_at", null: false
@@ -94,7 +97,7 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["device_type_id"], name: "index_banner_device_types_on_device_type_id"
   end
 
-  create_table "banners", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "banners", force: :cascade do |t|
     t.string "name", limit: 50, null: false
     t.text "description"
     t.datetime "start_date", null: false
@@ -111,15 +114,15 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.index ["deleted_at"], name: "index_banners_on_deleted_at"
-    t.index ["end_date"], name: "index_banners_on_end_date"
-    t.index ["name"], name: "index_banners_on_name"
-    t.index ["start_date"], name: "index_banners_on_start_date"
+    t.index ["end_date"], name: "index_banners_on_end_date", where: "(deleted_at IS NULL)"
+    t.index ["name"], name: "index_banners_on_name", where: "(deleted_at IS NULL)"
+    t.index ["start_date"], name: "index_banners_on_start_date", where: "(deleted_at IS NULL)"
   end
 
-  create_table "brownie_point_transactions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "brownie_point_transactions", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "order_id"
-    t.float "points", limit: 24, default: 0.0, null: false
+    t.float "points", default: 0.0, null: false
     t.bigint "event_id"
     t.bigint "transaction_type_id"
     t.text "comment"
@@ -133,7 +136,7 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["user_id"], name: "index_brownie_point_transactions_on_user_id"
   end
 
-  create_table "cart_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "cart_items", force: :cascade do |t|
     t.bigint "cart_id"
     t.bigint "product_id"
     t.integer "quantity", default: 0, null: false
@@ -150,7 +153,7 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["vendor_order_id"], name: "index_cart_items_on_vendor_order_id"
   end
 
-  create_table "carts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "carts", force: :cascade do |t|
     t.bigint "user_id"
     t.string "email"
     t.bigint "coupon_id"
@@ -161,11 +164,11 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.datetime "updated_at", null: false
     t.index ["coupon_id"], name: "index_carts_on_coupon_id"
     t.index ["deleted_at"], name: "index_carts_on_deleted_at"
-    t.index ["email"], name: "index_carts_on_email"
+    t.index ["email"], name: "index_carts_on_email", where: "(deleted_at IS NULL)"
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
-  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "categories", force: :cascade do |t|
     t.string "name", limit: 50, null: false
     t.text "description"
     t.string "slug"
@@ -174,11 +177,11 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_categories_on_deleted_at"
-    t.index ["name"], name: "index_categories_on_name"
-    t.index ["slug"], name: "index_categories_on_slug", unique: true
+    t.index ["name"], name: "index_categories_on_name", where: "(deleted_at IS NULL)"
+    t.index ["slug"], name: "index_categories_on_slug", unique: true, where: "(deleted_at IS NULL)"
   end
 
-  create_table "color_sub_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "color_sub_categories", force: :cascade do |t|
     t.bigint "color_id"
     t.bigint "sub_category_id"
     t.datetime "created_at", null: false
@@ -187,7 +190,7 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["sub_category_id"], name: "index_color_sub_categories_on_sub_category_id"
   end
 
-  create_table "colors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "colors", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.string "code", null: false
     t.string "slug"
@@ -196,10 +199,10 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_colors_on_deleted_at"
-    t.index ["slug"], name: "index_colors_on_slug", unique: true
+    t.index ["slug"], name: "index_colors_on_slug", unique: true, where: "(deleted_at IS NULL)"
   end
 
-  create_table "countries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "countries", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.string "iso_code"
     t.string "iso_name"
@@ -208,11 +211,11 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_countries_on_deleted_at"
-    t.index ["iso_code"], name: "index_countries_on_iso_code"
-    t.index ["name"], name: "index_countries_on_name"
+    t.index ["iso_code"], name: "index_countries_on_iso_code", where: "(deleted_at IS NULL)"
+    t.index ["name"], name: "index_countries_on_name", where: "(deleted_at IS NULL)"
   end
 
-  create_table "coupon_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "coupon_types", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.boolean "is_active", default: true, null: false
     t.datetime "deleted_at"
@@ -221,16 +224,16 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["deleted_at"], name: "index_coupon_types_on_deleted_at"
   end
 
-  create_table "coupons", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "coupons", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.integer "limit", default: 0
     t.datetime "start_date", null: false
     t.datetime "end_date", null: false
     t.string "code", limit: 40, null: false
     t.bigint "coupon_type_id"
-    t.float "percent_off", limit: 24, default: 0.0
-    t.float "flat_off", limit: 24, default: 0.0
-    t.float "minimum_amount", limit: 24, default: 0.0
+    t.float "percent_off", default: 0.0
+    t.float "flat_off", default: 0.0
+    t.float "minimum_amount", default: 0.0
     t.bigint "discount_type_id"
     t.integer "use_count", default: 0
     t.integer "maximum_discount", default: 0
@@ -244,14 +247,14 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["code"], name: "index_coupons_on_code"
+    t.index ["code"], name: "index_coupons_on_code", where: "(deleted_at IS NULL)"
     t.index ["coupon_type_id"], name: "index_coupons_on_coupon_type_id"
     t.index ["deleted_at"], name: "index_coupons_on_deleted_at"
     t.index ["discount_type_id"], name: "index_coupons_on_discount_type_id"
-    t.index ["name"], name: "index_coupons_on_name"
+    t.index ["name"], name: "index_coupons_on_name", where: "(deleted_at IS NULL)"
   end
 
-  create_table "currency_rates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "currency_rates", force: :cascade do |t|
     t.bigint "country_id"
     t.decimal "rate", precision: 8, scale: 4
     t.decimal "market_rate", precision: 8, scale: 4
@@ -263,17 +266,17 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["deleted_at"], name: "index_currency_rates_on_deleted_at"
   end
 
-  create_table "device_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "device_types", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.boolean "is_active", default: false, null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_device_types_on_deleted_at"
-    t.index ["name"], name: "index_device_types_on_name"
+    t.index ["name"], name: "index_device_types_on_name", where: "(deleted_at IS NULL)"
   end
 
-  create_table "discount_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "discount_types", force: :cascade do |t|
     t.string "name", null: false
     t.boolean "is_active", default: true, null: false
     t.datetime "deleted_at"
@@ -282,7 +285,7 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["deleted_at"], name: "index_discount_types_on_deleted_at"
   end
 
-  create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "events", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.string "slug"
     t.boolean "is_active", default: false, null: false
@@ -290,10 +293,10 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_events_on_deleted_at"
-    t.index ["slug"], name: "index_events_on_slug", unique: true
+    t.index ["slug"], name: "index_events_on_slug", unique: true, where: "(deleted_at IS NULL)"
   end
 
-  create_table "friendly_id_slugs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
     t.string "sluggable_type", limit: 50
@@ -305,7 +308,7 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
-  create_table "images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "images", force: :cascade do |t|
     t.string "imageable_type"
     t.bigint "imageable_id"
     t.integer "position"
@@ -321,7 +324,7 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id"
   end
 
-  create_table "menu_managers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "menu_managers", force: :cascade do |t|
     t.string "name", limit: 50, null: false
     t.string "display_name"
     t.string "slug"
@@ -337,11 +340,11 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_menu_managers_on_deleted_at"
     t.index ["menu_type_id"], name: "index_menu_managers_on_menu_type_id"
-    t.index ["name"], name: "index_menu_managers_on_name"
-    t.index ["slug"], name: "index_menu_managers_on_slug", unique: true
+    t.index ["name"], name: "index_menu_managers_on_name", where: "(deleted_at IS NULL)"
+    t.index ["slug"], name: "index_menu_managers_on_slug", unique: true, where: "(deleted_at IS NULL)"
   end
 
-  create_table "menu_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "menu_types", force: :cascade do |t|
     t.string "name", limit: 50, null: false
     t.string "slug"
     t.boolean "is_active", default: false, null: false
@@ -349,11 +352,11 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_menu_types_on_deleted_at"
-    t.index ["name"], name: "index_menu_types_on_name"
-    t.index ["slug"], name: "index_menu_types_on_slug", unique: true
+    t.index ["name"], name: "index_menu_types_on_name", where: "(deleted_at IS NULL)"
+    t.index ["slug"], name: "index_menu_types_on_slug", unique: true, where: "(deleted_at IS NULL)"
   end
 
-  create_table "order_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "order_items", force: :cascade do |t|
     t.bigint "order_id"
     t.bigint "product_id"
     t.bigint "cart_item_id"
@@ -374,7 +377,7 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["product_id"], name: "index_order_items_on_product_id"
   end
 
-  create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "orders", force: :cascade do |t|
     t.bigint "user_id"
     t.decimal "total", precision: 8, scale: 2, null: false
     t.decimal "grand_total", precision: 8, scale: 2, null: false
@@ -383,7 +386,7 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.integer "status"
     t.string "number"
     t.bigint "payment_status_id"
-    t.float "cod_charge", limit: 24, default: 0.0
+    t.float "cod_charge", default: 0.0
     t.bigint "cart_id"
     t.decimal "currency_rate", precision: 8, scale: 2
     t.bigint "payment_method_id"
@@ -399,13 +402,13 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.datetime "updated_at", null: false
     t.index ["cart_id"], name: "index_orders_on_cart_id"
     t.index ["deleted_at"], name: "index_orders_on_deleted_at"
-    t.index ["number"], name: "index_orders_on_number"
+    t.index ["number"], name: "index_orders_on_number", where: "(deleted_at IS NULL)"
     t.index ["payment_method_id"], name: "index_orders_on_payment_method_id"
     t.index ["payment_status_id"], name: "index_orders_on_payment_status_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
-  create_table "payment_methods", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "payment_methods", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.string "payment_mode"
     t.boolean "is_active", default: false, null: false
@@ -413,10 +416,10 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_payment_methods_on_deleted_at"
-    t.index ["name"], name: "index_payment_methods_on_name"
+    t.index ["name"], name: "index_payment_methods_on_name", where: "(deleted_at IS NULL)"
   end
 
-  create_table "payment_statuses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "payment_statuses", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.boolean "is_active", default: true, null: false
     t.datetime "deleted_at"
@@ -425,9 +428,9 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["deleted_at"], name: "index_payment_statuses_on_deleted_at"
   end
 
-  create_table "price_ranges", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.float "min_price", limit: 24, default: 0.0, null: false
-    t.float "max_price", limit: 24, default: 0.0, null: false
+  create_table "price_ranges", force: :cascade do |t|
+    t.float "min_price", default: 0.0, null: false
+    t.float "max_price", default: 0.0, null: false
     t.bigint "sub_category_id"
     t.boolean "is_active", default: false, null: false
     t.datetime "deleted_at"
@@ -437,7 +440,7 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["sub_category_id"], name: "index_price_ranges_on_sub_category_id"
   end
 
-  create_table "product_attributes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "product_attributes", force: :cascade do |t|
     t.bigint "product_id"
     t.bigint "sub_category_attribute_id"
     t.string "name", limit: 50, null: false
@@ -452,7 +455,7 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["sub_category_attribute_id"], name: "index_product_attributes_on_sub_category_attribute_id"
   end
 
-  create_table "product_sizes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "product_sizes", force: :cascade do |t|
     t.bigint "product_id"
     t.bigint "size_id"
     t.integer "quantity", default: 0
@@ -462,7 +465,7 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["size_id"], name: "index_product_sizes_on_size_id"
   end
 
-  create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "products", force: :cascade do |t|
     t.string "name", limit: 100, null: false
     t.string "dimension"
     t.text "description"
@@ -477,7 +480,7 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.integer "international_pos", null: false
     t.text "specification"
     t.string "product_code", null: false
-    t.float "weight", limit: 24
+    t.float "weight"
     t.integer "sell_count", default: 0, null: false
     t.text "notes"
     t.integer "clicks", default: 0, null: false
@@ -490,14 +493,14 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.datetime "updated_at", null: false
     t.index ["color_id"], name: "index_products_on_color_id"
     t.index ["deleted_at"], name: "index_products_on_deleted_at"
-    t.index ["name"], name: "index_products_on_name"
-    t.index ["sell_price"], name: "index_products_on_sell_price"
-    t.index ["slug"], name: "index_products_on_slug", unique: true
+    t.index ["name"], name: "index_products_on_name", where: "(deleted_at IS NULL)"
+    t.index ["sell_price"], name: "index_products_on_sell_price", where: "(deleted_at IS NULL)"
+    t.index ["slug"], name: "index_products_on_slug", unique: true, where: "(deleted_at IS NULL)"
     t.index ["sub_category_id"], name: "index_products_on_sub_category_id"
     t.index ["vendor_id"], name: "index_products_on_vendor_id"
   end
 
-  create_table "referreds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "referreds", force: :cascade do |t|
     t.string "name", limit: 64, null: false
     t.string "email", limit: 40
     t.string "phone_no", limit: 20, null: false
@@ -507,12 +510,12 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_referreds_on_deleted_at"
-    t.index ["email"], name: "index_referreds_on_email"
-    t.index ["name"], name: "index_referreds_on_name"
+    t.index ["email"], name: "index_referreds_on_email", where: "(deleted_at IS NULL)"
+    t.index ["name"], name: "index_referreds_on_name", where: "(deleted_at IS NULL)"
     t.index ["referrer_id"], name: "index_referreds_on_referrer_id"
   end
 
-  create_table "referrers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "referrers", force: :cascade do |t|
     t.string "name", limit: 64, null: false
     t.string "email", limit: 40
     t.string "phone_no", limit: 20, null: false
@@ -521,11 +524,11 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_referrers_on_deleted_at"
-    t.index ["email"], name: "index_referrers_on_email"
-    t.index ["name"], name: "index_referrers_on_name"
+    t.index ["email"], name: "index_referrers_on_email", where: "(deleted_at IS NULL)"
+    t.index ["name"], name: "index_referrers_on_name", where: "(deleted_at IS NULL)"
   end
 
-  create_table "sizes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "sizes", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.bigint "category_id"
     t.datetime "deleted_at"
@@ -535,7 +538,7 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["deleted_at"], name: "index_sizes_on_deleted_at"
   end
 
-  create_table "states", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "states", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.string "abbr"
     t.bigint "country_id"
@@ -547,7 +550,7 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["deleted_at"], name: "index_states_on_deleted_at"
   end
 
-  create_table "sub_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "sub_categories", force: :cascade do |t|
     t.string "name", limit: 50, null: false
     t.text "description"
     t.bigint "category_id"
@@ -562,11 +565,11 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.datetime "image_updated_at"
     t.index ["category_id"], name: "index_sub_categories_on_category_id"
     t.index ["deleted_at"], name: "index_sub_categories_on_deleted_at"
-    t.index ["name"], name: "index_sub_categories_on_name"
-    t.index ["slug"], name: "index_sub_categories_on_slug", unique: true
+    t.index ["name"], name: "index_sub_categories_on_name", where: "(deleted_at IS NULL)"
+    t.index ["slug"], name: "index_sub_categories_on_slug", unique: true, where: "(deleted_at IS NULL)"
   end
 
-  create_table "sub_category_attributes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "sub_category_attributes", force: :cascade do |t|
     t.bigint "sub_category_id"
     t.string "attribute_type"
     t.string "name", limit: 50, null: false
@@ -576,12 +579,12 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["attribute_type"], name: "index_sub_category_attributes_on_attribute_type"
+    t.index ["attribute_type"], name: "index_sub_category_attributes_on_attribute_type", where: "(deleted_at IS NULL)"
     t.index ["deleted_at"], name: "index_sub_category_attributes_on_deleted_at"
     t.index ["sub_category_id"], name: "index_sub_category_attributes_on_sub_category_id"
   end
 
-  create_table "system_constants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "system_constants", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.string "value"
     t.text "description"
@@ -590,28 +593,28 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_system_constants_on_deleted_at"
-    t.index ["name"], name: "index_system_constants_on_name"
+    t.index ["name"], name: "index_system_constants_on_name", where: "(deleted_at IS NULL)"
   end
 
-  create_table "taxes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "taxes", force: :cascade do |t|
     t.string "name", limit: 50, null: false
-    t.float "rate", limit: 24, default: 0.0, null: false
+    t.float "rate", default: 0.0, null: false
     t.bigint "sub_category_id"
     t.bigint "country_id"
-    t.float "min_range", limit: 24
-    t.float "max_range", limit: 24
+    t.float "min_range"
+    t.float "max_range"
     t.boolean "is_active"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["country_id"], name: "index_taxes_on_country_id"
-    t.index ["max_range"], name: "index_taxes_on_max_range"
-    t.index ["min_range"], name: "index_taxes_on_min_range"
-    t.index ["name"], name: "index_taxes_on_name"
+    t.index ["max_range"], name: "index_taxes_on_max_range", where: "(deleted_at IS NULL)"
+    t.index ["min_range"], name: "index_taxes_on_min_range", where: "(deleted_at IS NULL)"
+    t.index ["name"], name: "index_taxes_on_name", where: "(deleted_at IS NULL)"
     t.index ["sub_category_id"], name: "index_taxes_on_sub_category_id"
   end
 
-  create_table "transaction_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "transaction_types", force: :cascade do |t|
     t.string "name", limit: 40, null: false
     t.string "slug"
     t.boolean "is_active", default: true, null: false
@@ -619,13 +622,13 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_transaction_types_on_deleted_at"
-    t.index ["slug"], name: "index_transaction_types_on_slug", unique: true
+    t.index ["slug"], name: "index_transaction_types_on_slug", unique: true, where: "(deleted_at IS NULL)"
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", force: :cascade do |t|
     t.string "username", limit: 64, null: false
     t.string "phone_number", limit: 20, null: false
-    t.float "brownie_point", limit: 24, default: 0.0, null: false
+    t.float "brownie_point", default: 0.0, null: false
     t.boolean "is_active", default: true, null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
@@ -643,18 +646,18 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "vendor_orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "vendor_orders", force: :cascade do |t|
     t.bigint "vendor_id"
     t.bigint "user_id"
     t.string "state"
     t.string "payment_state"
-    t.float "total", limit: 24
+    t.float "total"
     t.bigint "coupon_id"
     t.text "notes"
     t.datetime "confirmed_at"
-    t.float "discount", limit: 24
-    t.float "shipping", limit: 24
-    t.float "market_rate", limit: 24
+    t.float "discount"
+    t.float "shipping"
+    t.float "market_rate"
     t.integer "billing_address_id"
     t.integer "shipping_address_id"
     t.bigint "cart_id"
@@ -672,7 +675,7 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["vendor_id"], name: "index_vendor_orders_on_vendor_id"
   end
 
-  create_table "vendors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "vendors", force: :cascade do |t|
     t.string "name", limit: 50, null: false
     t.string "email", null: false
     t.text "description"
@@ -684,8 +687,8 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_vendors_on_deleted_at"
-    t.index ["email"], name: "index_vendors_on_email"
-    t.index ["name"], name: "index_vendors_on_name"
+    t.index ["email"], name: "index_vendors_on_email", where: "(deleted_at IS NULL)"
+    t.index ["name"], name: "index_vendors_on_name", where: "(deleted_at IS NULL)"
   end
 
   add_foreign_key "addresses", "address_types"
