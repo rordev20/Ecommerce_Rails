@@ -2,8 +2,8 @@ class Api::ProductsController < ApiController
   before_action :set_product, only: [:show]
 
   def index
-    @products = Product.filter(params)
-    render json: {products:
+    @products = Product.filter(product_params)
+    render json: { products:
       @products.map do |product|
         Mapper::ProductData.new(product).map
       end
@@ -23,6 +23,6 @@ class Api::ProductsController < ApiController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def product_params
-    params.permit(:id)
+    params.permit(:id, :sub_category)
   end
 end
