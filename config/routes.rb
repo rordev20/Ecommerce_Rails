@@ -28,7 +28,8 @@ Rails.application.routes.draw do
   match "/coupons/apply" => "coupons#apply", as: :apply_coupon, via: [:get, :post]
   post "/coupons/cancel_coupon" => "coupons#cancel_coupon", as: :cancel_coupon
 
-  namespace :api do
+  namespace :api , defaults: {format: :json} do
     resources :home, only: [:index]
+    resources :products, only: [:index, :show]
   end
 end
