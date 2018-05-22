@@ -5,13 +5,13 @@ class Api::ProductsController < ApiController
     @products = Product.filter(product_params)
     render json: { products:
       @products.map do |product|
-        Mapper::ProductData.new(product).map
+        Mapper::ProductData.new(product, product.images).map
       end
     }
   end
 
   def show
-    render json: { product: Mapper::ProductData.new(@product).map }
+    render json: { product: Mapper::ProductData.new(@product, @product.images).map }
   end
 
   private
