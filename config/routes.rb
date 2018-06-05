@@ -27,4 +27,9 @@ Rails.application.routes.draw do
   get "/orders/:order_id/confirm" => "orders#confirm_order", as: :confirm_order
   match "/coupons/apply" => "coupons#apply", as: :apply_coupon, via: [:get, :post]
   post "/coupons/cancel_coupon" => "coupons#cancel_coupon", as: :cancel_coupon
+
+  namespace :api , defaults: {format: :json} do
+    resources :home, only: [:index]
+    resources :products, only: [:index, :show]
+  end
 end
