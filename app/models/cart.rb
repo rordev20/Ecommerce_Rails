@@ -99,4 +99,18 @@ class Cart < ApplicationRecord
       cart_items.where(product_id: params[:product_id]).first_or_initialize
     end
   end
+
+  def build_cart_data
+    data_array = []
+    cart_items = self.items_in_cart
+    cart_items.each do |cart_item|
+      per_item_cost = cart_item.prd_sell_price
+      quantity = cart_item.quantity
+      total_cost = cart_item.cart_item_total
+      product = cart_item.product
+      cart_item_id = cart_item.id
+      data_array << {per_item_cost: per_item_cost, quantity: quantity, total_cost: total_cost, net_amount: total_cost, product: product, discount_amount: 0, cart_item_id: cart_item_id, brownie_point_used: 0, cashback: 0}
+    end
+    {self.id => data_array}
+  end
 end

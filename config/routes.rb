@@ -31,5 +31,6 @@ Rails.application.routes.draw do
   namespace :api , defaults: {format: :json} do
     resources :home, only: [:index]
     resources :products, only: [:index, :show]
+    resources :cart_items, only: [:create]
   end
 end

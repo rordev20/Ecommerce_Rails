@@ -48,6 +48,7 @@ gem 'aasm'
 gem 'activeadmin_addons'
 gem "paranoia", "~> 2.2"
 gem 'money'
+gem 'rack-cors', require: 'rack/cors'
 
 
 group :development, :test do

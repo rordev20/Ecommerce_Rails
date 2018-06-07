@@ -220,6 +220,7 @@ GEM
     rack (2.0.3)
     rack-cache (1.6.1)
       rack (>= 0.4)
+    rack-cors (1.0.2)
     rack-mini-profiler (0.10.5)
       rack (>= 1.2.0)
     rack-test (0.7.0)
@@ -420,6 +421,7 @@ DEPENDENCIES
   pg (~> 0.15)
   pry
   puma (~> 3.7)
+  rack-cors
   rack-mini-profiler
   rails (~> 5.1.4)
   rails_12factor
