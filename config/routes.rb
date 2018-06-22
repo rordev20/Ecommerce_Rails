@@ -29,8 +29,10 @@ Rails.application.routes.draw do
   post "/coupons/cancel_coupon" => "coupons#cancel_coupon", as: :cancel_coupon
 
   namespace :api , defaults: {format: :json} do
-    resources :home, only: [:index]
-    resources :products, only: [:index, :show]
-    resources :cart_items, only: [:create]
+    namespace :v1 do
+      resources :home, only: [:index]
+      resources :products, only: [:index, :show]
+      resources :cart_items, only: [:create]
+    end
   end
 end

@@ -1,4 +1,4 @@
-class Api::CartItemsController < ApiController
+class Api::V1::CartItemsController < ApiController
   before_action :current_cart, only: [:create]
 
   def create
