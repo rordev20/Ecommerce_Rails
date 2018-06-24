@@ -1,17 +1,15 @@
 <%= render "shared/category_list" %>
-<div class="wrapper wrapper-content animated fadeInRight">
-  <div id='messages'></div>
-  <div class="row">
-    <div class="col-md-2 hidden-xs">
-      <%= render partial: 'sidebar', locals: {price_ranges: @price_ranges, colors: @colors}%>
+<div id='messages'></div>
+<div class="row">
+  <div class="col-md-2 hidden-xs">
+    <%= render partial: 'sidebar', locals: {price_ranges: @price_ranges, colors: @colors}%>
+  </div>
+  <div class="col-md-10">
+    <div class='sort-filter-content'>
+      <%= render partial: 'filtering_sorting_menu', locals: {sorting_menus: @sorting_menus} %>
     </div>
-    <div class="col-md-10">
-      <div class='sort-filter-content'>
-        <%= render partial: 'filtering_sorting_menu', locals: {sorting_menus: @sorting_menus} %>
-      </div>
-      <div class='product-list'>
-        <%= render partial: 'product_list', locals: {products: @products, cart_item: @cart_item, item_per_row: @item_per_row} %>
-      </div>
+    <div class='product-list'>
+      <%= render partial: 'product_list', locals: {products: @products, cart_item: @cart_item, item_per_row: @item_per_row} %>
     </div>
   </div>
 </div>

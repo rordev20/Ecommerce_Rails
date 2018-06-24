@@ -1,25 +1,24 @@
-<div class="wrapper wrapper-content animated fadeInRight">
-  <%= render 'shared/flash' %>
-  <div class="row">
-    <% @addresses.each do |address| %>
-      <div class="col-lg-3">
-        <div class="contact-box center-version">
-          <a href="profile.html">
-            <h3 class="m-b-xs"><strong><%= address.full_name %></strong></h3>
-            <div class="font-bold"></div>
-            <address class="m-t-md">
-              <strong><%= address.address1 %></strong><br>
-              <%= address.address2 %>, <%= address.city %><br>
-              <%= address.state.name %>, <%= address.country.name %> <%= address.zipcode %><br>
-              Phone: <%= address.phone %>
-            </address>
-          </a>
-          <div class="contact-box-footer">
-            <%= link_to "Edit", edit_address_path(address), class: "btn" %>
-            <%= link_to 'Destroy', address, class: "btn", method: :delete, data: { confirm: 'Are you sure?' } %>
-          </div>
+<%= render 'shared/flash' %>
+<div class="row">
+  <% @addresses.each do |address| %>
+    <div class="col-lg-3">
+      <div class="contact-box center-version">
+        <a href="profile.html">
+          <h3 class="m-b-xs"><strong><%= address.full_name %></strong></h3>
+          <div class="font-bold"></div>
+          <address class="m-t-md">
+            <strong><%= address.address1 %></strong><br>
+            <%= address.address2 %>, <%= address.city %><br>
+            <%= address.state.name %>, <%= address.country.name %> <%= address.zipcode %><br>
+            Phone: <%= address.phone %>
+          </address>
+        </a>
+        <div class="contact-box-footer">
+          <%= link_to "Edit", edit_address_path(address), class: "btn" %>
+          <%= link_to 'Destroy', address, class: "btn", method: :delete, data: { confirm: 'Are you sure?' } %>
         </div>
       </div>
-    <% end %>
-  </div>
-</dive>        
+    </div>
+  <% end %>
+</div>
+        

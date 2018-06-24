@@ -1,47 +1,45 @@
-<div class="wrapper wrapper-content animated fadeInRight">
-  <% flash.each do |name, msg| %>
-    <%= render partial: "shared/alert_msg", locals: {msg: msg, msg_type: t('message_type.danger')} %>
-  <% end %>
-  <%= form_tag orders_path, :class=> "form-horizontal" do %>
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="ibox float-e-margins">
-          <%= render partial: 'billing_address', locals: {countries: @countries, states: @states} %>
-        </div>
-        <div class="ibox float-e-margins ship_address_fields hidden">
-          <%= render partial: 'shipping_address', locals: {countries: @countries, states: @states} %>
-        </div>
+<% flash.each do |name, msg| %>
+  <%= render partial: "shared/alert_msg", locals: {msg: msg, msg_type: t('message_type.danger')} %>
+<% end %>
+<%= form_tag orders_path, :class=> "form-horizontal" do %>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="ibox float-e-margins">
+        <%= render partial: 'billing_address', locals: {countries: @countries, states: @states} %>
       </div>
-      <div class="col-lg-6">
-        <div class="ibox float-e-margins">
-          <div class="ibox-title">
-            <h5>Payment Mode</h5>
-            <div class="ibox-tools">
-              <a class="collapse-link">
-                <i class="fa fa-chevron-up"></i>
-              </a>
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-wrench"></i>
-              </a>
-              <ul class="dropdown-menu dropdown-user">
-                <li><a href="#">Config option 1</a>
-                </li>
-                <li><a href="#">Config option 2</a>
-                </li>
-              </ul>
-              <a class="close-link">
-                <i class="fa fa-times"></i>
-              </a>
-            </div>
-          </div>
-          <div class="ibox-content">
-            <%= render partial: 'payment_method_list', locals: {payment_methods: @payment_methods} %>
-          </div>
-        </div>
-        <div class="ibox float-e-margins">
-          <%= render partial: 'review_item_list', locals: {cart_items: @cart_items} %>
-        </div>
+      <div class="ibox float-e-margins ship_address_fields hidden">
+        <%= render partial: 'shipping_address', locals: {countries: @countries, states: @states} %>
       </div>
     </div>
-  <% end %>
-</div>
+    <div class="col-lg-6">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Payment Mode</h5>
+          <div class="ibox-tools">
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <i class="fa fa-wrench"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-user">
+              <li><a href="#">Config option 1</a>
+              </li>
+              <li><a href="#">Config option 2</a>
+              </li>
+            </ul>
+            <a class="close-link">
+              <i class="fa fa-times"></i>
+            </a>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <%= render partial: 'payment_method_list', locals: {payment_methods: @payment_methods} %>
+        </div>
+      </div>
+      <div class="ibox float-e-margins">
+        <%= render partial: 'review_item_list', locals: {cart_items: @cart_items} %>
+      </div>
+    </div>
+  </div>
+<% end %>

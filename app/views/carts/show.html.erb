@@ -1,104 +1,103 @@
 <%= render "shared/category_list" %>
-<div class="wrapper wrapper-content animated fadeInRight">
-  <%= render 'shared/flash' %>
-  <div id='messages'></div>
-  <div class="row">
-    <div class="col-md-8">
-      <div class="ibox">
-        <div class="ibox-title">
-          <span class="pull-right">(<strong>5</strong>) items</span>
-          <h5>Items in your cart</h5>
+<%= render 'shared/flash' %>
+<div id='messages'></div>
+<div class="row">
+  <div class="col-md-8">
+    <div class="ibox">
+      <div class="ibox-title">
+        <span class="pull-right">(<strong>5</strong>) items</span>
+        <h5>Items in your cart</h5>
+      </div>
+      <div class="cart_items">
+        <%= render "cart_items" %>
+      </div>
+      <!--<div class="ibox-content">
+        <button class="btn btn-primary pull-right"><i class="fa fa fa-shopping-cart"></i> Checkout</button>
+        <button class="btn btn-white"><i class="fa fa-arrow-left"></i> Continue shopping</button>
+      </div>-->
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="ibox">
+      <div class="ibox-title">
+        <h5>Cart Summary</h5>
+      </div>
+      <div class="ibox-content">
+        <div id="coupon_section">
+          <%= render partial: 'coupon_section', locals: {coupon: @coupon} %>
         </div>
-        <div class="cart_items">
-          <%= render "cart_items" %>
+        <hr/>
+        <div class="row" id="total_section">
+          <div class="col-md-6"><strong>Total</strong></div>
+          <div class="col-md-6" id="total"><i class="<%= t('currency_icon') %>" aria-hidden="true"><%= currency_rate_with_symbol(@country_rate, @sub_total) %></i></div>            
         </div>
-        <!--<div class="ibox-content">
-          <button class="btn btn-primary pull-right"><i class="fa fa fa-shopping-cart"></i> Checkout</button>
-          <button class="btn btn-white"><i class="fa fa-arrow-left"></i> Continue shopping</button>
-        </div>-->
+        <hr class="coupon-section"/>
+        <% if @coupon && @coupon.is_cashback_coupon? %>
+          <%= render partial: 'cashback', locals: {cashback: @cashback} %>
+        <% elsif @coupon %>
+          <%= render partial: 'discount', locals: {discount: @discount} %>
+        <% end %>
+        <div class="row">
+          <div class="col-md-6"><strong>Shipping</strong></div>
+          <div class="col-md-6" id="shipping">0</div>
+        </div>
+        <hr/>
+        <div class="row" id="brownie_point">
+          <%= render partial: 'brownie_point', locals: {current_user: current_user, cart: @cart} %>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-md-6"><strong>Grand Total</strong></div>
+          <div class="col-md-6" id="grand_total"><i class="<%= t('currency_icon') %>" aria-hidden="true"><%= currency_rate_with_symbol(@country_rate, @grand_total) %></i></div>
+        </div>
+        <hr/>
+        <div class="m-t-sm">
+          <%= link_to new_order_path, class: "btn btn-block btn-primary" do %>
+            <i class="fa fa-shopping-cart"></i> Proceed To Checkout
+          <% end %>
+        </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="ibox">
-        <div class="ibox-title">
-          <h5>Cart Summary</h5>
-        </div>
-        <div class="ibox-content">
-          <div id="coupon_section">
-            <%= render partial: 'coupon_section', locals: {coupon: @coupon} %>
-          </div>
-          <hr/>
-          <div class="row" id="total_section">
-            <div class="col-md-6"><strong>Total</strong></div>
-            <div class="col-md-6" id="total"><i class="<%= t('currency_icon') %>" aria-hidden="true"><%= currency_rate_with_symbol(@country_rate, @sub_total) %></i></div>            
-          </div>
-          <hr class="coupon-section"/>
-          <% if @coupon && @coupon.is_cashback_coupon? %>
-            <%= render partial: 'cashback', locals: {cashback: @cashback} %>
-          <% elsif @coupon %>
-            <%= render partial: 'discount', locals: {discount: @discount} %>
-          <% end %>
-          <div class="row">
-            <div class="col-md-6"><strong>Shipping</strong></div>
-            <div class="col-md-6" id="shipping">0</div>
-          </div>
-          <hr/>
-          <div class="row" id="brownie_point">
-            <%= render partial: 'brownie_point', locals: {current_user: current_user, cart: @cart} %>
-          </div>
-          <hr/>
-          <div class="row">
-            <div class="col-md-6"><strong>Grand Total</strong></div>
-            <div class="col-md-6" id="grand_total"><i class="<%= t('currency_icon') %>" aria-hidden="true"><%= currency_rate_with_symbol(@country_rate, @grand_total) %></i></div>
-          </div>
-          <hr/>
-          <div class="m-t-sm">
-            <%= link_to new_order_path, class: "btn btn-block btn-primary" do %>
-              <i class="fa fa-shopping-cart"></i> Proceed To Checkout
-            <% end %>
-          </div>
-        </div>
+    <div class="ibox">
+      <div class="ibox-title">
+        <h5>Support</h5>
       </div>
-      <div class="ibox">
-        <div class="ibox-title">
-          <h5>Support</h5>
-        </div>
-        <div class="ibox-content text-center">
-          <h3><i class="fa fa-phone"></i> +43 100 783 001</h3>
-          <span class="small">
-            Please contact with us if you have any questions. We are avalible 24h.
-          </span>
-        </div>
+      <div class="ibox-content text-center">
+        <h3><i class="fa fa-phone"></i> +43 100 783 001</h3>
+        <span class="small">
+          Please contact with us if you have any questions. We are avalible 24h.
+        </span>
       </div>
-      <div class="ibox">
-        <div class="ibox-content">
-          <p class="font-bold">
-            Other products you may be interested
-          </p>
-          <hr/>
-          <div>
-            <a href="#" class="product-name"> Product 1</a>
-            <div class="small m-t-xs">
-                Many desktop publishing packages and web page editors now.
-            </div>
-            <div class="m-t text-righ">
-              <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-            </div>
+    </div>
+    <div class="ibox">
+      <div class="ibox-content">
+        <p class="font-bold">
+          Other products you may be interested
+        </p>
+        <hr/>
+        <div>
+          <a href="#" class="product-name"> Product 1</a>
+          <div class="small m-t-xs">
+              Many desktop publishing packages and web page editors now.
           </div>
-          <hr/>
-          <div>
-            <a href="#" class="product-name"> Product 2</a>
-            <div class="small m-t-xs">
-                Many desktop publishing packages and web page editors now.
-            </div>
-            <div class="m-t text-righ">
-              <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-            </div>
+          <div class="m-t text-righ">
+            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
+          </div>
+        </div>
+        <hr/>
+        <div>
+          <a href="#" class="product-name"> Product 2</a>
+          <div class="small m-t-xs">
+              Many desktop publishing packages and web page editors now.
+          </div>
+          <div class="m-t text-righ">
+            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 
 

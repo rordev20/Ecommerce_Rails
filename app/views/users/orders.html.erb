@@ -1,7 +1,5 @@
-<div class="wrapper wrapper-content animated fadeInRight">
-  <div class="row">
-    <% @orders.each do |order| %>
-      <%= render partial: 'order_details', locals: {order: order} %>
-    <% end %>
-  </div>
+<div class="row">
+  <% @orders.each do |order| %>
+    <%= render partial: 'order_details', locals: {order: order} %>
+  <% end %>
 </div>

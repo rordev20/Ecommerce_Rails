@@ -1,66 +1,64 @@
 <%= render "shared/category_list" %>
-<div class="wrapper wrapper-content animated fadeInRight">
-  <div id='messages'></div>
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="ibox product-detail">
-        <div class="ibox-content">
-          <div class="row">
-            <div class="col-md-5">
-              <%= render partial: "product_images", locals: { product_image: @product_images } %>
+<div id='messages'></div>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox product-detail">
+      <div class="ibox-content">
+        <div class="row">
+          <div class="col-md-5">
+            <%= render partial: "product_images", locals: { product_image: @product_images } %>
+          </div>
+          <div class="col-md-7">
+            <h2 class="font-bold m-b-xs">
+              <%= @product.name %>
+            </h2>
+            <small></small>
+            <hr>
+            <div>
+              <%= form_for @cart_item, remote: true do |f| %>
+                <%= f.hidden_field :size_id if has_sizes?(@product_sizes) %>
+                <%= f.hidden_field :quantity, value: 1 %>
+                <%= f.hidden_field :product_id, value: @product.id %>
+                <%= f.submit t('cart.add_to_cart'), class: "btn btn-primary pull-right" %>
+              <% end %>
+              <h3 class="product-main-price">
+                <i class="<%= t('currency_icon') %>" aria-hidden="true">
+                  <strike>
+                    <%= currency_rate_with_symbol(@country_rate, @product.original_price) %>
+                  </strike>
+                </i>
+                <i class='badge badge-danger'>
+                  <%= @product.discount_percent.to_i %>% <%= t('global.off') %>
+                </i>
+                <br />
+                <i class="<%= t('currency_icon') %>" aria-hidden="true">
+                  <%= currency_rate_with_symbol(@country_rate, @product.sell_price) %>
+                </i>
+                <small class="text-muted">
+                  <%= t('product.exclude_size') %>
+                </small>
+              </h3>
             </div>
-            <div class="col-md-7">
-              <h2 class="font-bold m-b-xs">
-                <%= @product.name %>
-              </h2>
-              <small></small>
-              <hr>
-              <div>
-                <%= form_for @cart_item, remote: true do |f| %>
-                  <%= f.hidden_field :size_id if has_sizes?(@product_sizes) %>
-                  <%= f.hidden_field :quantity, value: 1 %>
-                  <%= f.hidden_field :product_id, value: @product.id %>
-                  <%= f.submit t('cart.add_to_cart'), class: "btn btn-primary pull-right" %>
-                <% end %>
-                <h3 class="product-main-price">
-                  <i class="<%= t('currency_icon') %>" aria-hidden="true">
-                    <strike>
-                      <%= currency_rate_with_symbol(@country_rate, @product.original_price) %>
-                    </strike>
-                  </i>
-                  <i class='badge badge-danger'>
-                    <%= @product.discount_percent.to_i %>% <%= t('global.off') %>
-                  </i>
-                  <br />
-                  <i class="<%= t('currency_icon') %>" aria-hidden="true">
-                    <%= currency_rate_with_symbol(@country_rate, @product.sell_price) %>
-                  </i>
-                  <small class="text-muted">
-                    <%= t('product.exclude_size') %>
-                  </small>
-                </h3>
-              </div>
-              <hr>
-              <h3 class="font-bold"><%= t('product.select_size') %></h3>
-              <div class="btn-group select-size-container">
-                <% @product_sizes.each do |size| %>
-                  <button type="button" class="btn btn-default select-size" id="<%= size.id %>"><strong><%= size.name %></strong></button>
-                <% end %>
-              </div>
-              <hr>
-              <h4><%= t('product.product_description') %></h4>
-              <div class="small text-muted">
-                <br/>
-                <%= @product.description %>
-              </div>
-              <dl class="dl-horizontal m-t-md small">
-              </dl>
-              <div class="text-right">
-              </div>
+            <hr>
+            <h3 class="font-bold"><%= t('product.select_size') %></h3>
+            <div class="btn-group select-size-container">
+              <% @product_sizes.each do |size| %>
+                <button type="button" class="btn btn-default select-size" id="<%= size.id %>"><strong><%= size.name %></strong></button>
+              <% end %>
+            </div>
+            <hr>
+            <h4><%= t('product.product_description') %></h4>
+            <div class="small text-muted">
+              <br/>
+              <%= @product.description %>
+            </div>
+            <dl class="dl-horizontal m-t-md small">
+            </dl>
+            <div class="text-right">
             </div>
           </div>
-          <%= render partial: "product_detail_tables", locals: { product_attributes: @product_attributes, sub_category_attributes: @sub_category_attributes } %>
         </div>
+        <%= render partial: "product_detail_tables", locals: { product_attributes: @product_attributes, sub_category_attributes: @sub_category_attributes } %>
       </div>
     </div>
   </div>
