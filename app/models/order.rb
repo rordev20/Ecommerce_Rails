@@ -4,6 +4,8 @@ class Order < ApplicationRecord
   enum status: [ :draft, :confirmed, :dispatched, :delivered, :cancelled,
                  :returned, :refunded, :damaged, :not_delivered, :reordered
                ]
+
+  enum source: [ :web, :pwa ]
   belongs_to :user
   belongs_to :cart
   belongs_to :payment_status, optional: true
