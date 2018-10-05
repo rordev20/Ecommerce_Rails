@@ -20,10 +20,16 @@ class Country < ApplicationRecord
   end
 
   # get currency rate
-  def self.get_rate(country_code)
-    Rails.cache.fetch ["conversion_rate_", country_code], expires_in: 24.hours do
-      currency_rate = self.find_by_iso_name(country_code).try(:currency_rate)
+  def self.get_rate(iso_name)
+    Rails.cache.fetch ["conversion_rate_", iso_name], expires_in: 24.hours do
+      currency_rate = self.get_country_by_iso_name(iso_name).try(:currency_rate)
       currency_rate.present? ? currency_rate.rate : nil
+    end
+  end
+
+  def self.get_country_by_iso_name(iso_name)
+    Rails.cache.fetch ["country_", iso_name], expires_in: 24.hours do
+      find_by_iso_name(iso_name)
     end
   end
 

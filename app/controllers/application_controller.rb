@@ -40,6 +40,7 @@ class ApplicationController < ActionController::Base
       currency_rate = SystemConstant.get_value('default_conversion_rate')
     end
     @country_rate = CountryCurrencyRate.new({currency_rate: currency_rate, currency_code: currency_code})
+    @country = Country.get_country_by_iso_name(currency_code)
   end
 
 end

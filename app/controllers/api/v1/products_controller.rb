@@ -2,9 +2,9 @@ class Api::V1::ProductsController < ApiController
   before_action :set_product, only: [:show]
 
   def index
-    @products = Product.filter(product_params)
+    products = Product.filter(product_params)
     render json: { products:
-      @products.map do |product|
+      products.map do |product|
         Mapper::ProductData.new(product, product.images).map
       end
     }

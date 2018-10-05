@@ -4,6 +4,7 @@ class Cart < ApplicationRecord
   belongs_to :coupon, -> { includes(:discount_type)}, optional: true
   has_many :cart_items
   has_many :products, through: :cart_items
+  before_create :set_client_cart_reference
 
   # This method return list of cart items in cart
   def items_in_cart
@@ -109,8 +110,41 @@ class Cart < ApplicationRecord
       total_cost = cart_item.cart_item_total
       product = cart_item.product
       cart_item_id = cart_item.id
-      data_array << {per_item_cost: per_item_cost, quantity: quantity, total_cost: total_cost, net_amount: total_cost, product: product, discount_amount: 0, cart_item_id: cart_item_id, brownie_point_used: 0, cashback: 0}
+      data_array << {per_item_cost: per_item_cost, quantity: quantity, total_cost: total_cost, net_amount: total_cost, product: product, discount_amount: 0, cart_item_id: cart_item_id, brownie_point_used: 0, cashback: 0, tax: 0}
     end
     {self.id => data_array}
+  end
+
+  def cart_data_with_images
+    data_array = []
+    cart_items = self.items_in_cart
+    cart_items.each do |cart_item|
+      per_item_cost = cart_item.prd_sell_price
+      quantity = cart_item.quantity
+      total_cost = cart_item.cart_item_total
+      product = cart_item.product
+      data_array << { product: product.id,
+                      name: product.name,
+                      description: product.description,
+                      per_item_cost: per_item_cost,
+                      quantity: quantity,
+                      total_cost: total_cost,
+                      net_amount: total_cost,
+                      discount_amount: 0,
+                      brownie_point_used: 0,
+                      cashback: 0,
+                      tax: 0,
+                      images: product.images.map { |image| Mapper::ImageData.new(image).map}
+                    }
+    end
+    data_array
+  end
+
+  private
+
+  def set_client_cart_reference
+    begin
+      self.client_cart_reference = SecureRandom.urlsafe_base64 16
+    end while Cart.exists?(client_cart_reference: client_cart_reference)
   end
 end

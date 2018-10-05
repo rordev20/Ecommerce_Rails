@@ -1,0 +1,17 @@
+defaults: &defaults
+  ## Move this salt ans key to environment variables
+  encrypt:
+    salt: "n,\x8A\x98*\x97\xE2\xBA\x12\xBF\xF3\xB0\x0FO\xAD\xA0\x12z\x9AP\xF3\xEDy/\x8D\xDC\xAB\x8B4W\xB0\x86"
+    key: "cMbz5WrFuPMyP+rHpn59WgrydxavousY2av+3nSVW2I=\n"
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+
+staging:
+  <<: *defaults

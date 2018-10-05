@@ -20,6 +20,7 @@ class CreateOrders < ActiveRecord::Migration[5.1]
       t.decimal :market_rate,    precision: 8, scale: 2
       t.integer :billing_address_id
       t.integer :shipping_address_id
+      t.integer :source, index: true, default: 0, null: false
       t.datetime :deleted_at
 
       t.timestamps null: false

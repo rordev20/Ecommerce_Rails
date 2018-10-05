@@ -25,7 +25,6 @@ module Mapper
         discount_percent: @product.discount_percent,
         in_stock: @product.in_stock,
         slug: @product.slug,
-        is_active: @product.is_active,
         images: @images.map { |image| Mapper::ImageData.new(image).map }
       }
     end

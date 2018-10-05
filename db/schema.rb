@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171225102416) do
+ActiveRecord::Schema.define(version: 20180920093328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,6 +162,8 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "client_cart_reference"
+    t.index ["client_cart_reference"], name: "index_carts_on_client_cart_reference"
     t.index ["coupon_id"], name: "index_carts_on_coupon_id"
     t.index ["deleted_at"], name: "index_carts_on_deleted_at"
     t.index ["email"], name: "index_carts_on_email", where: "(deleted_at IS NULL)"
@@ -397,6 +399,7 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.decimal "market_rate", precision: 8, scale: 2
     t.integer "billing_address_id"
     t.integer "shipping_address_id"
+    t.integer "source", default: 0, null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -405,6 +408,7 @@ ActiveRecord::Schema.define(version: 20171225102416) do
     t.index ["number"], name: "index_orders_on_number", where: "(deleted_at IS NULL)"
     t.index ["payment_method_id"], name: "index_orders_on_payment_method_id"
     t.index ["payment_status_id"], name: "index_orders_on_payment_status_id"
+    t.index ["source"], name: "index_orders_on_source"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 

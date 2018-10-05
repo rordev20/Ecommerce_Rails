@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       resources :home, only: [:index]
       resources :products, only: [:index, :show]
       resources :cart_items, only: [:create]
+      resources :addresses, only: [:create, :index]
     end
   end
 end
