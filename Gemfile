@@ -7,7 +7,9 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.4'
+#gem 'rails', '~> 5.1.4'
+gem 'rails', '~> 6.0'
+
 # Use sqlite3 as the database for Active Record
 gem 'pg', '~> 0.15'
 # Use Puma as the app server
@@ -49,6 +51,7 @@ gem 'activeadmin_addons'
 gem "paranoia", "~> 2.2"
 gem 'money'
 gem 'rack-cors', require: 'rack/cors'
+gem 'webpacker'
 
 
 group :development, :test do
