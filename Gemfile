@@ -68,6 +68,7 @@ group :test do
   gem 'faker', '~> 1.8', '>= 1.8.4'
   gem 'shoulda', '~> 3.5'
   gem 'simplecov', require: false
+  gem 'rails-controller-testing'
 end
 
 group :development do
