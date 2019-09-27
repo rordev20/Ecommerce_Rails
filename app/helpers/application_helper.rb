@@ -40,6 +40,6 @@ module ApplicationHelper
 
 
   def product_sell_price(rate, amount)
-    BigDecimal.new(rate) * amount * BigDecimal.new(100)
+    BigDecimal(rate) * amount * BigDecimal(100)
   end
 end
