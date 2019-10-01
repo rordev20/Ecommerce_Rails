@@ -70,8 +70,10 @@ group :test do
   gem "factory_bot_rails", "~> 4.0"
   gem 'faker', '~> 1.8', '>= 1.8.4'
   gem 'shoulda', '~> 3.5'
+  gem 'shoulda-matchers'
   gem 'simplecov', require: false
   gem 'rails-controller-testing'
+
 end
 
 group :development do
