@@ -66,14 +66,17 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rspec-rails', '~> 3.6'
+  gem 'rspec-rails', '~> 4.0.0.beta2'
+  gem 'rspec-core', git: 'https://github.com/rspec/rspec-core'
+  gem 'rspec-mocks', git: 'https://github.com/rspec/rspec-mocks'
+  gem 'rspec-support', git: 'https://github.com/rspec/rspec-support'
+  gem 'rspec-expectations', git: 'https://github.com/rspec/rspec-expectations'
   gem "factory_bot_rails", "~> 4.0"
   gem 'faker', '~> 1.8', '>= 1.8.4'
   gem 'shoulda', '~> 3.5'
   gem 'shoulda-matchers'
-  gem 'simplecov', require: false
+  gem 'simplecov', '~> 0.12.0'
   gem 'rails-controller-testing'
-
 end
 
 group :development do
