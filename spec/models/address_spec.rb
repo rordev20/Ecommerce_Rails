@@ -17,4 +17,14 @@ RSpec.describe Address, type: :model do
     it { should validate_presence_of(:zipcode) }
     it { should validate_presence_of(:city) }
   end
+
+  describe 'check for billing adress and shipping address' do
+    it 'billing address is same as shipping address' do
+      expect(Address.address_billing_same_as_shipping?('1')).to eq(true)
+    end
+
+    it 'billing address is differnt from shipping address' do
+      expect(Address.address_billing_same_as_shipping?('2')).to eq(false)
+    end
+  end
 end
