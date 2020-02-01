@@ -38,6 +38,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
 gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
+gem 'aws-sdk-s3'
 gem "just-datetime-picker"
 gem 'redis'
 gem 'redis-namespace'

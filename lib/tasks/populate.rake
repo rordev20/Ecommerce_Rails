@@ -4,20 +4,20 @@ namespace :populate_data do
   desc "Dummy data"
   task :populate_dummy_data => :environment do
     puts "=================vendor start====================="
-    Vendor.create!(name: 'Rohit', email: 'xyz@gmail.com')
+    Vendor.create!(name: 'Rohit', email: 'xyz1@gmail.com')
     puts "=================vendor done====================="
 
-    puts "=================color start=====================" 
+    puts "=================color start====================="
     Color.create!(name: 'red', code: '#FF0000', is_active: true)
     Color.create!(name: 'yellow', code: '#FFFF00', is_active: true)
     Color.create!(name: 'green', code: '#00FF00', is_active: true)
     Color.create!(name: 'blue', code: '#0000FF', is_active: true)
     puts "=================color done====================="
 
-    puts "=================category start=====================" 
+    puts "=================category start====================="
     Category.create!(name: 'sarees', description: 'sarees collection', is_active: true)
     Category.create!(name: 'shoes', description: 'shoes collection', is_active: true)
-    puts "=================category done=====================" 
+    puts "=================category done====================="
 
     puts "=================subcategory start====================="
     SubCategory.create!(category: Category.first, name: 'saree sub_category', description: 'saree sub_category description', is_active: true)
@@ -35,7 +35,7 @@ namespace :populate_data do
     Country.create!(name: 'India', iso_code: 'IN', iso_name: 'INR', is_active: true)
     Country.create!(name: 'Usa', iso_code: 'US', iso_name: 'USD', is_active: true)
     puts "=================country done====================="
-    
+
     puts "=================state start====================="
     State.create!(name: 'Up', is_active: true, country: Country.last)
     State.create!(name: 'Maharashtra', is_active: true, country: Country.last)
