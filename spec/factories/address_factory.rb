@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :address do
-    full_name { Faker::Name.name }
+    full_name { Faker::Name.first_name }
     address1 { Faker::Address.street_address }
     address2 { Faker::Address.street_address }
     zipcode { Faker::Address.zip_code }

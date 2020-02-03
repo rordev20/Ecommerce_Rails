@@ -10,7 +10,6 @@ RSpec.describe Address, type: :model do
   end
 
   describe 'validations' do
-    subject { FactoryBot.build(:address) }
     it { should validate_presence_of(:country) }
     it { should validate_presence_of(:state) }
     it { should validate_presence_of(:address1) }
