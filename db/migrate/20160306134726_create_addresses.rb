@@ -3,8 +3,8 @@ class CreateAddresses < ActiveRecord::Migration[5.1]
     create_table :addresses do |t|
       t.references :user, index: true, foreign_key: true
       t.string :full_name,        limit: 64, null: false
-      t.string :address1,         null: false
-      t.string :address2
+      t.text :address1,         null: false
+      t.text :address2
       t.string :landmark
       t.string :city
       t.string :zipcode,          null: false
