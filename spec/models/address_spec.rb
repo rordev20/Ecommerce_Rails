@@ -17,6 +17,10 @@ RSpec.describe Address, type: :model do
     it { should validate_presence_of(:city) }
   end
 
+  it "has a valid factory" do
+    expect(FactoryBot.build(:address)).to be_valid
+  end
+
   describe 'check for billing adress and shipping address' do
     it 'billing address is same as shipping address' do
       expect(Address.address_billing_same_as_shipping?('1')).to eq(true)
